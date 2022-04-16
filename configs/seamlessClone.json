@@ -1,0 +1,1082 @@
+{
+  "observers": {
+    "005145d2b55f1470c97226efab47e3e9": {
+      "args": {
+        "dst": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dst",
+          "type": "NDArray",
+          "value": null
+        },
+        "flags": {
+          "choices": {
+            "INTER_AREA": 3,
+            "INTER_CUBIC": 2,
+            "INTER_LANCZOS4": 4,
+            "INTER_LINEAR": 1,
+            "INTER_LINEAR_EXACT": 5,
+            "INTER_MAX": 7,
+            "INTER_NEAREST": 0,
+            "INTER_NEAREST_EXACT": 6,
+            "WARP_FILL_OUTLIERS": 8,
+            "WARP_INVERSE_MAP": 16,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "flags",
+          "type": "choices",
+          "value": 0
+        },
+        "mask": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mask",
+          "type": "NDArray",
+          "value": null
+        },
+        "p": {
+          "choices": null,
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "p",
+          "type": "tuple",
+          "value": "(224,224)"
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "seamlessClone",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "005145d2b55f1470c97226efab47e3e9"
+    },
+    "086cdcdee556051d2c6b958d92933adb": {
+      "args": {
+        "dsize": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dsize",
+          "title_tag": true,
+          "type": "tuple",
+          "value": "(200,200)"
+        },
+        "fx": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fx",
+          "type": "int",
+          "value": 0
+        },
+        "fy": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fy",
+          "type": "int",
+          "value": 0
+        },
+        "interpolation": {
+          "choices": {
+            "INTER_AREA": 3,
+            "INTER_CUBIC": 2,
+            "INTER_LANCZOS4": 4,
+            "INTER_LINEAR": 1,
+            "INTER_LINEAR_EXACT": 5,
+            "INTER_MAX": 7,
+            "INTER_NEAREST": 0,
+            "INTER_NEAREST_EXACT": 6,
+            "WARP_FILL_OUTLIERS": 8,
+            "WARP_INVERSE_MAP": 16,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "interpolation",
+          "type": "choices",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "resize",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "086cdcdee556051d2c6b958d92933adb"
+    },
+    "0b98251ffac1e57a0c3e7b65771f6dee": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "@Subject_b3e0",
+            "@OBS_8725",
+            "@OBS_95af"
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "zip",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "0b98251ffac1e57a0c3e7b65771f6dee"
+    },
+    "24d285af47961111f9ab84759acc19be": {
+      "args": {
+        "maxval": {
+          "choices": null,
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "maxval",
+          "type": "float",
+          "value": 255
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        },
+        "thresh": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "thresh",
+          "title_tag": true,
+          "type": "float",
+          "value": "@parameter_thresh"
+        },
+        "type": {
+          "choices": null,
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "type",
+          "title_tag": true,
+          "type": "choices",
+          "value": 1
+        }
+      },
+      "from": "cv2",
+      "name": "threshold",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "24d285af47961111f9ab84759acc19be"
+    },
+    "3b1b294fa9fabbb968198c93d42ced3b": {
+      "args": {
+        "filename": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "filename",
+          "type": "Any",
+          "value": null
+        },
+        "flags": {
+          "choices": {
+            "IMREAD_ANYCOLOR": 4,
+            "IMREAD_ANYDEPTH": 2,
+            "IMREAD_COLOR": 1,
+            "IMREAD_GRAYSCALE": 0,
+            "IMREAD_IGNORE_ORIENTATION": 128,
+            "IMREAD_LOAD_GDAL": 8,
+            "IMREAD_REDUCED_COLOR_2": 17,
+            "IMREAD_REDUCED_COLOR_4": 33,
+            "IMREAD_REDUCED_COLOR_8": 65,
+            "IMREAD_REDUCED_GRAYSCALE_2": 16,
+            "IMREAD_REDUCED_GRAYSCALE_4": 32,
+            "IMREAD_REDUCED_GRAYSCALE_8": 64,
+            "IMREAD_UNCHANGED": -1,
+            "default": 0
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "flags",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "from": "cv2",
+      "name": "imread",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "3b1b294fa9fabbb968198c93d42ced3b"
+    },
+    "408b26553a7272f16e95b83952e84a84": {
+      "args": {
+        "anchor": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "anchor",
+          "type": "tuple",
+          "value": "(-1, -1)"
+        },
+        "borderType": {
+          "choices": {
+            "BORDER_CONSTANT": 0,
+            "BORDER_DEFAULT": 4,
+            "BORDER_ISOLATED": 16,
+            "BORDER_REFLECT": 2,
+            "BORDER_REFLECT101": 4,
+            "BORDER_REFLECT_101": 4,
+            "BORDER_REPLICATE": 1,
+            "BORDER_TRANSPARENT": 5,
+            "BORDER_WRAP": 3,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "borderType",
+          "type": "choices",
+          "value": 0
+        },
+        "iterations": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "iterations",
+          "type": "int",
+          "value": 1
+        },
+        "kernel": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "kernel",
+          "type": "NDArray",
+          "value": "@parameter_resize"
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "dilate",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "408b26553a7272f16e95b83952e84a84"
+    },
+    "4cebbf2aeefede57f7b042575aba0a58": {
+      "args": {
+        "dst": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dst",
+          "type": "NDArray",
+          "value": null
+        },
+        "flags": {
+          "choices": {
+            "INTER_AREA": 3,
+            "INTER_CUBIC": 2,
+            "INTER_LANCZOS4": 4,
+            "INTER_LINEAR": 1,
+            "INTER_LINEAR_EXACT": 5,
+            "INTER_MAX": 7,
+            "INTER_NEAREST": 0,
+            "INTER_NEAREST_EXACT": 6,
+            "WARP_FILL_OUTLIERS": 8,
+            "WARP_INVERSE_MAP": 16,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "flags",
+          "type": "choices",
+          "value": 0
+        },
+        "mask": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mask",
+          "type": "NDArray",
+          "value": null
+        },
+        "p": {
+          "choices": null,
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "p",
+          "type": "tuple",
+          "value": "(50,50)"
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "seamlessClone",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "4cebbf2aeefede57f7b042575aba0a58"
+    },
+    "546251f6b49bb01dd6b1d68c63094197": {
+      "args": {
+        "anchor": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "anchor",
+          "type": "tuple",
+          "value": "(-1, -1)"
+        },
+        "borderType": {
+          "choices": {
+            "BORDER_CONSTANT": 0,
+            "BORDER_DEFAULT": 4,
+            "BORDER_ISOLATED": 16,
+            "BORDER_REFLECT": 2,
+            "BORDER_REFLECT101": 4,
+            "BORDER_REFLECT_101": 4,
+            "BORDER_REPLICATE": 1,
+            "BORDER_TRANSPARENT": 5,
+            "BORDER_WRAP": 3,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "borderType",
+          "type": "choices",
+          "value": 0
+        },
+        "iterations": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "iterations",
+          "type": "int",
+          "value": 1
+        },
+        "kernel": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "kernel",
+          "title_tag": true,
+          "type": "NDArray",
+          "value": "@ea2fc816e6e8d82c2bb7a055ea4104d2"
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "dilate",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "546251f6b49bb01dd6b1d68c63094197"
+    },
+    "67c29aff8dc4ab67c052cb19f0d823ab": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "title_tag": true,
+          "type": "list",
+          "value": [
+            "@parameter_target"
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "of",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "67c29aff8dc4ab67c052cb19f0d823ab"
+    },
+    "68532ff665fccaa086f85e5aaef40d82": {
+      "args": {
+        "anchor": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "anchor",
+          "type": "tuple",
+          "value": "(-1, -1)"
+        },
+        "borderType": {
+          "choices": {
+            "BORDER_CONSTANT": 0,
+            "BORDER_DEFAULT": 4,
+            "BORDER_ISOLATED": 16,
+            "BORDER_REFLECT": 2,
+            "BORDER_REFLECT101": 4,
+            "BORDER_REFLECT_101": 4,
+            "BORDER_REPLICATE": 1,
+            "BORDER_TRANSPARENT": 5,
+            "BORDER_WRAP": 3,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "borderType",
+          "type": "choices",
+          "value": 0
+        },
+        "iterations": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "iterations",
+          "type": "int",
+          "value": 1
+        },
+        "kernel": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "kernel",
+          "type": "NDArray",
+          "value": "@de2fe570f7c645b22bca7b744d98a4c0"
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "dilate",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "68532ff665fccaa086f85e5aaef40d82"
+    },
+    "68c2599876eee43f673045a5cf878e48": {
+      "args": {
+        "code": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "code",
+          "type": "choices",
+          "value": 11
+        },
+        "dstCn": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dstCn",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "cvtColor",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "68c2599876eee43f673045a5cf878e48"
+    },
+    "75b6ccf158d21d6efb896ed56ef137a2": {
+      "args": {
+        "mat": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mat",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "custom",
+      "name": "imshow",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "75b6ccf158d21d6efb896ed56ef137a2"
+    },
+    "9c7d89ea5aae39dfdd7e8d2f05b99ff4": {
+      "args": {
+        "dsize": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dsize",
+          "title_tag": true,
+          "type": "tuple",
+          "value": "(400,400)"
+        },
+        "fx": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fx",
+          "type": "int",
+          "value": 0
+        },
+        "fy": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fy",
+          "type": "int",
+          "value": 0
+        },
+        "interpolation": {
+          "choices": {
+            "INTER_AREA": 3,
+            "INTER_CUBIC": 2,
+            "INTER_LANCZOS4": 4,
+            "INTER_LINEAR": 1,
+            "INTER_LINEAR_EXACT": 5,
+            "INTER_MAX": 7,
+            "INTER_NEAREST": 0,
+            "INTER_NEAREST_EXACT": 6,
+            "WARP_FILL_OUTLIERS": 8,
+            "WARP_INVERSE_MAP": 16,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "interpolation",
+          "type": "choices",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "resize",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "9c7d89ea5aae39dfdd7e8d2f05b99ff4"
+    },
+    "a1dd64fd643bbef98e6d6f15e340300a": {
+      "args": {
+        "mat": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mat",
+          "type": "NDArray",
+          "value": null
+        },
+        "xmax": {
+          "choices": null,
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "xmax",
+          "type": "int",
+          "value": 170
+        },
+        "xmin": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "xmin",
+          "type": "int",
+          "value": 30
+        },
+        "ymax": {
+          "choices": null,
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "ymax",
+          "type": "int",
+          "value": 150
+        },
+        "ymin": {
+          "choices": null,
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "ymin",
+          "type": "int",
+          "value": 30
+        }
+      },
+      "from": "custom",
+      "name": "rio_img",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "a1dd64fd643bbef98e6d6f15e340300a"
+    },
+    "a216830f29ccddd3a567d8f285409afb": {
+      "args": {
+        "dsize": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dsize",
+          "title_tag": true,
+          "type": "tuple",
+          "value": "(512,512)"
+        },
+        "fx": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fx",
+          "type": "int",
+          "value": 0
+        },
+        "fy": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fy",
+          "type": "int",
+          "value": 0
+        },
+        "interpolation": {
+          "choices": {
+            "INTER_AREA": 3,
+            "INTER_CUBIC": 2,
+            "INTER_LANCZOS4": 4,
+            "INTER_LINEAR": 1,
+            "INTER_LINEAR_EXACT": 5,
+            "INTER_MAX": 7,
+            "INTER_NEAREST": 0,
+            "INTER_NEAREST_EXACT": 6,
+            "WARP_FILL_OUTLIERS": 8,
+            "WARP_INVERSE_MAP": 16,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "interpolation",
+          "type": "choices",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "resize",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "a216830f29ccddd3a567d8f285409afb"
+    },
+    "a2bb1a066ebd869823d6cb2fc36ede06": {
+      "args": {
+        "dtype": {
+          "choices": {
+            "complex": "complex",
+            "default": "uint8",
+            "double": "double",
+            "float16": "float16",
+            "float32": "float32",
+            "float64": "float64",
+            "float_": "float_",
+            "half": "half",
+            "longdouble": "longdouble",
+            "longfloat": "longfloat",
+            "single": "single",
+            "uint16": "uint16",
+            "uint32": "uint32",
+            "uint64": "uint64",
+            "uint8": "uint8"
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dtype",
+          "type": "choices",
+          "value": "uint8"
+        },
+        "shape": {
+          "choices": null,
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "shape",
+          "type": "tuple",
+          "value": "@parameter_resize"
+        }
+      },
+      "from": "np",
+      "name": "ones",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "a2bb1a066ebd869823d6cb2fc36ede06"
+    },
+    "c3bac6523532b4c1a7543102ce23bcf6": {
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "input_",
+          "type": "Any",
+          "value": null
+        }
+      },
+      "from": "custom",
+      "name": "print_",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "c3bac6523532b4c1a7543102ce23bcf6"
+    },
+    "de2fe570f7c645b22bca7b744d98a4c0": {
+      "args": {
+        "dtype": {
+          "choices": {
+            "complex": "complex",
+            "default": "uint8",
+            "double": "double",
+            "float16": "float16",
+            "float32": "float32",
+            "float64": "float64",
+            "float_": "float_",
+            "half": "half",
+            "longdouble": "longdouble",
+            "longfloat": "longfloat",
+            "single": "single",
+            "uint16": "uint16",
+            "uint32": "uint32",
+            "uint64": "uint64",
+            "uint8": "uint8"
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dtype",
+          "type": "choices",
+          "value": "uint8"
+        },
+        "shape": {
+          "choices": null,
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "shape",
+          "title_tag": true,
+          "type": "tuple",
+          "value": "(3,3)"
+        }
+      },
+      "from": "np",
+      "name": "ones",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "de2fe570f7c645b22bca7b744d98a4c0"
+    },
+    "ea2fc816e6e8d82c2bb7a055ea4104d2": {
+      "args": {
+        "dtype": {
+          "choices": {
+            "complex": "complex",
+            "default": "uint8",
+            "double": "double",
+            "float16": "float16",
+            "float32": "float32",
+            "float64": "float64",
+            "float_": "float_",
+            "half": "half",
+            "longdouble": "longdouble",
+            "longfloat": "longfloat",
+            "single": "single",
+            "uint16": "uint16",
+            "uint32": "uint32",
+            "uint64": "uint64",
+            "uint8": "uint8"
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dtype",
+          "type": "choices",
+          "value": "uint8"
+        },
+        "shape": {
+          "choices": null,
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "shape",
+          "title_tag": true,
+          "type": "tuple",
+          "value": "(11,11)"
+        }
+      },
+      "from": "np",
+      "name": "ones",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "ea2fc816e6e8d82c2bb7a055ea4104d2"
+    },
+    "eae5dff6f946ad372b05da34732d500e": {
+      "args": {
+        "code": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "code",
+          "title_tag": true,
+          "type": "choices",
+          "value": 8
+        },
+        "dstCn": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dstCn",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "cvtColor",
+      "op": "map",
+      "output": [],
+      "type": "func",
+      "uuid": "eae5dff6f946ad372b05da34732d500e"
+    },
+    "ff892c8889952456a195e27a72737e82": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "@parameter_background"
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "of",
+      "op": "",
+      "output": [],
+      "type": "func",
+      "uuid": "ff892c8889952456a195e27a72737e82"
+    }
+  },
+  "relations": {
+    "HEAD_e967": {
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@OBS_eff3"
+        },
+        "subscribe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+        }
+      },
+      "from": "core",
+      "name": "build_subsribe",
+      "type": "subscribe"
+    },
+    "OBS_3a9a": {
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@67c29aff8dc4ab67c052cb19f0d823ab"
+        },
+        "pipe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            null,
+            "@3b1b294fa9fabbb968198c93d42ced3b",
+            null,
+            null
+          ]
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "OBS_8725": {
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@ff892c8889952456a195e27a72737e82"
+        },
+        "pipe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            null,
+            "@3b1b294fa9fabbb968198c93d42ced3b",
+            null,
+            null,
+            "@a216830f29ccddd3a567d8f285409afb"
+          ]
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "OBS_95af": {
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@Subject_b3e0"
+        },
+        "pipe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            null,
+            "@68c2599876eee43f673045a5cf878e48",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "@408b26553a7272f16e95b83952e84a84",
+            "@24d285af47961111f9ab84759acc19be",
+            null,
+            null,
+            null,
+            "@546251f6b49bb01dd6b1d68c63094197",
+            null
+          ]
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "OBS_eff3": {
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@0b98251ffac1e57a0c3e7b65771f6dee"
+        },
+        "pipe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            null,
+            null,
+            null,
+            null,
+            "@005145d2b55f1470c97226efab47e3e9"
+          ]
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "Subject_b3e0": {
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@OBS_3a9a"
+        }
+      },
+      "from": "core",
+      "name": "build_subject",
+      "type": "subject"
+    }
+  },
+  "parameters": {
+    "parameter_SEAM": {
+      "args": {
+        "input_": {
+          "type": "int",
+          "value": 2
+        }
+      },
+      "from": "custom",
+      "name": "parameter",
+      "tag": "SEAM"
+    },
+    "parameter_background": {
+      "args": {
+        "input_": {
+          "type": "str",
+          "value": "data/wd.jpg"
+        }
+      },
+      "from": "custom",
+      "name": "parameter",
+      "tag": "background"
+    },
+    "parameter_resize": {
+      "args": {
+        "input_": {
+          "type": "tuple",
+          "value": "(17,17)"
+        }
+      },
+      "from": "custom",
+      "name": "parameter",
+      "tag": "resize"
+    },
+    "parameter_target": {
+      "tag": "target",
+      "name": "parameter",
+      "from": "custom",
+      "args": {
+        "input_": {
+          "type": "str",
+          "value": "data/text0.jpg"
+        }
+      }
+    },
+    "parameter_thresh": {
+      "args": {
+        "input_": {
+          "type": "int",
+          "value": 127
+        }
+      },
+      "from": "custom",
+      "name": "parameter",
+      "tag": "thresh"
+    }
+  }
+}

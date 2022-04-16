@@ -1,0 +1,7 @@
+.vscode/settings.json
+__pycache__/*
+*.pyc
+cache/*
+static/result/*
+.vscode/imflow.code-workspace
+frontend/node_modules

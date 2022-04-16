@@ -1,0 +1,40 @@
+{
+  "id0": {
+    "type": "identity",
+    "from": "custom",
+    "name": "build_observerable",
+    "index": 0,
+    "args": {
+      "head": {
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "value": "@16a79b9833b0087bfe7cb86da997f322"
+      },
+      "pipe": {
+        "index": 1,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "dirs",
+        "type": "list",
+        "value":[
+          "@511bd6c497a8cd3e2cc455fb2b8a843a",
+          "@f6b14ac8f073f6a652d7324be8e35262"
+        ]
+      }
+    }
+  },
+  "id1": {
+    "type": "subscribe",
+    "index": 1,
+    "from": "custom",
+    "name": "build_subsribe",
+    "args": {
+      "head": {
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "value": "@id0"
+      },
+      "subscribe": {
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+      }
+    }
+  }
+}

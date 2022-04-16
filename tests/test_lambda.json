@@ -1,0 +1,17 @@
+{
+    "lambda": {
+        "type": "lambda",
+        "from": "lambda",
+        "uuid": "lambda",
+        "line": "1+1",
+        "args": []
+    },
+    "lambdaargs": {
+        "type": "lambda",
+        "from": "lambda",
+        "uuid": "lambdaargs",
+        "line": "arg0+arg1",
+        "args": ["arg0","arg1"]
+      }
+
+}

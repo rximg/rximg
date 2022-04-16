@@ -1,0 +1,6 @@
+Flask
+Flask-Cors
+Flask-SocketIO
+numpy 
+opencv-python
+reactivex

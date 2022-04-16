@@ -1,0 +1,181 @@
+{
+  "16a79b9833b0087bfe7cb86da997f322": {
+    "args": {
+      "args": {
+        "index": 0,
+        "kind": "VAR_POSITIONAL",
+        "name": "args",
+        "type": "Any",
+        "value": "@1e587742026ae0f662cc5c8019626d0d"
+      }
+    },
+    "from": "observables",
+    "name": "of",
+    "type": "func",
+    "uuid": "16a79b9833b0087bfe7cb86da997f322"
+  },
+  "1e587742026ae0f662cc5c8019626d0d": {
+    "args": {
+      "dirs": {
+        "index": 1,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "dirs",
+        "type": "list",
+        "value": [
+          "/home/ldk/testim/cellcount.png"
+        ]
+      }
+    },
+    "from": "custom",
+    "name": "glob_dirs",
+    "type": "func",
+    "uuid": "1e587742026ae0f662cc5c8019626d0d"
+  },
+  "2cc011215383cbd72efd5d0f44a1251c": {
+    "args": {
+      "code": {
+        "index": 1,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "code",
+        "type": "choices",
+        "value": 7
+      },
+      "dstCn": {
+        "index": 2,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "dstCn",
+        "type": "int",
+        "value": 0
+      },
+      "src": {
+        "index": 0,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "src",
+        "type": "NDArray",
+        "value": null
+      }
+    },
+    "from": "cv2",
+    "name": "cvtColor",
+    "type": "func",
+    "uuid": "2cc011215383cbd72efd5d0f44a1251c"
+  },
+  "511bd6c497a8cd3e2cc455fb2b8a843a": {
+    "args": {
+      "mapper": {
+        "index": 0,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "mapper",
+        "type": "Any",
+        "value": "@cv2.imread"
+      }
+    },
+    "from": "operators",
+    "name": "map",
+    "type": "func",
+    "uuid": "511bd6c497a8cd3e2cc455fb2b8a843a"
+  },
+  "75b6ccf158d21d6efb896ed56ef137a2": {
+    "args": {
+      "mat": {
+        "index": 0,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "mat",
+        "type": "NDArray",
+        "value": null
+      }
+    },
+    "from": "custom",
+    "name": "imshow",
+    "return_view": true,
+    "type": "func",
+    "uuid": "75b6ccf158d21d6efb896ed56ef137a2"
+  },
+  "85f18e4caa89fe94aebb177a167ad8c2": {
+    "args": {
+      "mapper": {
+        "index": 0,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "mapper",
+        "type": "Any",
+        "value": "@2cc011215383cbd72efd5d0f44a1251c"
+      }
+    },
+    "from": "operators",
+    "name": "map",
+    "type": "func",
+    "uuid": "85f18e4caa89fe94aebb177a167ad8c2"
+  },
+  "92360b8b18d63554b6cfea899a92e56d": {
+    "args": {
+      "center": {
+        "index": 1,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "center",
+        "type": "tuple",
+        "value": "(100,100)"
+      },
+      "color": {
+        "index": 3,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "color",
+        "type": "tuple",
+        "value": "(0,0,0)"
+      },
+      "img": {
+        "index": 0,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "img",
+        "type": "NDArray",
+        "value": null
+      },
+      "lineType": {
+        "index": 5,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lineType",
+        "type": "int",
+        "value": 1
+      },
+      "radius": {
+        "index": 2,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "radius",
+        "type": "int",
+        "value": 10
+      },
+      "shift": {
+        "index": 6,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "shift",
+        "type": "int",
+        "value": 0
+      },
+      "thickness": {
+        "index": 4,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "thickness",
+        "type": "int",
+        "value": -1
+      }
+    },
+    "from": "cv2",
+    "name": "circle",
+    "type": "func",
+    "uuid": "92360b8b18d63554b6cfea899a92e56d"
+  },
+  "f6b14ac8f073f6a652d7324be8e35262": {
+    "args": {
+      "mapper": {
+        "index": 0,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "mapper",
+        "type": "Any",
+        "value": "@92360b8b18d63554b6cfea899a92e56d"
+      }
+    },
+    "from": "operators",
+    "name": "map",
+    "type": "func",
+    "uuid": "f6b14ac8f073f6a652d7324be8e35262"
+  }
+}

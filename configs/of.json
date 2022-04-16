@@ -1,0 +1,103 @@
+{
+  "observers": {
+    "6eac24d1f57bd26e07146118fbda8f7e": {
+      "type": "func",
+      "from": "observables",
+      "uuid": "6eac24d1f57bd26e07146118fbda8f7e",
+      "name": "of",
+      "output": [],
+      "op": "",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "abc",
+            "cdef"
+          ],
+          "choices": null
+        }
+      }
+    },
+    "17729c1dd25c1bb1b886068a5e2e9cd7": {
+      "type": "lambda",
+      "from": "custom",
+      "line": "len(x0)",
+      "args": {
+        "line": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "len(x0)"
+        },
+        "args": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0"
+          ]
+        }
+      },
+      "op": "map",
+      "uuid": "17729c1dd25c1bb1b886068a5e2e9cd7",
+      "name": "LAMBDA"
+    },
+    "883dddc6a26e1b4d98e5032b7e35558c": {
+      "type": "func",
+      "from": "custom",
+      "uuid": "883dddc6a26e1b4d98e5032b7e35558c",
+      "name": "print_",
+      "output": [],
+      "op": "",
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "input_",
+          "type": "Any",
+          "value": null
+        }
+      }
+    }
+  },
+  "relations": {
+    "OBS_ab35": {
+      "type": "observerable",
+      "from": "core",
+      "name": "build_observerable",
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@6eac24d1f57bd26e07146118fbda8f7e"
+        },
+        "pipe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            null,
+            "@17729c1dd25c1bb1b886068a5e2e9cd7"
+          ]
+        }
+      }
+    },
+    "HEAD_ab6a": {
+      "type": "subscribe",
+      "from": "core",
+      "name": "build_subsribe",
+      "args": {
+        "head": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@OBS_ab35"
+        },
+        "subscribe": {
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "value": "@883dddc6a26e1b4d98e5032b7e35558c"
+        }
+      }
+    }
+  },
+  "parameters": {}
+}
