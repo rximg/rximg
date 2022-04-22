@@ -6,7 +6,6 @@ from engine.load import JsonConfig, Stack, clean_tempfile
 from third_party.filemanager import get_filelist
 from engine.get_all_modules import all_const_front
 from utils.config import IMG_CACHE_DIR
-from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import asyncio
 from engine.dag import RecursiveParse
@@ -37,9 +36,9 @@ sys.path.append('.')
 
 
 app = Flask(__name__,
-static_folder='./frontend/dist',  #设置静态文件夹目录
+static_folder='./frontend/dist',  
 template_folder = "./frontend/dist",
-static_url_path="")  #设置vue编译输出目录dist文件夹，为Flask模板文件目录
+static_url_path="") 
 
 app.debug = True
 app.config['SECRET_KEY'] = 'socket.io'

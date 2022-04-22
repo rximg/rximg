@@ -92,6 +92,7 @@ const mutations = {
       name: funcData.name,
       output: outputIndexs,
       op:op,
+      returnType:funcData.returnType,
       // func_name:
       //return_view: funcData.return_view,
       args: copy_args,

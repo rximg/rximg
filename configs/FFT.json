@@ -14,6 +14,7 @@
         }
       },
       "from": "observables",
+      "returnType": "Observable",
       "name": "of",
       "op": "",
       "output": [],
@@ -79,6 +80,7 @@
         }
       },
       "from": "observables",
+      "returnType": "Observable",
       "name": "of",
       "op": "",
       "output": [],
@@ -101,6 +103,7 @@
         }
       },
       "from": "observables",
+      "returnType": "Observable",
       "name": "zip",
       "op": "",
       "output": [],

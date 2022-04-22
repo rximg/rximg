@@ -12,8 +12,15 @@
           sub-title="Reactive image processing"
         >
           <template slot="extra">
-              name:   
+            <span key="1"> name:    </span>
+              
             <edit-select key="2"/>
+            <a-radio-group key="3" @change="radioChange">
+              <a-radio-button value="element">Element</a-radio-button>
+              <a-radio-button value="observer">Observer</a-radio-button>
+              <a-radio-button value="relations">Relations</a-radio-button>
+              <a-radio-button value="viewer">Viewer</a-radio-button>
+            </a-radio-group>
             <!-- <a-button key="1" type="primary">
               Setting
             </a-button> -->
@@ -24,26 +31,25 @@
       <a-layout-content>
 
             <a-row :gutter="8">
-              <a-col> </a-col>
-              <a-col :span="6">
+               <a-col  :span="colShow.element ? colSpan : 0">
                 <Element
                   class="main-box-border"
                   :style="{ height: clientHeight * 0.85 + 'px' }"
                 />
               </a-col>
-              <a-col :span="6">
+              <a-col  :span="colShow.observer ? colSpan : 0">
                 <Observer
                   class="main-box-border"
                   :style="{ height: clientHeight * 0.85 + 'px' }"
                 />
               </a-col>
-              <a-col :span="6">
+              <a-col  :span=" colShow.relations ? colSpan : 0">
                 <Relations
                   class="main-box-border"
                   :style="{ height: clientHeight * 0.85 + 'px' }"
                 />
               </a-col>
-              <a-col :span="6">
+              <a-col  :span="colShow.viewer ? colSpan : 0">
                 <Viewer
                   class="main-box-border"
                   :style="{ height: clientHeight * 0.85 + 'px' }"
@@ -90,6 +96,13 @@ export default {
       height: 0,
       x: 0,
       y: 0,
+      colShow:{
+        element:true,
+        observer:true,
+        relations:true,
+        viewer:true
+      },
+      
     };
   },
     created: function() {
@@ -122,6 +135,18 @@ export default {
       }
     },
   },
+  computed:{
+    colSpan:function () {
+      var num =0
+      for (let key in this.colShow){
+        if (this.colShow[key]==true){
+          num = num+1
+        }
+      }
+      
+      return 24/num
+    }
+  },
   methods: {
     onResize: function(x, y, width, height) {
       this.x = x;
@@ -134,6 +159,11 @@ export default {
       this.y = y;
     },
     ...mapActions(["initStore"]),
+    radioChange({target}) {
+      let value = target.value
+      this.colShow[value] = !this.colShow[value]
+        console.log('radio change:',value)
+    }
   },
 
 };

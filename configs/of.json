@@ -3,6 +3,7 @@
     "6eac24d1f57bd26e07146118fbda8f7e": {
       "type": "func",
       "from": "observables",
+      "returnType": "Observable",
       "uuid": "6eac24d1f57bd26e07146118fbda8f7e",
       "name": "of",
       "output": [],

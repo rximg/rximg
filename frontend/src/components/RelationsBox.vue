@@ -13,9 +13,9 @@
           <a-dropdown>
             <a-menu
               slot="overlay"
-              @click="newRelation(observerKeys[$event.key])"
+              @click="newRelation(onlyObserverKeys[$event.key])"
             >
-              <a-menu-item v-for="(text, index) in observerKeys" :key="index">
+              <a-menu-item v-for="(text, index) in onlyObserverKeys" :key="index">
                 <a-icon type="swap-right" />{{ repr(text) }}
               </a-menu-item>
             </a-menu>
@@ -71,12 +71,12 @@
                       @click="
                         addPipe({
                           key: index,
-                          pipe_uuid: observerKeys[$event.key],
+                          pipe_uuid: onlyCallableKeys[$event.key],
                         })
                       "
                     >
                       <a-menu-item
-                        v-for="(text, index) in observerKeys"
+                        v-for="(text, index) in onlyCallableKeys"
                         :key="index"
                       >
                         <a-icon type="swap-right" />{{ repr(text) }}
@@ -147,7 +147,7 @@
                 @change="setSubscribe({ key: index, subscribe_uuid: $event })"
               >
                 <a-select-option
-                  v-for="(text, nobkindex) in observerKeys"
+                  v-for="(text, nobkindex) in onlyCallableKeys"
                   :key="nobkindex"
                   :value="text"
                 >
@@ -193,13 +193,27 @@ export default {
   components: { draggable },
   computed: {
     ...mapGetters("relations", { relationKeys: "keys" }),
-    ...mapGetters("observers", { observerKeys: "keys" }),
+    ...mapGetters("observers", { allObserverKeys: "keys",}),
     ...mapGetters(["repr"]),
     ...mapState("relations", {
       relationsData: "data",
+
       // activateIndex: "index",
       changeTimes: "contentChangeTimes",
     }),
+    ...mapState("observers",{
+      observersData:"data",
+    }),
+    onlyObserverKeys:function () {
+      return this.allObserverKeys.filter(
+          (key)=>this.observersData[key].returnType == "Observable"
+      )
+    },
+    onlyCallableKeys:function () {
+      return this.allObserverKeys.filter(
+          (key)=>this.observersData[key].returnType != "Observable"
+      )
+    },
     nullHeadObserverKeys: function () {
       let arr = [];
       this.observerKeys.forEach((item) => {

@@ -3,5 +3,5 @@ __pycache__/*
 *.pyc
 cache/*
 static/result/*
-.vscode/imflow.code-workspace
+*.code-workspace
 frontend/node_modules

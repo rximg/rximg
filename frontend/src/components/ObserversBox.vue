@@ -1,14 +1,16 @@
 <template>
+<!-- :class="isObservers(item) ? 'card':'card-ob'" -->
   <div class="main">
     <h1>Operators</h1>
       <div v-for="(item, index) in allObserver" :key="index">
         <a-space direction="vertical" style="width: 100%">
           <a-card
             :title="repr(item.uuid)"
-            class="card"
+            :class="isObservers(item) ? 'card':'card-ob'" 
             style="width: 100%; display: block"
             :hoverable="true"
           >
+          {{item.returnType}}
             <a slot="extra" href="#">
               <a-button @click="deleteItem(item)"
                 ><a-icon type="delete"
@@ -84,12 +86,17 @@ export default {
     ...mapGetters("observers", ["allObserver", "breifTitleByUUID"]),
     ...mapState("relations", { allRelations: "data" }),
     ...mapGetters(["repr"]),
+
   },
   methods: {
     sortObj:sortObj,
     ...mapMutations("observers", ["deleteObservers", "editArgInObservers"]),
     ...mapMutations("relations", ["addRelation", "addRelationOn"]),
     ...mapMutations("views", ["flushViews"]),
+    isObservers (item) {
+      console.log('item',item)
+      return item.returnType == "Observable"
+    },
     viewValue(item) {
       if (item == null || item == undefined) {
         return "-";
@@ -110,26 +117,25 @@ export default {
       }
     },
 
-    addHead(item) {
-      console.log("head item", item);
-      let newItem = {
-        head: item.uuid,
-        name: item.name,
-        pipe: [],
-        subscribe: null,
-        // subscribe_view: null,
-      };
-      this.addRelation(newItem);
-    },
+    // addHead(item) {
+    //   let newItem = {
+    //     head: item.uuid,
+    //     name: item.name,
+    //     pipe: [],
+    //     subscribe: null,
+    //     // subscribe_view: null,
+    //   };
+    //   this.addRelation(newItem);
+    // },
 
-    addPipe(item) {
-      this.addRelationOn({ type: "pipe", item: item });
-      // this.flushViews(this.allRelations);
-    },
-    setSubscribe(item) {
-      this.addRelationOn({ type: "subscribe", item: item });
-      // this.flushViews(this.allRelations);
-    },
+    // addPipe(item) {
+    //   this.addRelationOn({ type: "pipe", item: item });
+    //   // this.flushViews(this.allRelations);
+    // },
+    // setSubscribe(item) {
+    //   this.addRelationOn({ type: "subscribe", item: item });
+    //   // this.flushViews(this.allRelations);
+    // },
     deleteItem(item) {
       this.deleteObservers(item);
     },
@@ -161,6 +167,11 @@ div.itemUuid {
   margin-bottom: 8px;
 }
 .card >>> .ant-card-head {
+  background-color: #BF6766;
+  color: white;
+  font-size: x-large;
+}
+.card-ob >>> .ant-card-head {
   background-color: #00704f;
   color: white;
   font-size: x-large;
