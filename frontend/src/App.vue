@@ -15,12 +15,19 @@
             <span key="1"> name:    </span>
               
             <edit-select key="2"/>
-            <a-radio-group key="3" @change="radioChange">
+            <!-- <a-radio-group key="3" @change="radioChange">
               <a-radio-button value="element">Element</a-radio-button>
               <a-radio-button value="observer">Observer</a-radio-button>
               <a-radio-button value="relations">Relations</a-radio-button>
               <a-radio-button value="viewer">Viewer</a-radio-button>
-            </a-radio-group>
+            </a-radio-group> -->
+            <a-button-group key="3">
+              <a-button :type="colShow.element ? 'primary':'dashed'" @click="radioChange('element')">Library</a-button>
+              <a-button :type="colShow.observer ? 'primary':'dashed'" @click="radioChange('observer')">Operators</a-button>
+              <a-button :type="colShow.relations ? 'primary':'dashed'" @click="radioChange('relations')">Observerables</a-button>
+              <a-button :type="colShow.viewer ? 'primary':'dashed'" @click="radioChange('viewer')">Viewer</a-button>
+              </a-button-group>
+
             <!-- <a-button key="1" type="primary">
               Setting
             </a-button> -->
@@ -159,8 +166,8 @@ export default {
       this.y = y;
     },
     ...mapActions(["initStore"]),
-    radioChange({target}) {
-      let value = target.value
+    radioChange(value) {
+      // let value = target.value
       this.colShow[value] = !this.colShow[value]
         console.log('radio change:',value)
     }

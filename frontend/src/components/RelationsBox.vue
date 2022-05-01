@@ -46,7 +46,7 @@
               </a-menu-item>
             </a-menu>
             <a-button style="margin-left: 8px">
-              Subscirbe <a-icon type="plus-circle" />
+              Subscribe <a-icon type="plus-circle" />
             </a-button>
           </a-dropdown>
         </a>
