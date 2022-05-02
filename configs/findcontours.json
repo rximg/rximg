@@ -175,7 +175,7 @@
         }
       },
       "from": "custom",
-      "name": "rio_img",
+      "name": "roi_img",
       "op": "map",
       "output": [],
       "type": "func",
@@ -522,7 +522,7 @@
         }
       },
       "from": "custom",
-      "name": "rio_img",
+      "name": "roi_img",
       "op": "map",
       "output": [],
       "type": "func",

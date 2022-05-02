@@ -135,10 +135,10 @@
         }
       },
       "from": "observables",
-      "returnType": "Observable",
       "name": "zip",
       "op": "",
       "output": [],
+      "returnType": "Observable",
       "type": "func",
       "uuid": "0b98251ffac1e57a0c3e7b65771f6dee"
     },
@@ -416,10 +416,10 @@
         }
       },
       "from": "observables",
-      "returnType": "Observable",
       "name": "of",
       "op": "",
       "output": [],
+      "returnType": "Observable",
       "type": "func",
       "uuid": "67c29aff8dc4ab67c052cb19f0d823ab"
     },
@@ -633,7 +633,7 @@
         }
       },
       "from": "custom",
-      "name": "rio_img",
+      "name": "roi_img",
       "op": "map",
       "output": [],
       "type": "func",
@@ -891,12 +891,66 @@
         }
       },
       "from": "observables",
-      "returnType": "Observable",
       "name": "of",
       "op": "",
       "output": [],
+      "returnType": "Observable",
       "type": "func",
       "uuid": "ff892c8889952456a195e27a72737e82"
+    },
+    "72c21ed20cba7a4cf6d0f564f3f70cb8": {
+      "type": "func",
+      "from": "cv2",
+      "uuid": "72c21ed20cba7a4cf6d0f564f3f70cb8",
+      "name": "findContours",
+      "output": [],
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "image": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "image",
+          "type": "NDArray",
+          "value": null
+        },
+        "method": {
+          "choices": {
+            "CHAIN_APPROX_NONE": 1,
+            "CHAIN_APPROX_SIMPLE": 2,
+            "CHAIN_APPROX_TC89_KCOS": 4,
+            "CHAIN_APPROX_TC89_L1": 3,
+            "default": 0
+          },
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "method",
+          "type": "choices",
+          "value": 0
+        },
+        "mode": {
+          "choices": {
+            "RETR_CCOMP": 2,
+            "RETR_EXTERNAL": 0,
+            "RETR_FLOODFILL": 4,
+            "RETR_LIST": 1,
+            "RETR_TREE": 3,
+            "default": 0
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mode",
+          "type": "choices",
+          "value": 0
+        },
+        "offset": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "offset",
+          "type": "tuple",
+          "value": "(0, 0)"
+        }
+      }
     }
   },
   "relations": {
@@ -1060,15 +1114,15 @@
       "tag": "resize"
     },
     "parameter_target": {
-      "tag": "target",
-      "name": "parameter",
-      "from": "custom",
       "args": {
         "input_": {
           "type": "str",
           "value": "data/text0.jpg"
         }
-      }
+      },
+      "from": "custom",
+      "name": "parameter",
+      "tag": "target"
     },
     "parameter_thresh": {
       "args": {

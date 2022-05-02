@@ -21,8 +21,8 @@ from utils.config import LAMBDACONTEXT
 @rx_func()
 def imshow(mat:NDArray) -> Any:
     assert isinstance(mat,ndarray),'mat({}) must be ndarray:{}'.format(type(mat),mat)
-    imname = str(id(mat))+'.png'
-    dir_ = IMG_CACHE_DIR+ imname
+    # imname = str(id(mat))+'.png'
+    # dir_ = IMG_CACHE_DIR+ imname
     # print('write to static',dir_)
     mat = normal_ndarray_to_gray(mat)
     imid = str(id(mat))
@@ -30,8 +30,9 @@ def imshow(mat:NDArray) -> Any:
     # cv2.imwrite(dir_,mat)
     return ImageShow(imname=imid,ret=mat) 
 
-@rx_func()
-def rio_img(mat:NDArray,xmin:int,ymin:int,xmax:int,ymax:int)->NDArray:
+
+@rx_func()#注册成rx模块识别的函数
+def roi_img(mat:NDArray,xmin:int,ymin:int,xmax:int,ymax:int)->NDArray:
     return mat[ymin:ymax,xmin:xmax]
 
 
