@@ -62,7 +62,7 @@ const mutations = {
   // addFunctions: (state, newfunc) => {
   //   Vue.set(state.observers,newfunc.name,newfunc)
   // },
-  addObserverByFunction: (state, { funcData, args,op }) => {
+  addObserverByFunction: function (state, { funcData, args,op }) {
 
     let { outputs, returns, name } = funcData;
     let params = op+funcData.name + ":";
@@ -98,6 +98,11 @@ const mutations = {
       args: copy_args,
     };
     Vue.set(state.data, md5id, newfunc);
+    // return md5id
+    if (funcData.returnType=='Observable'){
+
+      this.commit('relations/newRelation',md5id)
+    }
     // state.observers = { ...state.observers,
     // [md5id]: newfunc };
   },

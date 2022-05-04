@@ -89,7 +89,6 @@
 
 <script>
 //TODO view缩略，缩略args
-//TODO 考虑弹珠图
 import Parameter from "./stateless/Parameter.vue";
 import NDArray from "./stateless/NDArray.vue";
 import { mapActions, mapGetters, mapState, mapMutations } from "vuex";

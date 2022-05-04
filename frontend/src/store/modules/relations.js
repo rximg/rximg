@@ -13,70 +13,152 @@ const getters = {
   keys: (state) => Object.keys(state.data),
 };
 
+function convertDataToStr(uuid,subscribe_item) {
+  var {type,value} = subscribe_item.extraData
+  if (type=='single'){
+    subscribe_item.value =value
+  }else{
+    let newlist = []
+    for (let i in value){
+      newlist.push(
+        `@core.get_subject('${uuid}',${i})`
+      )
+    } 
+  }
+  return subscribe_item
+}
+function newobs(uuid) {
+  return {
+    type: "observerable",
+    from: "core",
+    name: "build_observerable",
+    args: {
+      head: {
+        // kind: "POSITIONAL_OR_KEYWORD",
+        value: "@" + uuid,
+      },
+      pipe: {
+        // kind: "POSITIONAL_OR_KEYWORD",
+        type: "list",
+        value: [],
+      },
+      subscribe: {
+        type:"str",
+        value: null,
+        extraData:{
+          type:"single",
+          value:null
+        }
+      }
+    },
+  }
+}
+
 const mutations = {
-  setIndex: (state, index) => {
-    state.index = index;
-  },
+  // setIndex: (state, index) => {
+  //   state.index = index;
+  // },
   setRelations: (state, data) => {
     state.data = data;
   },
   newRelation: (state, head_uuid) => {
     // console.log("new relation", head_uuid);
-    let uuid = "OBS_"+uuidv4().substring(0,4)
-    Vue.set(state.data, uuid, {
-      type: "observerable",
-      from: "core",
-      name: "build_observerable",
-      args: {
-        head: {
-          kind: "POSITIONAL_OR_KEYWORD",
-          value: "@" + head_uuid,
-        },
-        pipe: {
-          kind: "POSITIONAL_OR_KEYWORD",
-          type: "list",
-          value: [],
-        },
-      },
-    });
+    // let uuid = "OBS_"+uuidv4().substring(0,4)
+    let uuid =head_uuid
+    Vue.set(state.data, uuid, newobs(uuid));
     state.contentChangeTimes += 1;
   },
+  swapSubscribeType:(state,{uuid,flag})=>{
+    if (flag=='multicast'){
+      Vue.set(state.data[uuid].args.subscribe,
+        'extraData',{type:'single',value:null})
+    }else{
+      Vue.set(state.data[uuid].args.subscribe,
+        'extraData',{type:'multicast',value:[]})
+    }
+    Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
+    state.contentChangeTimes += 1;
+  },
+  addMulticast: (state,uuid)=>{
+    let multicastindexs = state.data[uuid].args.subscribe.extraData.value
+    var num =0
+    if (multicastindexs.length>0){
+      num = Math.max.apply(Math,multicastindexs)+1
+    }
+    state.data[uuid].args.subscribe.extraData.value.push(num)
+    let new_cmd = `core.get_subject('${uuid}',${num})`
+    let new_uuid = `${uuid}_${num}`
+    Vue.set(state.data,new_uuid,newobs(new_cmd))
+    Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
+    state.contentChangeTimes += 1;
+  },
+  deleteMulticast: (state,{uuid,num})=>{
+    // let new_uuid = "core.get_subject({0}:str,{1}:int)".format(uuid,num)
+    let new_uuid = "{0}_{1}".format(uuid,num)
+    Vue.delete(state.data,md5(new_uuid))
+    Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
+    state.contentChangeTimes += 1;
+  },
+  setSubscribe: (state, { uuid,value }) => {
+    state.data[uuid].args.subscribe.extraData.value = value;
+    Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
+    state.contentChangeTimes += 1;
+  },
+  deleteRelation: (state, subkey) => {
+    let split = subkey.lastIndexOf('_')
+    if (split>-1){
 
-  newSubject: (state, head_uuid) => {
-    // console.log("new relation", head_uuid);
-    let uuid = "Subject_"+uuidv4().substring(0,4)
-    Vue.set(state.data, uuid, {
-      type: "subject",
-      from: "core",
-      name: "build_subject",
-      args: {
-        head: {
-          kind: "POSITIONAL_OR_KEYWORD",
-          value: "@" + head_uuid,
-        },
-      },
-    });
+      let uuid = subkey.substring(0,split)
+      let num = parseInt(subkey.substring(split+1))
+      let newlist = state.data[uuid].args.subscribe.extraData.value.filter(
+        (item)=>item!=num
+        )
+      Vue.set(state.data[uuid].args.subscribe.extraData, 'value',newlist)
+      Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
+    }
+    Vue.delete(state.data, subkey);
+    // console.log("relation index", key);
     state.contentChangeTimes += 1;
   },
-  newSubscribe: (state, head_uuid) => {
-    let uuid = "HEAD_"+uuidv4().substring(0,4)
-    Vue.set(state.data, uuid, {
-      type: "subscribe",
-      from: "core",
-      name: "build_subsribe",
-      args: {
-        head: {
-          kind: "POSITIONAL_OR_KEYWORD",
-          value: "@" + head_uuid,
-        },
-        subscribe: {
-          kind: "POSITIONAL_OR_KEYWORD",
-          value: null,
-        },
-      },
-    });
-    state.contentChangeTimes += 1;
-  },
+  // cleanSubscribe: (state, key) => {
+  //   // Vue.set(state.data[key].args.subscribe, "value", null);
+  //   state.contentChangeTimes += 1;
+  // },
+  // newSubject: (state, head_uuid) => {
+  //   // console.log("new relation", head_uuid);
+  //   let uuid = "Subject_"+uuidv4().substring(0,4)
+  //   Vue.set(state.data, uuid, {
+  //     type: "subject",
+  //     from: "core",
+  //     name: "build_subject",
+  //     args: {
+  //       head: {
+  //         kind: "POSITIONAL_OR_KEYWORD",
+  //         value: "@" + head_uuid,
+  //       },
+  //     },
+  //   });
+  //   state.contentChangeTimes += 1;
+  // },
+  // newSubscribe: (state, head_uuid) => {
+  //   let uuid = "HEAD_"+uuidv4().substring(0,4)
+  //   Vue.set(state.data, uuid, {
+  //     type: "subscribe",
+  //     from: "core",
+  //     name: "build_subsribe",
+  //     args: {
+  //       head: {
+  //         kind: "POSITIONAL_OR_KEYWORD",
+  //         value: "@" + head_uuid,
+  //       },
+  //       subscribe: {
+  //         kind: "POSITIONAL_OR_KEYWORD",
+  //         value: null,
+  //       },
+  //     },
+  //   });
+  //   state.contentChangeTimes += 1;
+  // },
   addPipe: (state, { key, pipe_uuid }) => {
     Vue.set(
       state.data[key].args.pipe.value,
@@ -85,11 +167,7 @@ const mutations = {
     )
     state.contentChangeTimes += 1;
   },
-  setSubscribe: (state, { key, subscribe_uuid }) => {
-    console.log(key,subscribe_uuid)
-    state.data[key].args.subscribe.value = "@"+subscribe_uuid;
-    state.contentChangeTimes += 1;
-  },
+
   swapPipes: (state, { relationIndex, oldIndex, newIndex }) => {
     // console.log(relationIndex, oldIndex, newIndex,state.data[relationIndex])
     let pipes = state.data[relationIndex].args.pipe.value;
@@ -98,19 +176,15 @@ const mutations = {
     state.data[relationIndex].args.pipe.value = pipes;
     state.contentChangeTimes += 1;
   },
-  deleteRelation: (state, key) => {
-    console.log("relation index", key);
-    Vue.delete(state.data, key);
-    state.contentChangeTimes += 1;
-  },
+
   deletePipe: (state, { key, pipe_index }) => {
     Vue.delete(state.data[key].args.pipe.value, pipe_index);
     state.contentChangeTimes += 1;
   },
-  cleanSubscribe: (state, key) => {
-    Vue.set(state.data[key].args.subscribe, "value", null);
-    state.contentChangeTimes += 1;
-  },
+  // cleanSubscribe: (state, key) => {
+  //   Vue.set(state.data[key].args.subscribe, "value", null);
+  //   state.contentChangeTimes += 1;
+  // },
 };
 
 export default {

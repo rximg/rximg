@@ -128,9 +128,9 @@
           "name": "args",
           "type": "list",
           "value": [
-            "@Subject_b3e0",
-            "@OBS_8725",
-            "@OBS_95af"
+            "@Subjectb3e0",
+            "@OBS8725",
+            "@OBS95af"
           ]
         }
       },
@@ -512,6 +512,60 @@
       "output": [],
       "type": "func",
       "uuid": "68c2599876eee43f673045a5cf878e48"
+    },
+    "72c21ed20cba7a4cf6d0f564f3f70cb8": {
+      "args": {
+        "image": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "image",
+          "type": "NDArray",
+          "value": null
+        },
+        "method": {
+          "choices": {
+            "CHAIN_APPROX_NONE": 1,
+            "CHAIN_APPROX_SIMPLE": 2,
+            "CHAIN_APPROX_TC89_KCOS": 4,
+            "CHAIN_APPROX_TC89_L1": 3,
+            "default": 0
+          },
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "method",
+          "type": "choices",
+          "value": 0
+        },
+        "mode": {
+          "choices": {
+            "RETR_CCOMP": 2,
+            "RETR_EXTERNAL": 0,
+            "RETR_FLOODFILL": 4,
+            "RETR_LIST": 1,
+            "RETR_TREE": 3,
+            "default": 0
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mode",
+          "type": "choices",
+          "value": 0
+        },
+        "offset": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "offset",
+          "type": "tuple",
+          "value": "(0, 0)"
+        }
+      },
+      "from": "cv2",
+      "name": "findContours",
+      "op": "map",
+      "output": [],
+      "returnType": "NDArray",
+      "type": "func",
+      "uuid": "72c21ed20cba7a4cf6d0f564f3f70cb8"
     },
     "75b6ccf158d21d6efb896ed56ef137a2": {
       "args": {
@@ -898,78 +952,120 @@
       "type": "func",
       "uuid": "ff892c8889952456a195e27a72737e82"
     },
-    "72c21ed20cba7a4cf6d0f564f3f70cb8": {
+    "1dbd1654343f2344936a8777d3f5a236": {
       "type": "func",
-      "from": "cv2",
-      "uuid": "72c21ed20cba7a4cf6d0f564f3f70cb8",
-      "name": "findContours",
+      "from": "observables",
+      "uuid": "1dbd1654343f2344936a8777d3f5a236",
+      "name": "of",
       "output": [],
-      "op": "map",
-      "returnType": "NDArray",
+      "op": "",
+      "returnType": "Observable",
       "args": {
-        "image": {
+        "args": {
           "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "image",
-          "type": "NDArray",
-          "value": null
-        },
-        "method": {
-          "choices": {
-            "CHAIN_APPROX_NONE": 1,
-            "CHAIN_APPROX_SIMPLE": 2,
-            "CHAIN_APPROX_TC89_KCOS": 4,
-            "CHAIN_APPROX_TC89_L1": 3,
-            "default": 0
-          },
-          "index": 2,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "method",
-          "type": "choices",
-          "value": 0
-        },
-        "mode": {
-          "choices": {
-            "RETR_CCOMP": 2,
-            "RETR_EXTERNAL": 0,
-            "RETR_FLOODFILL": 4,
-            "RETR_LIST": 1,
-            "RETR_TREE": 3,
-            "default": 0
-          },
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "mode",
-          "type": "choices",
-          "value": 0
-        },
-        "offset": {
-          "index": 3,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "offset",
-          "type": "tuple",
-          "value": "(0, 0)"
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            1
+          ],
+          "choices": null
         }
       }
     }
   },
   "relations": {
-    "HEAD_e967": {
+    "HEADe967": {
       "args": {
         "head": {
           "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@OBS_eff3"
+          "value": "@OBSeff3"
         },
         "subscribe": {
+          "extraData": {
+            "type": "multicast",
+            "value": [
+              0,
+              1,
+              2
+            ]
+          },
           "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+          "type": "list",
+          "value": null
         }
       },
       "from": "core",
       "name": "build_subsribe",
       "type": "subscribe"
     },
-    "OBS_3a9a": {
+    "HEADe967_0": {
+      "args": {
+        "head": {
+          "value": "@core.get_subject('HEADe967',0)"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": null
+          },
+          "type": "str",
+          "value": null
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "HEADe967_1": {
+      "args": {
+        "head": {
+          "value": "@core.get_subject('HEADe967',1)"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": null
+          },
+          "type": "str",
+          "value": null
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "HEADe967_2": {
+      "args": {
+        "head": {
+          "value": "@core.get_subject('HEADe967',2)"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": null
+          },
+          "type": "str",
+          "value": null
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "OBS3a9a": {
       "args": {
         "head": {
           "kind": "POSITIONAL_OR_KEYWORD",
@@ -984,13 +1080,22 @@
             null,
             null
           ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "24d285af47961111f9ab84759acc19be"
+          },
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "24d285af47961111f9ab84759acc19be"
         }
       },
       "from": "core",
       "name": "build_observerable",
       "type": "observerable"
     },
-    "OBS_8725": {
+    "OBS8725": {
       "args": {
         "head": {
           "kind": "POSITIONAL_OR_KEYWORD",
@@ -1012,11 +1117,11 @@
       "name": "build_observerable",
       "type": "observerable"
     },
-    "OBS_95af": {
+    "OBS95af": {
       "args": {
         "head": {
           "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@Subject_b3e0"
+          "value": "@Subjectb3e0"
         },
         "pipe": {
           "kind": "POSITIONAL_OR_KEYWORD",
@@ -1045,7 +1150,7 @@
       "name": "build_observerable",
       "type": "observerable"
     },
-    "OBS_eff3": {
+    "OBSeff3": {
       "args": {
         "head": {
           "kind": "POSITIONAL_OR_KEYWORD",
@@ -1067,16 +1172,60 @@
       "name": "build_observerable",
       "type": "observerable"
     },
-    "Subject_b3e0": {
+    "Subjectb3e0": {
       "args": {
         "head": {
           "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@OBS_3a9a"
+          "value": "@OBS3a9a"
         }
       },
       "from": "core",
       "name": "build_subject",
       "type": "subject"
+    },
+    "undefined": {
+      "type": "observerable",
+      "from": "core",
+      "name": "build_observerable",
+      "args": {
+        "head": {
+          "value": "@undefined"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "type": "str",
+          "value": null,
+          "extraData": {
+            "type": "single",
+            "value": null
+          }
+        }
+      }
+    },
+    "1dbd1654343f2344936a8777d3f5a236": {
+      "type": "observerable",
+      "from": "core",
+      "name": "build_observerable",
+      "args": {
+        "head": {
+          "value": "@1dbd1654343f2344936a8777d3f5a236"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "type": "str",
+          "value": "68c2599876eee43f673045a5cf878e48",
+          "extraData": {
+            "type": "single",
+            "value": "68c2599876eee43f673045a5cf878e48"
+          }
+        }
+      }
     }
   },
   "parameters": {

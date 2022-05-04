@@ -3,7 +3,7 @@ import reactivex as rx
 from reactivex import operators  as ops
 from utils.exception import ArgsError
 # from rx import Observable
-from engine.get_all_modules import all_const_back, all_enums_back
+from engine.get_all_modules import all_const_back, all_enums_back,all_context
 from typing import Any, Callable, Dict, List
 from engine.decorator import ExeStack
 import traceback
@@ -110,7 +110,10 @@ class Args(object):
                 raise ValueError("arg kind error:{}".format(data))
 
     def build_on_context(self,key,context):
-        if key.find('.') > -1:
+        #TODO 新增一种可执行方式
+        if key.find('(')>-1:
+            res = eval(key,all_context)
+        elif key.find('.') > -1:
             mode, sub = key.split('.')
             res = all_const_back[mode][sub]
         else:

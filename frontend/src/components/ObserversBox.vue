@@ -94,7 +94,7 @@ export default {
     ...mapMutations("relations", ["addRelation", "addRelationOn"]),
     ...mapMutations("views", ["flushViews"]),
     isObservers (item) {
-      console.log('item',item)
+      // console.log('item',item)
       return item.returnType == "Observable"
     },
     viewValue(item) {
@@ -163,17 +163,17 @@ div.itemUuid {
   color: #4289b9;
 }
 .argitems {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 .card >>> .ant-card-head {
   background-color: #BF6766;
   color: white;
-  font-size: x-large;
+  font-size: medium;
 }
 .card-ob >>> .ant-card-head {
   background-color: #00704f;
   color: white;
-  font-size: x-large;
+  font-size: medium;
 }
 </style>

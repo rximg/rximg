@@ -8,7 +8,7 @@ from enum import Enum
 from engine.func_factory import Func
 import cv2
 import numpy as np
-from custom.core import Subscribable
+# from custom.core import Subscribable
 import reactivex.operators as ops
 from reactivex import Observable
 from utils.exception import DAGCircleError
@@ -118,8 +118,8 @@ class RecursiveParse(object):
         sorteddag = dag.run()
         ready = self.build_on_sorted(observers,sorteddag)
         for k,v in ready.items():
-            if isinstance(v,Subscribable):
-                print('subscribe',v)
+            # if isinstance(v,Subscribable):
+                # print('subscribe',v)
                 v.subscribe()
 
 

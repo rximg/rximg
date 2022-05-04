@@ -2,160 +2,128 @@
   <div class="main">
     <h1>Observerables</h1>
     <div style="overflow-y: auto">
-      <a-card
-        title=""
-        class="card"
-        style="width: 100%"
-        :hoverable="false"
-        :headStyle="headTools"
-      >
-        <a slot="extra" href="#">
-          <a-dropdown>
-            <a-menu
-              slot="overlay"
-              @click="newRelation(onlyObserverKeys[$event.key])"
-            >
-              <a-menu-item v-for="(text, index) in onlyObserverKeys" :key="index">
-                <a-icon type="swap-right" />{{ repr(text) }}
-              </a-menu-item>
-            </a-menu>
-            <a-button style="margin-left: 8px">
-              New <a-icon type="plus-circle" />
-            </a-button>
-          </a-dropdown>
-          <a-dropdown>
-            <a-menu
-              slot="overlay"
-              @click="newSubject(relationKeys[$event.key])"
-            >
-              <a-menu-item v-for="(text, index) in relationKeys" :key="index">
-                <a-icon type="swap-right" />{{ repr(text) }}
-              </a-menu-item>
-            </a-menu>
-            <a-button style="margin-left: 8px">
-              Subject <a-icon type="plus-circle" />
-            </a-button>
-          </a-dropdown>
-          <a-dropdown>
-            <a-menu
-              slot="overlay"
-              @click="newSubscribe(relationKeys[$event.key])"
-            >
-              <a-menu-item v-for="(text, index) in relationKeys" :key="index">
-                <a-icon type="swap-right" />{{ repr(text) }}
-              </a-menu-item>
-            </a-menu>
-            <a-button style="margin-left: 8px">
-              Subscribe <a-icon type="plus-circle" />
-            </a-button>
-          </a-dropdown>
-        </a>
-        <!-- </a> -->
-      </a-card>
-      <div v-for="(item, index) in relationsData" :key="index">
+      <div v-for="(item, uuid) in relationsData" :key="uuid">
         <a-space direction="vertical" style="width: 100%">
-          <div v-if="item.type == 'observerable' || item.type == 'subject'">
-            <a-card
-              :title="repr(item.args.head.value)"
-              class="card"
-              style="width: 100%"
-              :headStyle="headHead"
-            >
-              <a slot="extra" href="#">
-                <a-button-group>
-                  <a-dropdown v-if="item.type == 'observerable'">
-                    <a-menu
-                      slot="overlay"
-
-                      
-                      @click="
-                        addPipe({
-                          key: index,
-                          pipe_uuid: onlyCallableKeys[$event.key],
-                        })
-                      "
+          <a-card
+            :title="repr(item.args.head.value)"
+            class="card"
+            style="width: 100%"
+            :headStyle="headHead"
+          >
+            <a slot="extra" href="#">
+              <a-button-group>
+                <a-dropdown>
+                  <a-menu
+                    slot="overlay"
+                    @click="
+                      addPipe({
+                        key: uuid,
+                        pipe_uuid: onlyCallableKeys[$event.key],
+                      })
+                    "
+                  >
+                    <a-menu-item
+                      v-for="(text, pipe_index) in onlyCallableKeys"
+                      :key="pipe_index"
                     >
-                      <a-menu-item
-                        v-for="(text, index) in onlyCallableKeys"
-                        :key="index"
+                      <a-icon type="swap-right" />{{ repr(text) }}
+                    </a-menu-item>
+                  </a-menu>
+                  <a-button style="margin-left: 8px">
+                    Pipe <a-icon type="plus-circle" />
+                  </a-button>
+                </a-dropdown>
+                <a-dropdown>
+                  <a-menu slot="overlay">
+                    <template v-if="isMultiCast(item)">
+                      <a-menu-item 
+                      :disabled="item.args.subscribe.extraData.value.length!=0"
+                      @click="swapSubscribeType({uuid:uuid,flag:'multicast'})"
                       >
-                        <a-icon type="swap-right" />{{ repr(text) }}
+                        <a-icon type="swap" /> SingleCast
                       </a-menu-item>
-                    </a-menu>
-                    <a-button style="margin-left: 8px">
-                      Pipe <a-icon type="plus-circle" />
-                    </a-button>
-                  </a-dropdown>
-                  <a-button @click="newRelation(index)"
-                    ><a-icon type="copy" /></a-button>
-                  <!-- <a-button @click="newSubject(index)"
-                    ><a-icon type="branches" /></a-button> -->
-                  <a-button @click="deleteRelation(index)"
-                    ><a-icon type="delete"
-                  /></a-button>
-                </a-button-group>
-              </a>
-              <div v-if="item.type == 'observerable'">
-
-              <!-- <div class="subtitle">pipe:</div> -->
-              <span v-if="!isEmputy(item.args.pipe.value)">
+                      
+                      <a-menu-item
+                       @click="addMulticast(uuid)">
+                        <a-icon type="plus-circle" />AddReplaySubject
+                      </a-menu-item>
+                    </template>
+                    <template v-else>
+                      <a-menu-item
+                      @click="swapSubscribeType({uuid:uuid,flag:'single'})"
+                      >
+                        <a-icon type="swap" /> MultiCast
+                      </a-menu-item>
+                      <a-menu-item @click="setSubscribe({uuid:uuid,value:null})">
+                        <a-icon type="interaction" /> clean
+                        </a-menu-item>
+                      <a-menu-item
+                        v-for="(text, nobkindex) in onlyCallableKeys"
+                        :key="nobkindex"
+                        :value="text"
+                        @click="setSubscribe({uuid:uuid,value:text})"
+                      >
+                        <a-icon type="rocket" />{{ repr(text) }}
+                      </a-menu-item>
+                    </template>
+                  </a-menu>
+                  <a-button> Subscribe <a-icon type="plus-circle" /> </a-button>
+                </a-dropdown>
+                <a-button @click="deleteRelation(uuid)"
+                  ><a-icon type="delete"
+                /></a-button>
+              </a-button-group>
+            </a>
+            <div>
+              <span v-if="!isEmputy(item.args.pipe)">
                 <draggable
                   v-model="item.args.pipe.value"
                   group="people"
                   @start="drag = true"
-                  @end="endDrag($event, index)"
+                  @end="endDrag($event, uuid)"
                 >
                   <span
                     v-for="(pipe, pkey) in item.args.pipe.value"
                     :key="pkey"
                   >
                     <a-tag
+                      class="argitems"
                       v-if="pipe"
                       closable
-                      @close="tagDeletePipe(index, pkey)"
+                      @close="tagDeletePipe(uuid, pkey)"
                     >
                       {{ repr(pipe) }}
                     </a-tag>
                   </span>
                 </draggable>
               </span>
-              <span v-else>
-                EmputyPipe
-              </span>
+              <span v-else> <a-tag>...</a-tag> </span>
+            </div>
+            <div v-if="!isEmputy(item.args.subscribe)">
+              <div v-if="item.args.subscribe.extraData.type == 'single'">
+                <!-- 处理空的select -->
+                <a-tag color="#108ee9">
+                  {{ repr(item.args.subscribe.value) }}
+                </a-tag>
               </div>
-
-                <div class="itemUuid">{{ index }}</div>
-            </a-card>
-          </div>
-          <div v-if="item.type == 'subscribe'">
-            <a-card
-              :title="repr(item.args.head.value)"
-              class="card"
-              style="width: 100%"
-              :headStyle="headSubscribe"
-            >
-              <a slot="extra" href="#">
-                <a-button-group>
-                  <a-button @click="deleteRelation(index)"
-                    ><a-icon type="delete"
-                  /></a-button>
-                </a-button-group>
-              </a>
-              <a-select
-                :default-value="repr(item.args.subscribe.value)"
-                style="width: 60%"
-                @change="setSubscribe({ key: index, subscribe_uuid: $event })"
-              >
-                <a-select-option
-                  v-for="(text, nobkindex) in onlyCallableKeys"
-                  :key="nobkindex"
-                  :value="text"
+              <div v-if="item.args.subscribe.extraData.type == 'multicast'">
+                <!-- 处理空的select -->
+                <span
+                  v-for="(subindex, sublistindex) in item.args.subscribe.extraData
+                    .value"
+                  :key="sublistindex"
                 >
-                  {{ repr(text) }}
-                </a-select-option>
-              </a-select>
-            </a-card>
-          </div>
+                  <a-tag color="purple">
+                    {{ subindex }}
+                  </a-tag>
+                </span>
+                <!-- <a-tag color="#108ee9">
+                  {{repr(item.args.subscribe.value)}}
+                </a-tag> -->
+              </div>
+            </div>
+            <div class="itemUuid">{{ uuid }}</div>
+          </a-card>
         </a-space>
       </div>
     </div>
@@ -169,6 +137,7 @@ import { isEmputy } from "../store/utils.js";
 import draggable from "vuedraggable";
 
 //TOP antdv实现以有向图的方式展示关系。显示在relation下方。
+//TODO 需要保持一个顺序
 export default {
   name: "Relations",
   data() {
@@ -176,24 +145,24 @@ export default {
       headTools: {
         background: "#348498",
         color: "white",
-        "font-size": "x-large",
+        "font-size": "medium",
       },
       headHead: {
         background: "#8bc6af",
         color: "white",
-        "font-size": "x-large",
+        "font-size": "medium",
       },
       headSubscribe: {
         background: "#FFC329",
         color: "white",
-        "font-size": "x-large",
+        "font-size": "medium",
       },
     };
   },
   components: { draggable },
   computed: {
     ...mapGetters("relations", { relationKeys: "keys" }),
-    ...mapGetters("observers", { allObserverKeys: "keys",}),
+    ...mapGetters("observers", { allObserverKeys: "keys" }),
     ...mapGetters(["repr"]),
     ...mapState("relations", {
       relationsData: "data",
@@ -201,18 +170,19 @@ export default {
       // activateIndex: "index",
       changeTimes: "contentChangeTimes",
     }),
-    ...mapState("observers",{
-      observersData:"data",
+    
+    ...mapState("observers", {
+      observersData: "data",
     }),
-    onlyObserverKeys:function () {
+    onlyObserverKeys: function () {
       return this.allObserverKeys.filter(
-          (key)=>this.observersData[key].returnType == "Observable"
-      )
+        (key) => this.observersData[key].returnType == "Observable"
+      );
     },
-    onlyCallableKeys:function () {
+    onlyCallableKeys: function () {
       return this.allObserverKeys.filter(
-          (key)=>this.observersData[key].returnType != "Observable"
-      )
+        (key) => this.observersData[key].returnType != "Observable"
+      );
     },
     nullHeadObserverKeys: function () {
       let arr = [];
@@ -226,21 +196,44 @@ export default {
   methods: {
     ...mapActions(["save"]),
     ...mapMutations("relations", [
-      "newRelation",
-      "newSubscribe",
-      "addPipe",
+      
+
+      "swapSubscribeType",
+      "addMulticast",
+      "deleteMulticast",
       "setSubscribe",
-      "deletePipe",
-      "cleanSubscribe",
-      "swapPipes",
       "deleteRelation",
-      "newSubject",
-      "IdentityObserverable"
+
+      "addPipe",
+      "deleteRelation",
+      "deletePipe",
     ]),
     tagDeletePipe(headindex, pipeindex) {
       this.deletePipe({ key: headindex, pipe_index: pipeindex });
     },
     isEmputy,
+    isMultiCast:(item) => {
+      let subscribe = item.args.subscribe
+      if (subscribe){
+        let extraData = subscribe.extraData
+        if (extraData){
+          if (extraData.type=='multicast'){
+            return true
+          }
+        }
+      }
+      return false
+
+    },
+    // switchMultiCast(flag){
+    //   console.log('switch multicast',flag)   
+    // },
+    // setSubscribeSingle(item){
+    //   console.log('set subscribe',item)
+    // },
+    // addReplaySubject(item){
+    //   console.log('add replay subject',item)
+    // },
     endDrag(e, index) {
       // console.log('drag',e,index)
       this.drag = false;
@@ -261,9 +254,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.a-card {
-  margin: 20px;
-}
+/* .a-card {
+  margin: 10px;
+} */
 /* .card{
     background: #348498;
     color: white;
@@ -276,15 +269,19 @@ div.itemUuid {
   margin-top: 4px;
   color: #4289b9;
 }
-div.subtitle {
+.argitems {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+/* div.subtitle {
   margin-top: 8px;
   margin-bottom: 4px;
   font-weight: 600;
   font-size: 18px;
-}
-.card-tools {
+} */
+/* .card-tools {
   background: #348498;
   color: white;
-  font-size: x-large;
-}
+  font-size: medium;
+} */
 </style>

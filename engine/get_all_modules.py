@@ -164,3 +164,16 @@ all_const_back = reskvback
 all_const_back.update(custom_instance)
 
 all_enums_back = enums_back
+
+import numpy as np
+from reactivex import operators as ops
+import cv2
+from custom import core
+all_context = {
+    'np':np,
+    'cv2':cv2,
+    "ops":ops,
+    "rx":rx,
+    "core":core
+}
+ 

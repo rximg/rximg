@@ -1,18 +1,18 @@
 <template>
   <div class="main">
     <!-- <div> -->
-      <div v-if="functionData.type">
-        <a-divider class="fac-divider" orientation="left">
-          {{ functionData.name }}
-        </a-divider>
-        <p
-          style="
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: space-between;
-          "
-        >
-          <!-- <span v-if="functionData.returns">
+    <div v-if="functionData.type">
+      <a-divider class="fac-divider" orientation="left">
+        {{ functionData.name }}
+      </a-divider>
+      <p
+        style="
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+        "
+      >
+        <!-- <span v-if="functionData.returns">
         <span v-for="(item, index) in functionData.returns" :key="index">
           <a-button
             :type="funcOutputs[index] ? '' : 'dashed'"
@@ -24,92 +24,92 @@
       <span v-else>
         <a-button>return[0]</a-button>
       </span> -->
-          <span
-            ><a-button>{{ functionData.returnType }}</a-button></span
+        <span
+          ><a-button>{{ functionData.returnType }}</a-button></span
+        >
+        <span>
+          <a-select default-value="" style="width: 120px" @change="setOp">
+            <a-select-option value=""> direct </a-select-option>
+            <a-select-option value="map"> map </a-select-option>
+          </a-select>
+        </span>
+        <span
+          style="display: flex; flex-wrap: nowrap; justify-content: flex-end"
+        >
+          <a-button v-if="lockedStatus" @click="setLocked(false)">
+            <a-icon type="lock" />
+          </a-button>
+          <a-button style="background: @red-1" @click="submitFunction"
+            >Submit</a-button
           >
-          <span>
-            <a-select default-value="" style="width: 120px" @change="setOp">
-              <a-select-option value=""> direct </a-select-option>
-              <a-select-option value="map"> map </a-select-option>
-            </a-select>
-          </span>
-          <span
-            style="display: flex; flex-wrap: nowrap; justify-content: flex-end"
-          >
-            <a-button v-if="lockedStatus" @click="setLocked(false)">
-              <a-icon type="lock" />
-            </a-button>
-            <a-button style="background: @red-1" @click="submitFunction"
-              >Submit</a-button
+        </span>
+      </p>
+      <div @mouseenter="mouseenterDom">
+        <div v-if="functionData.type === 'callable'">
+          <a-form :title="functionData.name">
+            <div
+              v-for="(arg, key) in sortObj(functionData.args)"
+              :label="arg.name"
+              :key="key"
             >
-          </span>
-        </p>
-        <div @mouseenter="mouseenterDom">
-          <div v-if="functionData.type === 'callable'">
-            <a-form :title="functionData.name">
-              <div
-                v-for="(arg, key) in sortObj(functionData.args)"
-                :label="arg.name"
-                :key="key"
-              >
               <!-- {{key}},{{arg.index}} -->
-                <arg-item
-                  :name="arg.name"
-                  :defaultValue="arg.value"
-                  :type="arg.type"
-                  :args="arg"
-                  :ranges="arg.ranges"
-                  @emitValue="setArgValue($event, arg.name)"
-                />
-                <!-- </div> -->
-              </div>
-              <div
-                v-for="rt in functionData.return"
-                :label="rt.name"
-                :key="rt.name"
+              <arg-item
+                :name="arg.name"
+                :defaultValue="arg.value"
+                :type="arg.type"
+                :args="arg"
+                :ranges="arg.ranges"
+                @emitValue="setArgValue($event, arg.name)"
+              />
+              <!-- </div> -->
+            </div>
+            <div
+              v-for="rt in functionData.return"
+              :label="rt.name"
+              :key="rt.name"
+            >
+              <a-switch v-model="rt.value" />
+            </div>
+          </a-form>
+        </div>
+        <div v-else-if="functionData.type == 'lambda'">
+          <span>
+            <a-select
+              v-model="lambda.argValue"
+              mode="multiple"
+              style="width: 100%"
+              placeholder="x0"
+              option-label-prop="label"
+            >
+              <a-select-option
+                v-for="arg in lambda.argLists"
+                :key="arg"
+                :value="arg"
+                :label="arg"
               >
-                <a-switch v-model="rt.value" />
-              </div>
-            </a-form>
-          </div>
-          <div v-else-if="functionData.type == 'lambda'">
-            <span>
-              <a-select
-                v-model="lambda.argValue"
-                mode="multiple"
-                style="width: 100%"
-                placeholder="x0"
-                option-label-prop="label"
+                {{ arg }}
+              </a-select-option>
+            </a-select>
+            <a-mentions v-model="lambda.line">
+              <a-mentions-option
+                v-for="arg in lambda.argLists"
+                :key="arg"
+                :value="arg"
               >
-                <a-select-option
-                  v-for="arg in lambda.argLists"
-                  :key="arg"
-                  :value="arg"
-                  :label="arg"
-                >
-                  {{ arg }}
-                </a-select-option>
-              </a-select>
-              <a-mentions v-model="lambda.line">
-                <a-mentions-option
-                  v-for="arg in lambda.argLists"
-                  :key="arg"
-                  :value="arg"
-                >
-                  <span>{{ arg }}</span>
-                </a-mentions-option>
-              </a-mentions>
-            </span>
-          </div>
-          <div v-else-if="functionData.type == 'parameter'">
-            <parameter :viewType="false" @emitValue="setParameter" />
-          </div>
-          <div v-else-if="functionData.type == 'file'">
-            <FileBox @sendArgData="setArgValue($event, 'dirs')" />
-          </div>
+                <span>{{ arg }}</span>
+              </a-mentions-option>
+            </a-mentions>
+          </span>
+        </div>
+        <div v-else-if="functionData.type == 'parameter'">
+          <parameter :viewType="false" @emitValue="setParameter" />
+        </div>
+        <div v-else-if="functionData.type == 'file'">
+          <FileBox @sendArgData="setArgValue($event, 'dirs')" />
         </div>
       </div>
-      <div v-else><a-empty :description="false" /></div>
+    </div>
+    <div v-else><a-empty :description="false" /></div>
     <!-- </div> -->
   </div>
 </template>
@@ -147,11 +147,9 @@ export default {
       "addObserverByFunction",
       "addObserverByLambda",
       "addObserverByFileCreator",
-      // "delCurrentFunction",
-      // "setcurrentLockFunctionStatus",
-      // "addVarPositinalOn",
-      // "currentArgsValue",
+
     ]),
+    ...mapMutations("relations", ["newRelation"]),
     ...mapMutations("factory", ["delCurrentFunction", "setLocked"]),
     ...mapMutations("views", { setParameterStore: "addParameter" }),
 
@@ -194,12 +192,20 @@ export default {
           // (k)=>{return this.funcOutputs[k]}
           // ).map(parseInt)
           this.functionData.outputs = this.funcOutputs;
-          this.addObserverByFunction({
+          // console.log("new relation", this.functionData);
+          var uuid = this.addObserverByFunction({
             funcData: this.functionData,
             args: this.argData,
             op: this.op,
           });
-          this.save();
+          console.log("new relation", uuid,this.functionData);
+
+          //TODO 直接提交到observable
+          if (this.functionData.returnType=='Observable'){
+
+            this.newRelation(uuid);
+          }
+          // this.save();
           break;
       }
       // if (this.functionData.type == "lambda") {
@@ -211,8 +217,8 @@ export default {
       this.delCurrentFunction();
       this.setLocked(false);
     },
-    sortObj(obj){
-      return Object.values(obj).sort((a,b)=>a.index-b.index)
+    sortObj(obj) {
+      return Object.values(obj).sort((a, b) => a.index - b.index);
     },
     setArgValue(event, key) {
       console.log("get arg event", key, event);
@@ -224,6 +230,7 @@ export default {
     setParameter(value) {
       this.parameterValue = value;
     },
+
     // setDirArgData(event){
     //   this.argData=event
     // }
