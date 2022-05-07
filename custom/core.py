@@ -26,13 +26,13 @@ class SubjectStore(object):
         pass
 
 @rx_func(func_visible=False)
-def build_observerable(head:Observable,pipe:List,subsribe:List)->Observable:
+def build_observerable(head:Observable,pipe:List,subscribe:List)->Observable:
     if not isinstance(head,Observable):
         raise ObservableTypeError("head type:{}".format(type(head)))
     if len(pipe):
         pipe = [p for p in pipe if p is not None]
         head = head.pipe(*pipe)
-    for sub in subsribe:
+    for sub in subscribe:
         head.subscribe(sub)
     return head
 
@@ -42,11 +42,12 @@ def get_subject(head:str,num:int=-1)->Observable:
     # if num==-1:
     #     return SubjectStore.store[head].values()
     # else:
-    if num in SubjectStore.store[head].keys():
-        return SubjectStore.store[head][num]
+    uuid = '{}_{}'.format(head,num)
+    if uuid in SubjectStore.store.keys():
+        return SubjectStore.store[uuid]
     else:
         subj = ReplaySubject()
-        SubjectStore.store[head][num] = subj
+        SubjectStore.store[uuid] = subj
         return subj
 
 # @rx_func(func_visible=False)

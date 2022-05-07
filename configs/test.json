@@ -1,0 +1,166 @@
+{
+  "observers": {
+    "75b6ccf158d21d6efb896ed56ef137a2": {
+      "args": {
+        "mat": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mat",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "custom",
+      "name": "imshow",
+      "op": "",
+      "output": [],
+      "returnType": "Any",
+      "type": "func",
+      "uuid": "75b6ccf158d21d6efb896ed56ef137a2"
+    },
+    "79cadf6ea1be2e231cbf436f8ea6928c": {
+      "args": {
+        "filename": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "filename",
+          "type": "Any",
+          "value": null
+        },
+        "flags": {
+          "choices": {
+            "IMREAD_ANYCOLOR": 4,
+            "IMREAD_ANYDEPTH": 2,
+            "IMREAD_COLOR": 1,
+            "IMREAD_GRAYSCALE": 0,
+            "IMREAD_IGNORE_ORIENTATION": 128,
+            "IMREAD_LOAD_GDAL": 8,
+            "IMREAD_REDUCED_COLOR_2": 17,
+            "IMREAD_REDUCED_COLOR_4": 33,
+            "IMREAD_REDUCED_COLOR_8": 65,
+            "IMREAD_REDUCED_GRAYSCALE_2": 16,
+            "IMREAD_REDUCED_GRAYSCALE_4": 32,
+            "IMREAD_REDUCED_GRAYSCALE_8": 64,
+            "IMREAD_UNCHANGED": -1,
+            "default": 0
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "flags",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "from": "cv2",
+      "name": "imread",
+      "op": "map",
+      "output": [],
+      "returnType": "NDArray",
+      "type": "func",
+      "uuid": "79cadf6ea1be2e231cbf436f8ea6928c"
+    },
+    "ff892c8889952456a195e27a72737e82": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "data/wd.jpg"
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "of",
+      "op": "",
+      "output": [],
+      "returnType": "Observable",
+      "type": "func",
+      "uuid": "ff892c8889952456a195e27a72737e82"
+    }
+  },
+  "relations": {
+    "196f833689baa78d589f526ca2f91635": {
+      "args": {
+        "head": {
+          "value": "@ff892c8889952456a195e27a72737e82"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            null,
+            "@79cadf6ea1be2e231cbf436f8ea6928c"
+          ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "multicast",
+            "value": [
+              0,
+              1
+            ]
+          },
+          "type": "list",
+          "value": [
+            "@core.get_subject('196f833689baa78d589f526ca2f91635',0)",
+            "@core.get_subject('196f833689baa78d589f526ca2f91635',1)"
+          ]
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
+    "196f833689baa78d589f526ca2f91635_0": {
+      "type": "observerable",
+      "from": "core",
+      "name": "build_observerable",
+      "args": {
+        "head": {
+          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635',0)"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "type": "list",
+          "value": [
+            "@75b6ccf158d21d6efb896ed56ef137a2"
+          ],
+          "extraData": {
+            "type": "single",
+            "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+          }
+        }
+      }
+    },
+    "196f833689baa78d589f526ca2f91635_1": {
+      "type": "observerable",
+      "from": "core",
+      "name": "build_observerable",
+      "args": {
+        "head": {
+          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635',1)"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "type": "list",
+          "value": [
+            "@75b6ccf158d21d6efb896ed56ef137a2"
+          ],
+          "extraData": {
+            "type": "single",
+            "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {}
+}

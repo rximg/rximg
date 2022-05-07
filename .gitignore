@@ -5,3 +5,4 @@ cache/*
 static/result/*
 *.code-workspace
 frontend/node_modules
+relay.py

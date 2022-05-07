@@ -117,10 +117,10 @@ class RecursiveParse(object):
         dag = DAGParser(observers)
         sorteddag = dag.run()
         ready = self.build_on_sorted(observers,sorteddag)
-        for k,v in ready.items():
+        # for k,v in ready.items():
             # if isinstance(v,Subscribable):
                 # print('subscribe',v)
-                v.subscribe()
+                # v.subscribe()
 
 
 if __name__ == "__main__":

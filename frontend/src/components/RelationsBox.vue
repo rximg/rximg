@@ -103,7 +103,7 @@
               <div v-if="item.args.subscribe.extraData.type == 'single'">
                 <!-- 处理空的select -->
                 <a-tag color="#108ee9">
-                  {{ repr(item.args.subscribe.value) }}
+                  {{ repr(item.args.subscribe.extraData.value) }}
                 </a-tag>
               </div>
               <div v-if="item.args.subscribe.extraData.type == 'multicast'">

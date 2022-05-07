@@ -16,7 +16,8 @@ const getters = {
 function convertDataToStr(uuid,subscribe_item) {
   var {type,value} = subscribe_item.extraData
   if (type=='single'){
-    subscribe_item.value =value
+    subscribe_item.type = 'list'
+    subscribe_item.value =[value]
   }else{
     let newlist = []
     for (let i in value){
@@ -24,6 +25,8 @@ function convertDataToStr(uuid,subscribe_item) {
         `@core.get_subject('${uuid}',${i})`
       )
     } 
+    subscribe_item.type = 'list'
+    subscribe_item.value =newlist
   }
   return subscribe_item
 }
@@ -64,8 +67,8 @@ const mutations = {
   newRelation: (state, head_uuid) => {
     // console.log("new relation", head_uuid);
     // let uuid = "OBS_"+uuidv4().substring(0,4)
-    let uuid =head_uuid
-    Vue.set(state.data, uuid, newobs(uuid));
+    // let uuid =head_uuid
+    Vue.set(state.data, md5(head_uuid), newobs(head_uuid));
     state.contentChangeTimes += 1;
   },
   swapSubscribeType:(state,{uuid,flag})=>{
@@ -100,7 +103,7 @@ const mutations = {
     state.contentChangeTimes += 1;
   },
   setSubscribe: (state, { uuid,value }) => {
-    state.data[uuid].args.subscribe.extraData.value = value;
+    state.data[uuid].args.subscribe.extraData.value = '@'+value;
     Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
     state.contentChangeTimes += 1;
   },

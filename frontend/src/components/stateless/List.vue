@@ -159,13 +159,13 @@ export default {
       this.items[index].value = value;
       this.items[index].edit = true;
       // this.$emit("emitValue", value);
-      console.log("get value", value, index);
+      // console.log("get value", value, index);
     },
     lineChange(value, index) {
       this.items[index].value = value.target.value;
       this.items[index].edit = true;
       // this.$emit("emitValue", value);
-      console.log("get value", value, index);
+      // console.log("get value", value, index);
     },
     handleOk(e) {
       this.$emit(

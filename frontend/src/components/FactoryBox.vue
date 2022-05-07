@@ -201,10 +201,10 @@ export default {
           console.log("new relation", uuid,this.functionData);
 
           //TODO 直接提交到observable
-          if (this.functionData.returnType=='Observable'){
+          // if (this.functionData.returnType=='Observable'){
 
-            this.newRelation(uuid);
-          }
+          //   this.newRelation(uuid);
+          // }
           // this.save();
           break;
       }

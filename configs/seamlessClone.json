@@ -142,6 +142,27 @@
       "type": "func",
       "uuid": "0b98251ffac1e57a0c3e7b65771f6dee"
     },
+    "1dbd1654343f2344936a8777d3f5a236": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            1
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "of",
+      "op": "",
+      "output": [],
+      "returnType": "Observable",
+      "type": "func",
+      "uuid": "1dbd1654343f2344936a8777d3f5a236"
+    },
     "24d285af47961111f9ab84759acc19be": {
       "args": {
         "maxval": {
@@ -951,30 +972,31 @@
       "returnType": "Observable",
       "type": "func",
       "uuid": "ff892c8889952456a195e27a72737e82"
-    },
-    "1dbd1654343f2344936a8777d3f5a236": {
-      "type": "func",
-      "from": "observables",
-      "uuid": "1dbd1654343f2344936a8777d3f5a236",
-      "name": "of",
-      "output": [],
-      "op": "",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "name": "args",
-          "type": "list",
-          "value": [
-            1
-          ],
-          "choices": null
-        }
-      }
     }
   },
   "relations": {
+    "1dbd1654343f2344936a8777d3f5a236": {
+      "args": {
+        "head": {
+          "value": "@1dbd1654343f2344936a8777d3f5a236"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "68c2599876eee43f673045a5cf878e48"
+          },
+          "type": "str",
+          "value": "68c2599876eee43f673045a5cf878e48"
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    },
     "HEADe967": {
       "args": {
         "head": {
@@ -1028,7 +1050,10 @@
         },
         "pipe": {
           "type": "list",
-          "value": []
+          "value": [
+            null,
+            "@68532ff665fccaa086f85e5aaef40d82"
+          ]
         },
         "subscribe": {
           "extraData": {
@@ -1184,9 +1209,6 @@
       "type": "subject"
     },
     "undefined": {
-      "type": "observerable",
-      "from": "core",
-      "name": "build_observerable",
       "args": {
         "head": {
           "value": "@undefined"
@@ -1196,36 +1218,17 @@
           "value": []
         },
         "subscribe": {
-          "type": "str",
-          "value": null,
           "extraData": {
             "type": "single",
             "value": null
-          }
+          },
+          "type": "str",
+          "value": null
         }
-      }
-    },
-    "1dbd1654343f2344936a8777d3f5a236": {
-      "type": "observerable",
+      },
       "from": "core",
       "name": "build_observerable",
-      "args": {
-        "head": {
-          "value": "@1dbd1654343f2344936a8777d3f5a236"
-        },
-        "pipe": {
-          "type": "list",
-          "value": []
-        },
-        "subscribe": {
-          "type": "str",
-          "value": "68c2599876eee43f673045a5cf878e48",
-          "extraData": {
-            "type": "single",
-            "value": "68c2599876eee43f673045a5cf878e48"
-          }
-        }
-      }
+      "type": "observerable"
     }
   },
   "parameters": {
