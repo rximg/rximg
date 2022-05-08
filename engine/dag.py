@@ -66,7 +66,6 @@ class DAGParser(object):
             nodes[k] = {'in':in_,'out':[],'on_trace':False}
         # print(nodes)
         for k,v in nodes.items():
-            print(v['in'])
             for i in v['in']:
                 nodes[i]['out'].append(k)
         # pprint(nodes)
@@ -125,12 +124,12 @@ class RecursiveParse(object):
 
 if __name__ == "__main__":
 
-    with open('./tests/dag_observers.json','r') as f:
-        line = f.read()
-        odata = json.loads(line)
-    with open('./tests/dag_relations.json','r') as f:
+    # with open('./tests/dag_observers.json','r') as f:
+    #     line = f.read()
+    #     odata = json.loads(line)
+    with open('./configs/seamlessClone.json','r') as f:
         line = f.read()
         rdata = json.loads(line)
     # obss = data["observers"]
     # relas = data["relations"]
-    RecursiveParse().run(odata,rdata)
+    RecursiveParse().run(rdata)
