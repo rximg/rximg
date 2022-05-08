@@ -46,7 +46,6 @@
       </p>
       <div @mouseenter="mouseenterDom">
         <div v-if="functionData.type === 'callable'">
-          <a-form :title="functionData.name">
             <div
               v-for="(arg, key) in sortObj(functionData.args)"
               :label="arg.name"
@@ -70,7 +69,6 @@
             >
               <a-switch v-model="rt.value" />
             </div>
-          </a-form>
         </div>
         <div v-else-if="functionData.type == 'lambda'">
           <span>

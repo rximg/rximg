@@ -16,17 +16,11 @@ const getters = {
 function convertDataToStr(uuid,subscribe_item) {
   var {type,value} = subscribe_item.extraData
   if (type=='single'){
-    subscribe_item.type = 'list'
-    subscribe_item.value =[value]
+    subscribe_item.type = 'str'
+    subscribe_item.value = value
   }else{
-    let newlist = []
-    for (let i in value){
-      newlist.push(
-        `@core.get_subject('${uuid}',${i})`
-      )
-    } 
-    subscribe_item.type = 'list'
-    subscribe_item.value =newlist
+    subscribe_item.type = 'str'
+    subscribe_item.value =`@core.get_subject('${uuid}')`
   }
   return subscribe_item
 }
@@ -47,7 +41,7 @@ function newobs(uuid) {
       },
       subscribe: {
         type:"str",
-        value: null,
+        value: "None",
         extraData:{
           type:"single",
           value:null
@@ -74,7 +68,7 @@ const mutations = {
   swapSubscribeType:(state,{uuid,flag})=>{
     if (flag=='multicast'){
       Vue.set(state.data[uuid].args.subscribe,
-        'extraData',{type:'single',value:null})
+        'extraData',{type:'single',value:"None"})
     }else{
       Vue.set(state.data[uuid].args.subscribe,
         'extraData',{type:'multicast',value:[]})
@@ -89,7 +83,7 @@ const mutations = {
       num = Math.max.apply(Math,multicastindexs)+1
     }
     state.data[uuid].args.subscribe.extraData.value.push(num)
-    let new_cmd = `core.get_subject('${uuid}',${num})`
+    let new_cmd = `core.get_subject('${uuid}')`
     let new_uuid = `${uuid}_${num}`
     Vue.set(state.data,new_uuid,newobs(new_cmd))
     Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
@@ -103,7 +97,11 @@ const mutations = {
     state.contentChangeTimes += 1;
   },
   setSubscribe: (state, { uuid,value }) => {
-    state.data[uuid].args.subscribe.extraData.value = '@'+value;
+    if (value){
+      state.data[uuid].args.subscribe.extraData.value = '@'+value;
+    }else{
+      state.data[uuid].args.subscribe.extraData.value = value;
+    }
     Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
     state.contentChangeTimes += 1;
   },

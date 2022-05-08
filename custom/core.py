@@ -32,17 +32,18 @@ def build_observerable(head:Observable,pipe:List,subscribe:List)->Observable:
     if len(pipe):
         pipe = [p for p in pipe if p is not None]
         head = head.pipe(*pipe)
-    for sub in subscribe:
-        head.subscribe(sub)
+    # for sub in subscribe:
+    if subscribe:
+        head.subscribe(subscribe)
     return head
 
 
 @rx_func(func_visible=False)
-def get_subject(head:str,num:int=-1)->Observable:
+def get_subject(uuid:str)->Observable:
     # if num==-1:
     #     return SubjectStore.store[head].values()
     # else:
-    uuid = '{}_{}'.format(head,num)
+    # uuid = '{}_{}'.format(head,num)
     if uuid in SubjectStore.store.keys():
         return SubjectStore.store[uuid]
     else:

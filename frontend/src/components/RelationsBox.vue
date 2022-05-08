@@ -5,10 +5,10 @@
       <div v-for="(item, uuid) in relationsData" :key="uuid">
         <a-space direction="vertical" style="width: 100%">
           <a-card
-            :title="repr(item.args.head.value)"
+            :title="breifHead(item)"
             class="card"
             style="width: 100%"
-            :headStyle="headHead"
+            :headStyle="getHeadStyle(uuid)"
           >
             <a slot="extra" href="#">
               <a-button-group>
@@ -36,32 +36,39 @@
                 <a-dropdown>
                   <a-menu slot="overlay">
                     <template v-if="isMultiCast(item)">
-                      <a-menu-item 
-                      :disabled="item.args.subscribe.extraData.value.length!=0"
-                      @click="swapSubscribeType({uuid:uuid,flag:'multicast'})"
+                      <a-menu-item
+                        :disabled="
+                          item.args.subscribe.extraData.value.length != 0
+                        "
+                        @click="
+                          swapSubscribeType({ uuid: uuid, flag: 'multicast' })
+                        "
                       >
                         <a-icon type="swap" /> SingleCast
                       </a-menu-item>
-                      
-                      <a-menu-item
-                       @click="addMulticast(uuid)">
+
+                      <a-menu-item @click="addMulticast(uuid)">
                         <a-icon type="plus-circle" />AddReplaySubject
                       </a-menu-item>
                     </template>
                     <template v-else>
                       <a-menu-item
-                      @click="swapSubscribeType({uuid:uuid,flag:'single'})"
+                        @click="
+                          swapSubscribeType({ uuid: uuid, flag: 'single' })
+                        "
                       >
                         <a-icon type="swap" /> MultiCast
                       </a-menu-item>
-                      <a-menu-item @click="setSubscribe({uuid:uuid,value:null})">
+                      <a-menu-item
+                        @click="setSubscribe({ uuid: uuid, value: 'lambda:None' })"
+                      >
                         <a-icon type="interaction" /> clean
-                        </a-menu-item>
+                      </a-menu-item>
                       <a-menu-item
                         v-for="(text, nobkindex) in onlyCallableKeys"
                         :key="nobkindex"
                         :value="text"
-                        @click="setSubscribe({uuid:uuid,value:text})"
+                        @click="setSubscribe({ uuid: uuid, value: text })"
                       >
                         <a-icon type="rocket" />{{ repr(text) }}
                       </a-menu-item>
@@ -109,12 +116,14 @@
               <div v-if="item.args.subscribe.extraData.type == 'multicast'">
                 <!-- 处理空的select -->
                 <span
-                  v-for="(subindex, sublistindex) in item.args.subscribe.extraData
-                    .value"
+                  v-for="(subindex, sublistindex) in item.args.subscribe
+                    .extraData.value"
                   :key="sublistindex"
                 >
-                  <a-tag color="purple">
-                    {{ subindex }}
+                  <a-tag
+                    :color="getColorByHex(uuid + '_' + subindex.toString())"
+                  >
+                    <a-icon type="environment" /> {{ subindex }}
                   </a-tag>
                 </span>
                 <!-- <a-tag color="#108ee9">
@@ -133,6 +142,7 @@
 <script>
 import { mapGetters, mapMutations, mapState, mapActions } from "vuex";
 import { isEmputy } from "../store/utils.js";
+import { getColorByHex } from "./toolbox/color.js";
 // import BriefTag from "./stateless/BriefTag.vue";
 import draggable from "vuedraggable";
 
@@ -170,7 +180,7 @@ export default {
       // activateIndex: "index",
       changeTimes: "contentChangeTimes",
     }),
-    
+
     ...mapState("observers", {
       observersData: "data",
     }),
@@ -196,8 +206,6 @@ export default {
   methods: {
     ...mapActions(["save"]),
     ...mapMutations("relations", [
-      
-
       "swapSubscribeType",
       "addMulticast",
       "deleteMulticast",
@@ -212,21 +220,38 @@ export default {
       this.deletePipe({ key: headindex, pipe_index: pipeindex });
     },
     isEmputy,
-    isMultiCast:(item) => {
-      let subscribe = item.args.subscribe
-      if (subscribe){
-        let extraData = subscribe.extraData
-        if (extraData){
-          if (extraData.type=='multicast'){
-            return true
+    getColorByHex,
+    isMultiCast: (item) => {
+      let subscribe = item.args.subscribe;
+      if (subscribe) {
+        let extraData = subscribe.extraData;
+        if (extraData) {
+          if (extraData.type == "multicast") {
+            return true;
           }
         }
       }
-      return false
-
+      return false;
+    },
+    getHeadStyle(uuid) {
+      var color = getColorByHex(uuid);
+      return {
+        background: color,
+        color: "white",
+        "font-size": "medium",
+      };
+    },
+    breifHead(item){
+      // console.log(item.args.head.value)
+      var value = this.repr(item.args.head.value)
+      if (value.substring(0,17)=="@core.get_subject"){
+        
+        return "Subj_"+value.substring(19,22)+'...'+value.substring(value.length-6,value.length-2)
+      }
+      return value
     },
     // switchMultiCast(flag){
-    //   console.log('switch multicast',flag)   
+    //   console.log('switch multicast',flag)
     // },
     // setSubscribeSingle(item){
     //   console.log('set subscribe',item)

@@ -98,62 +98,55 @@
           "extraData": {
             "type": "multicast",
             "value": [
-              0,
-              1
+              1,
+              2
             ]
           },
-          "type": "list",
-          "value": [
-            "@core.get_subject('196f833689baa78d589f526ca2f91635',0)",
-            "@core.get_subject('196f833689baa78d589f526ca2f91635',1)"
-          ]
+          "type": "str",
+          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635')"
         }
       },
       "from": "core",
       "name": "build_observerable",
       "type": "observerable"
     },
-    "196f833689baa78d589f526ca2f91635_0": {
-      "type": "observerable",
-      "from": "core",
-      "name": "build_observerable",
+    "196f833689baa78d589f526ca2f91635_1": {
       "args": {
         "head": {
-          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635',0)"
+          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635')"
         },
         "pipe": {
           "type": "list",
           "value": []
         },
         "subscribe": {
-          "type": "list",
-          "value": [
-            "@75b6ccf158d21d6efb896ed56ef137a2"
-          ],
           "extraData": {
             "type": "single",
             "value": "@75b6ccf158d21d6efb896ed56ef137a2"
-          }
+          },
+          "type": "str",
+          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
         }
-      }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
     },
-    "196f833689baa78d589f526ca2f91635_1": {
+    "196f833689baa78d589f526ca2f91635_2": {
       "type": "observerable",
       "from": "core",
       "name": "build_observerable",
       "args": {
         "head": {
-          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635',1)"
+          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635')"
         },
         "pipe": {
           "type": "list",
           "value": []
         },
         "subscribe": {
-          "type": "list",
-          "value": [
-            "@75b6ccf158d21d6efb896ed56ef137a2"
-          ],
+          "type": "str",
+          "value": "@75b6ccf158d21d6efb896ed56ef137a2",
           "extraData": {
             "type": "single",
             "value": "@75b6ccf158d21d6efb896ed56ef137a2"
