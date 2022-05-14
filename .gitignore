@@ -6,3 +6,5 @@ static/result/*
 *.code-workspace
 frontend/node_modules
 configs/meta.json
+custom/opencv_zoo
+custom/opencv_zoo
