@@ -1,74 +1,103 @@
 <template>
   <div id="app">
     <!-- <a-modal :visible="true" title="Basic Modal" > -->
-      <!-- <FileBox/> -->
-      <!-- <Test/> -->
+    <!-- <FileBox/> -->
+    <!-- <Test/> -->
     <!-- </a-modal> -->
     <a-layout style="height=fullHeight">
-      <a-layout-header style="background:#f0f2f5"
+      <a-layout-header style="background: #f0f2f5"
         ><a-page-header
           style="border: 1px solid rgb(235, 237, 240)"
           title="RxImg"
           sub-title="Reactive image processing"
         >
           <template slot="extra">
-            <span key="1"> name:    </span>
-              
-            <edit-select key="2"/>
+            <span key="1"> name: </span>
+
+            <edit-select key="2" />
             <!-- <a-radio-group key="3" @change="radioChange">
               <a-radio-button value="element">Element</a-radio-button>
               <a-radio-button value="observer">Observer</a-radio-button>
               <a-radio-button value="relations">Relations</a-radio-button>
               <a-radio-button value="viewer">Viewer</a-radio-button>
             </a-radio-group> -->
-            <a-button-group key="3">
-              <a-button :type="colShow.element ? 'primary':'dashed'" @click="radioChange('element')">Library</a-button>
-              <a-button :type="colShow.observer ? 'primary':'dashed'" @click="radioChange('observer')">Operators</a-button>
-              <a-button :type="colShow.relations ? 'primary':'dashed'" @click="radioChange('relations')">Observerables</a-button>
-              <a-button :type="colShow.viewer ? 'primary':'dashed'" @click="radioChange('viewer')">Viewer</a-button>
-              </a-button-group>
+            <a-button-group id="title-group" key="3">
+              <a-button
+                :class="
+                  colShow.element
+                    ? 'title-button-selected'
+                    : 'title-button-disselected'
+                "
+                @click="radioChange('element')"
+                >Library</a-button
+              >
+              <a-button
+                :class="
+                  colShow.observer
+                    ? 'title-button-selected'
+                    : 'title-button-disselected'
+                "
+                @click="radioChange('observer')"
+                >Operators</a-button
+              >
+              <a-button
+                :class="
+                  colShow.relations
+                    ? 'title-button-selected'
+                    : 'title-button-disselected'
+                "
+                @click="radioChange('relations')"
+                >Observerables</a-button
+              >
+              <a-button
+                :class="
+                  colShow.viewer
+                    ? 'title-button-selected'
+                    : 'title-button-disselected'
+                "
+                @click="radioChange('viewer')"
+                >Viewer</a-button
+              >
+            </a-button-group>
 
             <!-- <a-button key="1" type="primary">
               Setting
             </a-button> -->
           </template>
-
         </a-page-header>
       </a-layout-header>
       <a-layout-content>
-
-            <a-row :gutter="8">
-               <a-col  :span="colShow.element ? colSpan : 0">
-                <Element
-                  class="main-box-border"
-                  :style="{ height: clientHeight * 0.85 + 'px' }"
-                />
-              </a-col>
-              <a-col  :span="colShow.observer ? colSpan : 0">
-                <Observer
-                  class="main-box-border"
-                  :style="{ height: clientHeight * 0.85 + 'px' }"
-                />
-              </a-col>
-              <a-col  :span=" colShow.relations ? colSpan : 0">
-                <Relations
-                  class="main-box-border"
-                  :style="{ height: clientHeight * 0.85 + 'px' }"
-                />
-              </a-col>
-              <a-col  :span="colShow.viewer ? colSpan : 0">
-                <Viewer
-                  class="main-box-border"
-                  :style="{ height: clientHeight * 0.85 + 'px' }"
-                />
-              </a-col>
-            </a-row>
-          <!-- </div>
+        <a-row :gutter="8">
+          <a-col :span="colShow.element ? colSpan : 0">
+            <Element
+              class="main-box-border"
+              :style="{ height: clientHeight * 0.85 + 'px' }"
+            />
+          </a-col>
+          <a-col :span="colShow.observer ? colSpan : 0">
+            <Observer
+              class="main-box-border"
+              :style="{ height: clientHeight * 0.85 + 'px' }"
+            />
+          </a-col>
+          <a-col :span="colShow.relations ? colSpan : 0">
+            <Relations
+              class="main-box-border"
+              :style="{ height: clientHeight * 0.85 + 'px' }"
+            />
+          </a-col>
+          <a-col :span="colShow.viewer ? colSpan : 0">
+            <Viewer
+              class="main-box-border"
+              :style="{ height: clientHeight * 0.85 + 'px' }"
+            />
+          </a-col>
+        </a-row>
+        <!-- </div>
         </template> -->
       </a-layout-content>
-      <a-layout-footer style="text-align: center;">copyright</a-layout-footer>
+      <a-layout-footer style="text-align: center">copyright</a-layout-footer>
     </a-layout>
-
   </div>
 </template>
 
@@ -77,13 +106,13 @@ import Relations from "./components/RelationsBox.vue";
 import Viewer from "./components/ViewBox.vue";
 import Observer from "./components/ObserversBox.vue";
 import Element from "./components/ElementsBox.vue";
-import { mapActions,} from "vuex";
-import editSelect from './components/stateless/editSelect.vue'
+import { mapActions } from "vuex";
+import editSelect from "./components/stateless/editSelect.vue";
 
 import VueDraggableResizable from "vue-draggable-resizable";
-import FileBox from "./components/toolbox/FileBox.vue"
+import FileBox from "./components/toolbox/FileBox.vue";
 export default {
-  components: { Relations, Viewer, Observer, Element,editSelect},
+  components: { Relations, Viewer, Observer, Element, editSelect },
   name: "App",
   // mounted() {
   //   window.onresize = () => {
@@ -103,20 +132,19 @@ export default {
       height: 0,
       x: 0,
       y: 0,
-      colShow:{
-        element:true,
-        observer:true,
-        relations:true,
-        viewer:true
+      colShow: {
+        element: true,
+        observer: true,
+        relations: true,
+        viewer: true,
       },
-      
     };
   },
-    created: function() {
-  // created: function() {
+  created: function () {
+    // created: function() {
     this.initStore();
     // console.log('so emit')
-  // },
+    // },
   },
   mounted() {
     // const that = this
@@ -134,7 +162,7 @@ export default {
         this.clientHeight = val;
         this.timer = true;
         let that = this;
-        setTimeout(function() {
+        setTimeout(function () {
           // 打印screenWidth变化的值
           console.log(that.clientHeight);
           that.timer = false;
@@ -142,37 +170,36 @@ export default {
       }
     },
   },
-  computed:{
-    colSpan:function () {
-      var num =0
-      for (let key in this.colShow){
-        if (this.colShow[key]==true){
-          num = num+1
+  computed: {
+    colSpan: function () {
+      var num = 0;
+      for (let key in this.colShow) {
+        if (this.colShow[key] == true) {
+          num = num + 1;
         }
       }
-      
-      return 24/num
-    }
+
+      return 24 / num;
+    },
   },
   methods: {
-    onResize: function(x, y, width, height) {
+    onResize: function (x, y, width, height) {
       this.x = x;
       this.y = y;
       this.width = width;
       this.height = height;
     },
-    onDrag: function(x, y) {
+    onDrag: function (x, y) {
       this.x = x;
       this.y = y;
     },
     ...mapActions(["initStore"]),
     radioChange(value) {
       // let value = target.value
-      this.colShow[value] = !this.colShow[value]
-        console.log('radio change:',value)
-    }
+      this.colShow[value] = !this.colShow[value];
+      console.log("radio change:", value);
+    },
   },
-
 };
 </script>
 
@@ -189,7 +216,6 @@ h1 {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
 
 /* div.main {
   padding: 10px;
@@ -208,22 +234,54 @@ h1 {
   /* min-height: 600px; */
   border-radius: 2px;
   background: white;
-  overflow-y:auto;
+  overflow-y: auto;
   /* height: 100%; */
 }
 
+.title-button-selected {
+  background-color: #305a56;
+  border-color: #305a56;
+  color: #fff;
+  border-style: solid;
+}
+
+.title-button-disselected {
+  background-color: white;
+  border-color: #305a56;
+  color: #305a56;
+  border-style: dashed;
+}
+#title-group > .ant-btn:hover,
+#title-group > .ant-btn:focus {
+  color: #305a56;
+  background-color: #fff;
+  border-color: #305a56;
+}
+
+/* #title-group>.ant-btn:focus {
+    color: #fff;
+    background-color: #305A56;
+    border-color: #305A56;
+} */
+
+#title-group::selection {
+  color: #fff;
+  background: #305a56;
+}
+
+
+
 div::-webkit-scrollbar {
-    width: 10px;     
-    height: 1px;
+  width: 10px;
+  height: 1px;
 }
 div::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    background: #cad0d6;
-    
+  border-radius: 2px;
+  background: #cad0d6;
 }
 div::-webkit-scrollbar-track {
-    border-radius: 2px;
-    background:transparent;
+  border-radius: 2px;
+  background: transparent;
 }
 /* a-col.relation-box { */
 /* min-height: 600px; */

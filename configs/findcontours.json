@@ -14,10 +14,10 @@
         }
       },
       "from": "observables",
-      "returnType": "Observable",
       "name": "of",
       "op": "",
       "output": [],
+      "returnType": "Observable",
       "type": "func",
       "uuid": "0f1c7dcddf0ed850d0e844f439809519"
     },
@@ -66,6 +66,7 @@
           "index": 2,
           "kind": "POSITIONAL_OR_KEYWORD",
           "name": "method",
+          "title_tag": true,
           "type": "choices",
           "value": "@parameter_method"
         },
@@ -132,55 +133,6 @@
       "type": "lambda",
       "uuid": "36fa96199f56b67d07ed55ac63e0a8b0"
     },
-    "4516313a992faad6ef3b637092185ac6": {
-      "args": {
-        "mat": {
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "mat",
-          "type": "NDArray",
-          "value": null
-        },
-        "xmax": {
-          "choices": null,
-          "index": 3,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "xmax",
-          "type": "int",
-          "value": 109
-        },
-        "xmin": {
-          "choices": null,
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "xmin",
-          "type": "int",
-          "value": 107
-        },
-        "ymax": {
-          "choices": null,
-          "index": 4,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "ymax",
-          "type": "int",
-          "value": 119
-        },
-        "ymin": {
-          "choices": null,
-          "index": 2,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "ymin",
-          "type": "int",
-          "value": 117
-        }
-      },
-      "from": "custom",
-      "name": "roi_img",
-      "op": "map",
-      "output": [],
-      "type": "func",
-      "uuid": "4516313a992faad6ef3b637092185ac6"
-    },
     "4ebae39eede60c962ca4215a6592d954": {
       "args": {
         "args": {
@@ -244,6 +196,7 @@
           "index": 1,
           "kind": "POSITIONAL_OR_KEYWORD",
           "name": "thresh",
+          "title_tag": true,
           "type": "float",
           "value": "@parameter_thresh"
         },
@@ -374,54 +327,14 @@
       "type": "func",
       "uuid": "a902efccaae0e05d8c378f16fce8b97b"
     },
-    "b7f73b7b590a15fdcbe9a441355cbe5e": {
-      "args": {
-        "iterable": {
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "iterable",
-          "type": "Any",
-          "value": null
-        },
-        "scheduler": {
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "scheduler",
-          "type": "Any",
-          "value": "None"
-        }
-      },
-      "from": "observables",
-      "returnType": "Observable",
-      "name": "from_iterable",
-      "op": "map",
-      "output": [],
-      "type": "func",
-      "uuid": "b7f73b7b590a15fdcbe9a441355cbe5e"
-    },
-    "b9a2afa3a2fe5ca3a441163d2f4acf55": {
-      "args": {
-        "args": {
-          "choices": null,
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "name": "args",
-          "type": "list",
-          "value": [
-            "@OBS_18c1",
-            "@OBS_93e2"
-          ]
-        }
-      },
-      "from": "observables",
-      "returnType": "Observable",
-      "name": "zip",
-      "op": "",
-      "output": [],
-      "type": "func",
-      "uuid": "b9a2afa3a2fe5ca3a441163d2f4acf55"
-    },
     "c398356b457f3d963116c126c503d552": {
+      "type": "func",
+      "from": "operators",
+      "uuid": "c398356b457f3d963116c126c503d552",
+      "name": "count",
+      "output": [],
+      "op": "",
+      "returnType": "Callable",
       "args": {
         "predicate": {
           "index": 0,
@@ -430,13 +343,7 @@
           "type": "Any",
           "value": "None"
         }
-      },
-      "from": "operators",
-      "name": "count",
-      "op": "",
-      "output": [],
-      "type": "func",
-      "uuid": "c398356b457f3d963116c126c503d552"
+      }
     },
     "ca8d47e528889b2ae2c321ad896b42c6": {
       "args": {
@@ -477,6 +384,28 @@
       "output": [],
       "type": "func",
       "uuid": "ca8d47e528889b2ae2c321ad896b42c6"
+    },
+    "d113897b28aa1488bdea190861121863": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "@c011cd4d3c2bdde8c49183999b075bb0_0",
+            "@c011cd4d3c2bdde8c49183999b075bb0_1"
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "zip",
+      "op": "",
+      "output": [],
+      "returnType": "Observable",
+      "type": "func",
+      "uuid": "d113897b28aa1488bdea190861121863"
     },
     "e66254447ea4420151568e11b4cf7e48": {
       "args": {
@@ -527,135 +456,216 @@
       "output": [],
       "type": "func",
       "uuid": "e66254447ea4420151568e11b4cf7e48"
-    }
-  },
-  "relations": {
-    "HEAD_137b": {
-      "args": {
-        "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@OBS_43b3"
-        },
-        "subscribe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@883dddc6a26e1b4d98e5032b7e35558c"
-        }
-      },
-      "from": "core",
-      "name": "build_subsribe",
-      "type": "subscribe"
     },
-    "OBS_18c1": {
+    "b7f73b7b590a15fdcbe9a441355cbe5e": {
+      "type": "func",
+      "from": "observables",
+      "uuid": "b7f73b7b590a15fdcbe9a441355cbe5e",
+      "name": "from_iterable",
+      "output": [],
+      "op": "map",
+      "returnType": "Callable",
       "args": {
-        "head": {
+        "iterable": {
+          "index": 0,
           "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@Subject_a8fe"
+          "name": "iterable",
+          "type": "Any",
+          "value": null
         },
-        "pipe": {
+        "scheduler": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "scheduler",
+          "type": "Any",
+          "value": "None"
+        }
+      }
+    },
+    "d0be15675cfb7593550816d4547684a1": {
+      "type": "func",
+      "from": "operators",
+      "uuid": "d0be15675cfb7593550816d4547684a1",
+      "name": "count",
+      "output": [],
+      "op": "map",
+      "returnType": "Callable",
+      "args": {
+        "predicate": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "predicate",
+          "type": "Any",
+          "value": "None"
+        }
+      }
+    },
+    "0a68492787d289373ad4eb17d944f9da": {
+      "type": "lambda",
+      "from": "custom",
+      "line": "200<x0<500",
+      "args": {
+        "line": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "200<x0<500"
+        },
+        "args": {
+          "index": 1,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
           "value": [
-            null,
-            null
+            "x0"
           ]
         }
       },
-      "from": "core",
-      "name": "build_observerable",
-      "type": "observerable"
+      "op": "",
+      "uuid": "0a68492787d289373ad4eb17d944f9da",
+      "name": "LAMBDA"
     },
-    "OBS_43b3": {
+    "b0b748ad963993faecfddfcf967eda02": {
+      "type": "func",
+      "from": "operators",
+      "uuid": "b0b748ad963993faecfddfcf967eda02",
+      "name": "filter",
+      "output": [],
+      "op": "",
+      "returnType": "Callable",
+      "args": {
+        "predicate": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "predicate",
+          "type": "Any",
+          "value": "@0a68492787d289373ad4eb17d944f9da",
+          "choices": null,
+          "title_tag": true
+        }
+      }
+    }
+  },
+  "relations": {
+    "6ae0f9a1891266bef152c3c2c31194eb": {
       "args": {
         "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@b9a2afa3a2fe5ca3a441163d2f4acf55"
+          "value": "@d113897b28aa1488bdea190861121863"
         },
         "pipe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
           "value": [
             null,
             null,
             "@204dbe43768d12741fe96022399d0266",
+            null,
             "@7254fba4bf7e5dfde266a88603185a96",
             null,
+            "@655a88619c120280de0d1f2b7430522c",
             null,
-            "@36fa96199f56b67d07ed55ac63e0a8b0",
             "@ca8d47e528889b2ae2c321ad896b42c6",
             null,
-            null,
-            null,
             "@b7f73b7b590a15fdcbe9a441355cbe5e",
-            null,
-            null,
-            null,
-            null,
             "@a902efccaae0e05d8c378f16fce8b97b",
-            null,
             "@2824df07290ea248c66611f2074482d7",
             null,
-            "@845a28978d4a83a6038bfd32ae70c41e",
+            null,
+            null,
+            null,
+            null,
+            "@b0b748ad963993faecfddfcf967eda02",
+            null,
             null,
             "@c398356b457f3d963116c126c503d552"
           ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "@883dddc6a26e1b4d98e5032b7e35558c"
+          },
+          "type": "str",
+          "value": "@883dddc6a26e1b4d98e5032b7e35558c"
         }
       },
       "from": "core",
       "name": "build_observerable",
       "type": "observerable"
     },
-    "OBS_4ecf": {
+    "c011cd4d3c2bdde8c49183999b075bb0": {
       "args": {
         "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "value": "@0f1c7dcddf0ed850d0e844f439809519"
         },
         "pipe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
           "value": [
             null,
-            "@79cadf6ea1be2e231cbf436f8ea6928c",
-            null
+            "@79cadf6ea1be2e231cbf436f8ea6928c"
           ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "multicast",
+            "value": [
+              0,
+              1
+            ]
+          },
+          "type": "str",
+          "value": "@core.get_subject('c011cd4d3c2bdde8c49183999b075bb0')"
         }
       },
       "from": "core",
       "name": "build_observerable",
       "type": "observerable"
     },
-    "OBS_93e2": {
+    "c011cd4d3c2bdde8c49183999b075bb0_0": {
       "args": {
         "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@Subject_a8fe"
+          "value": "@core.get_subject('c011cd4d3c2bdde8c49183999b075bb0')"
         },
         "pipe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
-          "value": [
-            null,
-            null,
-            null,
-            null,
-            "@e66254447ea4420151568e11b4cf7e48"
-          ]
+          "value": []
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "None"
+          },
+          "type": "str",
+          "value": "None"
         }
       },
       "from": "core",
       "name": "build_observerable",
       "type": "observerable"
     },
-    "Subject_a8fe": {
+    "c011cd4d3c2bdde8c49183999b075bb0_1": {
       "args": {
         "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@OBS_4ecf"
+          "value": "@core.get_subject('c011cd4d3c2bdde8c49183999b075bb0')"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            null,
+            "@e66254447ea4420151568e11b4cf7e48",
+            null
+          ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "None"
+          },
+          "type": "str",
+          "value": "None"
         }
       },
       "from": "core",
-      "name": "build_subject",
-      "type": "subject"
+      "name": "build_observerable",
+      "type": "observerable"
     }
   },
   "parameters": {
@@ -671,21 +681,21 @@
       "tag": "input"
     },
     "parameter_method": {
-      "tag": "method",
-      "name": "parameter",
-      "from": "custom",
       "args": {
         "input_": {
           "type": "int",
           "value": 4
         }
-      }
+      },
+      "from": "custom",
+      "name": "parameter",
+      "tag": "method"
     },
     "parameter_thresh": {
       "args": {
         "input_": {
           "type": "int",
-          "value": 1500000
+          "value": 1300000
         }
       },
       "from": "custom",

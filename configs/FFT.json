@@ -1,26 +1,5 @@
 {
   "observers": {
-    "0f1c7dcddf0ed850d0e844f439809519": {
-      "args": {
-        "args": {
-          "choices": null,
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "name": "args",
-          "type": "list",
-          "value": [
-            "@parameter_input"
-          ]
-        }
-      },
-      "from": "observables",
-      "returnType": "Observable",
-      "name": "of",
-      "op": "",
-      "output": [],
-      "type": "func",
-      "uuid": "0f1c7dcddf0ed850d0e844f439809519"
-    },
     "28963cc3533b804143828934e78421d0": {
       "args": {
         "a": {
@@ -64,51 +43,6 @@
       "output": [],
       "type": "func",
       "uuid": "28963cc3533b804143828934e78421d0"
-    },
-    "3d671b67d837787eeadc50b0356629c1": {
-      "args": {
-        "args": {
-          "choices": null,
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "name": "args",
-          "title_tag": true,
-          "type": "list",
-          "value": [
-            "@fdc8808c05bc588a84949ec047f5f122"
-          ]
-        }
-      },
-      "from": "observables",
-      "returnType": "Observable",
-      "name": "of",
-      "op": "",
-      "output": [],
-      "type": "func",
-      "uuid": "3d671b67d837787eeadc50b0356629c1"
-    },
-    "61cc8c5473942748ef330f4ff059467b": {
-      "args": {
-        "args": {
-          "choices": null,
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "name": "args",
-          "title_tag": true,
-          "type": "list",
-          "value": [
-            "@HEAD_9ff7",
-            "@OBS_2128"
-          ]
-        }
-      },
-      "from": "observables",
-      "returnType": "Observable",
-      "name": "zip",
-      "op": "",
-      "output": [],
-      "type": "func",
-      "uuid": "61cc8c5473942748ef330f4ff059467b"
     },
     "61f003969f494deb94dd3855da21be5f": {
       "args": {
@@ -518,133 +452,85 @@
       "output": [],
       "type": "func",
       "uuid": "fdc8808c05bc588a84949ec047f5f122"
+    },
+    "0f1c7dcddf0ed850d0e844f439809519": {
+      "type": "func",
+      "from": "observables",
+      "uuid": "0f1c7dcddf0ed850d0e844f439809519",
+      "name": "of",
+      "output": [],
+      "op": "",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "@parameter_input"
+          ],
+          "choices": null
+        }
+      }
     }
   },
   "relations": {
-    "HEAD_36da": {
-      "args": {
-        "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@OBS_152b"
-        },
-        "subscribe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
-        }
-      },
+    "c011cd4d3c2bdde8c49183999b075bb0": {
+      "type": "observerable",
       "from": "core",
-      "name": "build_subsribe",
-      "type": "subscribe"
-    },
-    "HEAD_9ff7": {
+      "name": "build_observerable",
       "args": {
         "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "value": "@0f1c7dcddf0ed850d0e844f439809519"
         },
         "pipe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
           "value": [
             null,
             "@79cadf6ea1be2e231cbf436f8ea6928c",
             null,
-            "@68c2599876eee43f673045a5cf878e48",
             "@79a25fe1adcc1662cdf53f0c43f186f3",
             null,
-            "@d47b958a653b58e195aa06eff0d0ee9a",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            "@d47b958a653b58e195aa06eff0d0ee9a"
           ]
+        },
+        "subscribe": {
+          "type": "str",
+          "value": "@core.get_subject('c011cd4d3c2bdde8c49183999b075bb0')",
+          "extraData": {
+            "type": "multicast",
+            "value": [
+              0
+            ]
+          }
         }
-      },
+      }
+    },
+    "c011cd4d3c2bdde8c49183999b075bb0_0": {
+      "type": "observerable",
       "from": "core",
       "name": "build_observerable",
-      "type": "observerable"
-    },
-    "OBS_152b": {
       "args": {
         "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@61cc8c5473942748ef330f4ff059467b"
+          "value": "@core.get_subject('c011cd4d3c2bdde8c49183999b075bb0')"
         },
         "pipe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
           "value": [
-            null,
-            "@dc8e390feaded012e5b22fc377f80bec",
             null,
             "@61f003969f494deb94dd3855da21be5f",
             null,
             "@28963cc3533b804143828934e78421d0"
           ]
-        }
-      },
-      "from": "core",
-      "name": "build_observerable",
-      "type": "observerable"
-    },
-    "OBS_2128": {
-      "args": {
-        "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@3d671b67d837787eeadc50b0356629c1"
-        },
-        "pipe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "list",
-          "value": [
-            null,
-            null,
-            "@ba1a926ea1816e46f0a99199dc56e8d0",
-            null,
-            "@8e14c6aa5c559d2e7babad8d243c85b2"
-          ]
-        }
-      },
-      "from": "core",
-      "name": "build_observerable",
-      "type": "observerable"
-    },
-    "Subject_43ca": {
-      "args": {
-        "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@OBS_2128"
-        }
-      },
-      "from": "core",
-      "name": "build_subject",
-      "type": "subject"
-    },
-    "HEAD_8381": {
-      "type": "subscribe",
-      "from": "core",
-      "name": "build_subsribe",
-      "args": {
-        "head": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@Subject_43ca"
         },
         "subscribe": {
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+          "type": "str",
+          "value": "@75b6ccf158d21d6efb896ed56ef137a2",
+          "extraData": {
+            "type": "single",
+            "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+          }
         }
       }
     }

@@ -1,7 +1,7 @@
 <template>
-  <span>
+  <span >
     <template v-if="selectStatus">
-      <a-select v-model="group" option-label-prop="label" @change="selectChange">
+      <a-select style="width: 128px" v-model="group" option-label-prop="label" @change="selectChange">
         <div slot="dropdownRender" slot-scope="menu">
           <v-nodes :vnodes="menu" />
           <a-divider style="margin: 4px 0" />
@@ -31,6 +31,7 @@
     </template>
     <template v-else>
       <a-input
+        style="width:128px"
         v-model="editNameValue"
         placeholder="enter a new name"
         @pressEnter="finishNewEdit"
@@ -134,5 +135,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.ant-input{
+  width: 128px;
+}
 </style>

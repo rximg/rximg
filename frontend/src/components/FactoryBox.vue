@@ -151,19 +151,19 @@ export default {
     ...mapMutations("factory", ["delCurrentFunction", "setLocked"]),
     ...mapMutations("views", { setParameterStore: "addParameter" }),
 
-    setFuncOutputIndex(index) {
-      index = String(index);
-      // console.log("is include",Object.keys(this.funcOutputs).includes(index))
-      if (Object.keys(this.funcOutputs).includes(index)) {
-        this.funcOutputs[index] = !this.funcOutputs[index];
-      } else {
-        for (let i = 0; i < this.functionData.returns.length; i++) {
-          this.funcOutputs[i] = false;
-        }
-        this.funcOutputs[index] = true;
-      }
-      this.funcOutputs = { ...this.funcOutputs };
-    },
+    // setFuncOutputIndex(index) {
+    //   index = String(index);
+    //   // console.log("is include",Object.keys(this.funcOutputs).includes(index))
+    //   if (Object.keys(this.funcOutputs).includes(index)) {
+    //     this.funcOutputs[index] = !this.funcOutputs[index];
+    //   } else {
+    //     for (let i = 0; i < this.functionData.returns.length; i++) {
+    //       this.funcOutputs[i] = false;
+    //     }
+    //     this.funcOutputs[index] = true;
+    //   }
+    //   this.funcOutputs = { ...this.funcOutputs };
+    // },
     mouseenterDom() {
       let not_emputy = Object.keys(this.functionData).length !== 0;
       if (not_emputy) {
@@ -189,8 +189,11 @@ export default {
           // this.functionData.outputs = Object.keys(this.funcOutputs).filter(
           // (k)=>{return this.funcOutputs[k]}
           // ).map(parseInt)
-          this.functionData.outputs = this.funcOutputs;
+          // this.functionData.outputs = this.funcOutputs;
           // console.log("new relation", this.functionData);
+          if (this.op != ""){
+            this.functionData.returnType="Callable"
+          }
           var uuid = this.addObserverByFunction({
             funcData: this.functionData,
             args: this.argData,

@@ -60,7 +60,7 @@
                         <a-icon type="swap" /> MultiCast
                       </a-menu-item>
                       <a-menu-item
-                        @click="setSubscribe({ uuid: uuid, value: 'lambda:None' })"
+                        @click="setSubscribe({ uuid: uuid, value: 'None' })"
                       >
                         <a-icon type="interaction" /> clean
                       </a-menu-item>
@@ -211,7 +211,7 @@ export default {
       "deleteMulticast",
       "setSubscribe",
       "deleteRelation",
-
+      "swapPipes",
       "addPipe",
       "deleteRelation",
       "deletePipe",

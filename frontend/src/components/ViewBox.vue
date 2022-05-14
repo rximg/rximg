@@ -15,10 +15,10 @@
           >Execute
           <a-icon type="play-circle" />
         </a-button>
-        <a-button @click="cleanLogs"
+        <!-- <a-button @click="cleanLogs"
           >Clean
           <a-icon type="delete" />
-        </a-button>
+        </a-button> -->
       </a>
       <a-row v-for="(item, index) in parameters" :key="index">
         <a-col :span="22">
@@ -136,6 +136,7 @@ export default {
       return this.$apiurl + "/ndarray/" + item;
     },
     execute() {
+      this.cleanLogs()
       this.$socket.emit("execute_event", "start");
     },
     parameterChange(item) {

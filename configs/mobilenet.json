@@ -1,0 +1,283 @@
+{
+  "observers": {
+    "1b2931b97a8e1bf4639129220eeef35d": {
+      "args": {
+        "backendId": {
+          "choices": {
+            "DNN_BACKEND_CUDA": 5,
+            "DNN_BACKEND_DEFAULT": 0,
+            "DNN_BACKEND_HALIDE": 1,
+            "DNN_BACKEND_INFERENCE_ENGINE": 2,
+            "DNN_BACKEND_OPENCV": 3,
+            "DNN_BACKEND_VKCOM": 4,
+            "DNN_BACKEND_WEBNN": 6,
+            "default": 0
+          },
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "backendId",
+          "type": "choices",
+          "value": 0
+        },
+        "image": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "image",
+          "type": "Any",
+          "value": null
+        },
+        "labelPath": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "labelPath",
+          "type": "Any",
+          "value": "./custom/opencv_zoo/models/image_classification_mobilenet/imagenet_labels.txt"
+        },
+        "modelPath": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "modelPath",
+          "type": "Any",
+          "value": "./custom/opencv_zoo/models/image_classification_mobilenet/image_classification_mobilenetv1_2022apr.onnx"
+        },
+        "targetId": {
+          "choices": {
+            "DNN_TARGET_CPU": 0,
+            "DNN_TARGET_CUDA": 6,
+            "DNN_TARGET_CUDA_FP16": 7,
+            "DNN_TARGET_FPGA": 5,
+            "DNN_TARGET_HDDL": 8,
+            "DNN_TARGET_MYRIAD": 3,
+            "DNN_TARGET_OPENCL": 1,
+            "DNN_TARGET_OPENCL_FP16": 2,
+            "DNN_TARGET_VULKAN": 4,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "targetId",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "from": "cvdl",
+      "name": "mobilenet_infer",
+      "op": "map",
+      "output": [],
+      "returnType": "Callable",
+      "type": "func",
+      "uuid": "1b2931b97a8e1bf4639129220eeef35d"
+    },
+    "79cadf6ea1be2e231cbf436f8ea6928c": {
+      "args": {
+        "filename": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "filename",
+          "type": "Any",
+          "value": null
+        },
+        "flags": {
+          "choices": {
+            "IMREAD_ANYCOLOR": 4,
+            "IMREAD_ANYDEPTH": 2,
+            "IMREAD_COLOR": 1,
+            "IMREAD_GRAYSCALE": 0,
+            "IMREAD_IGNORE_ORIENTATION": 128,
+            "IMREAD_LOAD_GDAL": 8,
+            "IMREAD_REDUCED_COLOR_2": 17,
+            "IMREAD_REDUCED_COLOR_4": 33,
+            "IMREAD_REDUCED_COLOR_8": 65,
+            "IMREAD_REDUCED_GRAYSCALE_2": 16,
+            "IMREAD_REDUCED_GRAYSCALE_4": 32,
+            "IMREAD_REDUCED_GRAYSCALE_8": 64,
+            "IMREAD_UNCHANGED": -1,
+            "default": 0
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "flags",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "from": "cv2",
+      "name": "imread",
+      "op": "map",
+      "output": [],
+      "returnType": "Callable",
+      "type": "func",
+      "uuid": "79cadf6ea1be2e231cbf436f8ea6928c"
+    },
+    "82c10aa93cdd04f615fde42295677c29": {
+      "args": {
+        "code": {
+          "choices": null,
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "code",
+          "type": "choices",
+          "value": 4
+        },
+        "dstCn": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dstCn",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "cv2",
+      "name": "cvtColor",
+      "op": "map",
+      "output": [],
+      "returnType": "Callable",
+      "type": "func",
+      "uuid": "82c10aa93cdd04f615fde42295677c29"
+    },
+    "883dddc6a26e1b4d98e5032b7e35558c": {
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "input_",
+          "type": "Any",
+          "value": null
+        }
+      },
+      "from": "custom",
+      "name": "print_",
+      "op": "",
+      "output": [],
+      "returnType": "empty",
+      "type": "func",
+      "uuid": "883dddc6a26e1b4d98e5032b7e35558c"
+    },
+    "bdabe28f560dc2a2e2c65cce76becb61": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "./data/Lenna.png"
+          ],
+          "title_tag": true
+        }
+      },
+      "from": "observables",
+      "name": "of",
+      "op": "",
+      "output": [],
+      "returnType": "Observable",
+      "type": "func",
+      "uuid": "bdabe28f560dc2a2e2c65cce76becb61"
+    },
+    "4b1f0cbdc0fa71a8bccfbb6301689b6e": {
+      "type": "func",
+      "from": "cv2",
+      "uuid": "4b1f0cbdc0fa71a8bccfbb6301689b6e",
+      "name": "resize",
+      "output": [],
+      "op": "map",
+      "returnType": "Callable",
+      "args": {
+        "dsize": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "dsize",
+          "type": "tuple",
+          "value": "(224,224)",
+          "choices": null,
+          "title_tag": true
+        },
+        "fx": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fx",
+          "type": "int",
+          "value": 0
+        },
+        "fy": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "fy",
+          "type": "int",
+          "value": 0
+        },
+        "interpolation": {
+          "choices": {
+            "INTER_AREA": 3,
+            "INTER_CUBIC": 2,
+            "INTER_LANCZOS4": 4,
+            "INTER_LINEAR": 1,
+            "INTER_LINEAR_EXACT": 5,
+            "INTER_MAX": 7,
+            "INTER_NEAREST": 0,
+            "INTER_NEAREST_EXACT": 6,
+            "WARP_FILL_OUTLIERS": 8,
+            "WARP_INVERSE_MAP": 16,
+            "default": 0
+          },
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "interpolation",
+          "type": "choices",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "src",
+          "type": "NDArray",
+          "value": null
+        }
+      }
+    }
+  },
+  "relations": {
+    "14cac0e8814748500598af2807d46bfd": {
+      "args": {
+        "head": {
+          "value": "@bdabe28f560dc2a2e2c65cce76becb61"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            null,
+            "@79cadf6ea1be2e231cbf436f8ea6928c",
+            "@82c10aa93cdd04f615fde42295677c29",
+            null,
+            null,
+            "@4b1f0cbdc0fa71a8bccfbb6301689b6e",
+            "@1b2931b97a8e1bf4639129220eeef35d",
+            null,
+            null,
+            null
+          ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "@883dddc6a26e1b4d98e5032b7e35558c"
+          },
+          "type": "str",
+          "value": "@883dddc6a26e1b4d98e5032b7e35558c"
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    }
+  },
+  "parameters": {}
+}

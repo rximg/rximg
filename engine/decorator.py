@@ -168,6 +168,10 @@ def rx_func(func_type='callable',func_visible=True):
         return inner
     return rx_func_func
 
+# def register_value(*valuenames):
+
+    # return register_value_func
+
 class RETURN_TYPE(object):
     def __init__(self,returns:typing.Sequence) -> None:
         super().__init__()
