@@ -12,10 +12,10 @@ try:
     from custom.opencv_zoo.models.image_classification_mobilenet.mobilenet_v2 import MobileNetV2
     from custom.opencv_zoo.models.text_recognition_crnn.crnn import CRNN
     from custom.opencv_zoo.models.text_detection_db.db import DB
-    func_visible_tag = True 
+    IMPORT_TAG = True 
 except Exception as e:
     # raise e
-    func_visible_tag = False
+    IMPORT_TAG = False
     print('Check if the opencv_zoo is installed correctly')
 
 # def register_model(func):
@@ -43,88 +43,88 @@ except Exception as e:
 #     for box, text in zip(boxes[0], texts):
 #         cv2.putText(output, text, (box[1].astype(np.int32)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
 #     return output
+if IMPORT_TAG:
+    model_register = {}
 
-model_register = {}
+    @rx_func()
+    def mobilenet_infer(image:ndarray,
+            func_uniquekey:str = "mobilenet",
+            modelPath:str='./custom/opencv_zoo/models/image_classification_mobilenet/image_classification_mobilenetv2_2022apr.onnx',
+            labelPath:str="./custom/opencv_zoo/models/image_classification_mobilenet/imagenet_labels.txt",
+            backendId:ENUM_CV_DNN_BACKEND=ENUM_CV_DNN_BACKEND.DNN_BACKEND_DEFAULT,
+            targetId:ENUM_CV_DNN_TARGET=ENUM_CV_DNN_TARGET.DNN_TARGET_CPU
+            )->Any:
+        if func_uniquekey not in model_register.keys():
 
-@rx_func(func_visible=func_visible_tag)
-def mobilenet_infer(image:ndarray,
-        func_uniquekey:str = "mobilenet",
-        modelPath:str='./custom/opencv_zoo/models/image_classification_mobilenet/image_classification_mobilenetv2_2022apr.onnx',
-        labelPath:str="./custom/opencv_zoo/models/image_classification_mobilenet/imagenet_labels.txt",
+            model_register[func_uniquekey] =  MobileNetV2(
+                modelPath=modelPath, 
+                labelPath=labelPath, 
+                backendId=backendId, 
+                targetId=targetId)
+        
+        return model_register[func_uniquekey].infer(image)
+
+    @rx_func()
+    def text_recognition_crnn(
+        image:ndarray,
+        roi:tuple,
+        func_uniquekey:str="text_recognition",
+        rec_model_path:str="./custom/opencv_zoo/models/text_recognition_crnn/text_recognition_CRNN_CN_2021nov.onnx",
+        charset_path:str="./custom/opencv_zoo/models/text_recognition_crnn/charset_3944_CN.txt",
         backendId:ENUM_CV_DNN_BACKEND=ENUM_CV_DNN_BACKEND.DNN_BACKEND_DEFAULT,
         targetId:ENUM_CV_DNN_TARGET=ENUM_CV_DNN_TARGET.DNN_TARGET_CPU
         )->Any:
-    if func_uniquekey not in model_register.keys():
+        if func_uniquekey not in model_register.keys():
 
-        model_register[func_uniquekey] =  MobileNetV2(
-            modelPath=modelPath, 
-            labelPath=labelPath, 
-            backendId=backendId, 
-            targetId=targetId)
-    
-    return model_register[func_uniquekey].infer(image)
+            model_register[func_uniquekey] = CRNN(modelPath=rec_model_path, 
+                    charsetPath=charset_path,
+                        backendId=backendId, 
+                        targetId=targetId)
 
-@rx_func(func_visible=func_visible_tag)
-def text_recognition_crnn(
-    image:ndarray,
-    roi:tuple,
-    func_uniquekey:str="text_recognition",
-    rec_model_path:str="./custom/opencv_zoo/models/text_recognition_crnn/text_recognition_CRNN_CN_2021nov.onnx",
-    charset_path:str="./custom/opencv_zoo/models/text_recognition_crnn/charset_3944_CN.txt",
-    backendId:ENUM_CV_DNN_BACKEND=ENUM_CV_DNN_BACKEND.DNN_BACKEND_DEFAULT,
-    targetId:ENUM_CV_DNN_TARGET=ENUM_CV_DNN_TARGET.DNN_TARGET_CPU
-    )->Any:
-    if func_uniquekey not in model_register.keys():
-
-        model_register[func_uniquekey] = CRNN(modelPath=rec_model_path, 
-                charsetPath=charset_path,
-                    backendId=backendId, 
-                    targetId=targetId)
-
-    return model_register[func_uniquekey].infer(image,roi)
-    
+        return model_register[func_uniquekey].infer(image,roi)
+        
 
 
-    
-@rx_func(func_visible=func_visible_tag)
-def text_detection_db(
-    image,
-    func_uniquekey:str="text_detection",
-    det_model_path:str="./custom/opencv_zoo/models/text_detection_db/text_detection_DB_TD500_resnet18_2021sep.onnx",
-    input_size:Tuple=(736,736),
-    binary_threshold:float=0.3,
-    polygon_threshold:float=0.5,
-    max_candidates:int=200,
-    unclip_ratio:float=2.0,
-    backendId:ENUM_CV_DNN_BACKEND=ENUM_CV_DNN_BACKEND.DNN_BACKEND_DEFAULT,
-    targetId:ENUM_CV_DNN_TARGET=ENUM_CV_DNN_TARGET.DNN_TARGET_CPU
-    )->Any:
-    if func_uniquekey not in model_register.keys():
+        
+    @rx_func()
+    def text_detection_db(
+        image,
+        func_uniquekey:str="text_detection",
+        det_model_path:str="./custom/opencv_zoo/models/text_detection_db/text_detection_DB_TD500_resnet18_2021sep.onnx",
+        input_size:Tuple=(736,736),
+        binary_threshold:float=0.3,
+        polygon_threshold:float=0.5,
+        max_candidates:int=200,
+        unclip_ratio:float=2.0,
+        backendId:ENUM_CV_DNN_BACKEND=ENUM_CV_DNN_BACKEND.DNN_BACKEND_DEFAULT,
+        targetId:ENUM_CV_DNN_TARGET=ENUM_CV_DNN_TARGET.DNN_TARGET_CPU
+        )->Any:
+        if func_uniquekey not in model_register.keys():
 
-        model_register[func_uniquekey] = DB(modelPath=det_model_path,
-                  inputSize=input_size,
-                  binaryThreshold=binary_threshold,
-                  polygonThreshold=polygon_threshold,
-                  maxCandidates=max_candidates,
-                  unclipRatio=unclip_ratio,
-                  backendId=backendId,
-                  targetId=targetId
-        )
+            model_register[func_uniquekey] = DB(modelPath=det_model_path,
+                    inputSize=input_size,
+                    binaryThreshold=binary_threshold,
+                    polygonThreshold=polygon_threshold,
+                    maxCandidates=max_candidates,
+                    unclipRatio=unclip_ratio,
+                    backendId=backendId,
+                    targetId=targetId
+            )
 
 
-    return model_register[func_uniquekey].infer(image)
+        return model_register[func_uniquekey].infer(image)
 
-@rx_func(func_visible=func_visible_tag)
-def text_recognition_visualize(
-        image:ndarray,
-        boxes:ndarray,
-        texts:list,
-        color:Tuple=(0, 255, 0), 
-        isClosed:bool=True, 
-        thickness:int=2):
-    output = image.copy()
-    pts = np.array(boxes)
-    output = cv2.polylines(output, pts, isClosed=isClosed, color=color, thickness=thickness)
-    for box, text in zip(boxes, texts):
-        cv2.putText(output, text, (box[1].astype(np.int32)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
-    return output
+    @rx_func()
+    def text_recognition_visualize(
+            image:ndarray,
+            boxes:ndarray,
+            texts:list,
+            color:Tuple=(0, 255, 0), 
+            isClosed:bool=True, 
+            thickness:int=2):
+        output = image.copy()
+        pts = np.array(boxes)
+        output = cv2.polylines(output, pts, isClosed=isClosed, color=color, thickness=thickness)
+        for box, text in zip(boxes, texts):
+            cv2.putText(output, text, (box[1].astype(np.int32)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
+        return output
