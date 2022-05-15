@@ -1,6 +1,7 @@
 # from genericpath import isfile
 import pprint
 import inspect
+import re
 from numpy.typing import NDArray
 from enum import Enum
 import json
@@ -17,6 +18,7 @@ import numpy as np
 type_map = {
     typing.Any: "Any",
     bool: "bool",
+    str:"str",
     int:"int",
     float:"float",
     tuple:"tuple",
@@ -73,11 +75,14 @@ class ArgsParser(object):
                 }
 
     def parse(self,k,v):
+        #TODO support typing.Optional 
         name = v.name
         kind = v.kind
         default = v.default
         # annotation_type = v.an
         annotation = v.annotation
+        # if str(annotation).startswith('typing.Optional'):
+        #     annotation = eval(re.search("\[(.*)\]",str(annotation)).groups()[0]) 
         annotation_str = type_map.get(v.annotation, 'Any')
         if kind in (inspect.Parameter.POSITIONAL_OR_KEYWORD,
                 inspect.Parameter.KEYWORD_ONLY):

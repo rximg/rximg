@@ -47,9 +47,12 @@
                         <a-icon type="swap" /> SingleCast
                       </a-menu-item>
 
-                      <a-menu-item @click="addMulticast(uuid)">
+                      <a-menu-item @click="addMulticast({uuid:uuid,type:'replay'})">
                         <a-icon type="plus-circle" />AddReplaySubject
                       </a-menu-item>
+                      <!-- <a-menu-item @click="addMulticast({uuid:uuid,type:'behavior'})">
+                        <a-icon type="plus-circle" />AddBehaviorSubject
+                      </a-menu-item> -->
                     </template>
                     <template v-else>
                       <a-menu-item

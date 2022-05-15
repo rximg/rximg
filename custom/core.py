@@ -1,7 +1,7 @@
 from functools import partial
 from utils.exception import ObservableTypeError
 from reactivex import Observable, Subject
-from reactivex.subject import ReplaySubject
+from reactivex.subject import ReplaySubject,BehaviorSubject
 from typing import Callable, List
 from engine.decorator import view,rx_func
 from typing import Any
@@ -39,7 +39,7 @@ def build_observerable(head:Observable,pipe:List,subscribe:List)->Observable:
 
 
 @rx_func(func_visible=False)
-def get_subject(uuid:str)->Observable:
+def get_subject(uuid:str,type_='replay')->Observable:
     # if num==-1:
     #     return SubjectStore.store[head].values()
     # else:
@@ -47,7 +47,10 @@ def get_subject(uuid:str)->Observable:
     if uuid in SubjectStore.store.keys():
         return SubjectStore.store[uuid]
     else:
-        subj = ReplaySubject()
+        if type_ == 'behavior': 
+            subj = BehaviorSubject(None)
+        else:
+            subj = ReplaySubject()
         SubjectStore.store[uuid] = subj
         return subj
 

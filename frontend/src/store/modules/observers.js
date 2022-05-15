@@ -64,25 +64,29 @@ const mutations = {
   // },
   addObserverByFunction: function (state, { funcData, args,op }) {
 
-    let { outputs, returns, name } = funcData;
+    // let { outputs, returns, name } = funcData;
     let params = op+funcData.name + ":";
     let copy_args = deepcopy(funcData.args);
-    Object.keys(args).forEach((k) => {
-      copy_args[k].value = args[k];
-      copy_args[k].choices = null;
-    });
+    if (copy_args){
 
-    Object.keys(copy_args).forEach((k) => {
-      let v = copy_args[k];
-      params += k + "=" + v.value + ",";
-    });
-    var outputIndexs = [];
-    for (let k in outputs) {
-      if (outputs[k]) {
-        params += k;
-        outputIndexs.push(parseInt(k));
-      }
+    
+      Object.keys(args).forEach((k) => {
+        copy_args[k].value = args[k];
+        copy_args[k].choices = null;
+      });
+
+      Object.keys(copy_args).forEach((k) => {
+        let v = copy_args[k];
+        params += k + "=" + v.value + ",";
+      });
     }
+    // var outputIndexs = [];
+    // for (let k in outputs) {
+    //   if (outputs[k]) {
+    //     params += k;
+    //     outputIndexs.push(parseInt(k));
+    //   }
+    // }
     // const cuuuid = uuidv4()
     const md5id = md5(params);
     let newfunc = {
@@ -90,7 +94,7 @@ const mutations = {
       from: funcData.from,
       uuid: md5id,
       name: funcData.name,
-      output: outputIndexs,
+      // output: outputIndexs,
       op:op,
       returnType:funcData.returnType,
       // func_name:

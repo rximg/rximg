@@ -76,14 +76,14 @@ const mutations = {
     Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
     state.contentChangeTimes += 1;
   },
-  addMulticast: (state,uuid)=>{
+  addMulticast: (state,{uuid,type})=>{
     let multicastindexs = state.data[uuid].args.subscribe.extraData.value
     var num =0
     if (multicastindexs.length>0){
       num = Math.max.apply(Math,multicastindexs)+1
     }
     state.data[uuid].args.subscribe.extraData.value.push(num)
-    let new_cmd = `core.get_subject('${uuid}')`
+    let new_cmd = `core.get_subject('${uuid}','${type}')`
     let new_uuid = `${uuid}_${num}`
     Vue.set(state.data,new_uuid,newobs(new_cmd))
     Vue.set(state.data[uuid].args.subscribe,convertDataToStr(uuid,state.data[uuid].args.subscribe))
@@ -97,7 +97,7 @@ const mutations = {
     state.contentChangeTimes += 1;
   },
   setSubscribe: (state, { uuid,value }) => {
-    if (value){
+    if (value!="None"){
       state.data[uuid].args.subscribe.extraData.value = '@'+value;
     }else{
       state.data[uuid].args.subscribe.extraData.value = value;
