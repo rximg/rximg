@@ -16,7 +16,7 @@ def check_ndarray(mat,id):
         if shape[-1]==1:
             return mat[::,::,0]
         elif shape[-1]==3:
-            return np.mean(mat,axis=2).astype(mat.dtype)
+            return mat
         else:
             raise NDArrayTypeError('error ndarray shape:{}'.format(shape))
     else:

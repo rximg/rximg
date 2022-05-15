@@ -158,6 +158,7 @@ def ndarray_get(imageid):
         return {"type": "error", 'msg': str(e)}
     mat = normal_ndarray_to_gray(mat)
     # im = cv2.imread("{}.jpg".format(imageid))
+    print('mat shape',mat.shape)
     type_ = 'png'
     _, mat = cv2.imencode('.'+type_, mat)
     f = BytesIO(mat.tobytes())
@@ -195,6 +196,8 @@ def ndarray_pix():
         for i in range(xmin, xmax):
             for j in range(ymin, ymax):
                 v = mat[j, i]
+                if len(v.shape)>0:
+                    v = np.mean(v,dtype=v.dtype)
                 _ = {
                     'y': str(int(j)),
                     'x': str(int(i)),
