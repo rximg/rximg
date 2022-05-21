@@ -46,12 +46,13 @@
       </p>
       <div @mouseenter="mouseenterDom">
         <div v-if="functionData.type === 'callable'">
-            <div
-              v-for="(arg, key) in sortObj(functionData.args)"
-              :label="arg.name"
-              :key="key"
-            >
-              <!-- {{key}},{{arg.index}} -->
+          <div
+            v-for="(arg, key) in sortObj(functionData.args)"
+            :label="arg.name"
+            :key="functionData.name + key"
+          >
+            <!-- {{key}},{{arg.index}} -->
+            <div v-if="'distroy'">
               <arg-item
                 :name="arg.name"
                 :defaultValue="arg.value"
@@ -60,15 +61,16 @@
                 :ranges="arg.ranges"
                 @emitValue="setArgValue($event, arg.name)"
               />
-              <!-- </div> -->
             </div>
-            <div
-              v-for="rt in functionData.return"
-              :label="rt.name"
-              :key="rt.name"
-            >
-              <a-switch v-model="rt.value" />
-            </div>
+            <!-- </div> -->
+          </div>
+          <div
+            v-for="rt in functionData.return"
+            :label="rt.name"
+            :key="rt.name"
+          >
+            <a-switch v-model="rt.value" />
+          </div>
         </div>
         <div v-else-if="functionData.type == 'lambda'">
           <span>
@@ -127,7 +129,6 @@ export default {
         line: "",
       },
       argData: {},
-      funcOutputs: {},
       op: "",
       parameterValue: {},
     };
@@ -145,7 +146,6 @@ export default {
       "addObserverByFunction",
       "addObserverByLambda",
       "addObserverByFileCreator",
-
     ]),
     ...mapMutations("relations", ["newRelation"]),
     ...mapMutations("factory", ["delCurrentFunction", "setLocked"]),
@@ -191,24 +191,21 @@ export default {
           // ).map(parseInt)
           // this.functionData.outputs = this.funcOutputs;
           // console.log("new relation", this.functionData);
-          if (this.op != ""){
-            this.functionData.returnType="Callable"
+          if (this.op != "") {
+            this.functionData.returnType = "Callable";
           }
           var uuid = this.addObserverByFunction({
             funcData: this.functionData,
             args: this.argData,
             op: this.op,
           });
-          console.log("new relation", uuid,this.functionData);
+          console.log("new relation", uuid, this.functionData);
+          //TODO clean functionData
+          this.argData = {};
 
-          //TODO 直接提交到observable
-          // if (this.functionData.returnType=='Observable'){
-
-          //   this.newRelation(uuid);
-          // }
-          // this.save();
           break;
       }
+      this.op = "";
       // if (this.functionData.type == "lambda") {
       //   this.addObserverByLambda(this.lambda);
       // } else {``
