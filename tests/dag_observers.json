@@ -87,7 +87,6 @@
     },
     "from": "custom",
     "name": "imshow",
-    "return_view": true,
     "type": "func",
     "uuid": "75b6ccf158d21d6efb896ed56ef137a2"
   },

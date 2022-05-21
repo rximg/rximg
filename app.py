@@ -1,6 +1,6 @@
 # TOP 考虑一下柯里化，curry+bind kwarg的形式，kwarg保持进类变量的字典。
 from io import BytesIO
-from flask_socketio import SocketIO, emit, send
+from flask_socketio import SocketIO#, emit, send
 from collections import deque
 from engine.load import JsonConfig, Stack, clean_tempfile
 from third_party.filemanager import get_filelist
@@ -81,11 +81,12 @@ def observers():
         return jsoncfg.load_params()
 
 @socketio.on('execute_event')
-def execute_event(message):
+def execute_event():
     data = jsoncfg.load_params()
     # stack.deq.append(
         # partial()
     # )
+    ExeStack.init_store()
     try:
         RecursiveParse().run(data)
     except Exception as e:
@@ -269,5 +270,6 @@ def listDir():
 
 if __name__ == '__main__':
     # app.run(debug=True)
-    clean_tempfile(IMG_CACHE_DIR)
+    # clean_tempfile(IMG_CACHE_DIR)
     socketio.run(app)
+

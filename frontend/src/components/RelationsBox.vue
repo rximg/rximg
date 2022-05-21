@@ -90,19 +90,20 @@
                   v-model="item.args.pipe.value"
                   group="people"
                   @start="drag = true"
-                  @end="endDrag($event, uuid)"
+                  @end="endDrag($event, uuid)"            
                 >
                   <span
-                    v-for="(pipe, pkey) in item.args.pipe.value"
+                    v-for="(pipetext, pkey) in item.args.pipe.value"
                     :key="pkey"
                   >
                     <a-tag
                       class="argitems"
-                      v-if="pipe"
+                      :visible=true
+                      v-if="pipetext"
                       closable
                       @close="tagDeletePipe(uuid, pkey)"
                     >
-                      {{ repr(pipe) }}
+                      {{ repr(pipetext) }}
                     </a-tag>
                   </span>
                 </draggable>

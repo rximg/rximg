@@ -1,3 +1,4 @@
+import Vue from "vue";
 
 const state = {
   locked: false,
@@ -13,6 +14,8 @@ const mutations = {
     state.locked = value
   },
   setCurrentFunction: (state, ele) => {
+    // state.data = {};
+    // Vue.set(state,'date',{})
     if (ele.type == "lambda") {
       state.data = { type: "lambda", line: "" };
     } else {
@@ -24,7 +27,7 @@ const mutations = {
     console.log("set current func", state.data);
   },
   delCurrentFunction: (state) => {
-    state.data = null;
+    state.data = {};
   },
 }
 

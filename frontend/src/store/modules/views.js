@@ -16,6 +16,16 @@ const getters = {
     },
     getNDArrayROI:(state)=>(post_id)=>{
         return state.ndarrayROI[post_id]
+    },
+    traceback:(state)=>{
+        var traces =""
+        for (var i in state.logs) {
+            var item = state.logs[i]
+            if (item.type == 'exception'){
+                traces = traces+item.trace
+            }
+        }
+        return traces
     }
 }
 

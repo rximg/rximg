@@ -36,13 +36,13 @@ Vue.prototype.$apiurl = origin_url
 
 Vue.use(new VueSocketIO({
   connection:origin_url,
-  allowEIO3: true,
   vuex: {
-      store,
-      actionPrefix: 'SOCKET_',
-      mutationPrefix: 'SOCKET_'
+    store,
+    actionPrefix: 'SOCKET_',
+    mutationPrefix: 'SOCKET_'
   },
-  ...socketio_cores
+  ...socketio_cores,
+  allowEIO3: true
 }))
 
 new Vue({

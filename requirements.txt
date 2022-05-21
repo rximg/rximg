@@ -1,6 +1,7 @@
 Flask
 Flask-Cors
-Flask-SocketIO
+Flask-SocketIO==4.3.2
 numpy 
+requests
 opencv-python
 reactivex

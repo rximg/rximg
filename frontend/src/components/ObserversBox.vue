@@ -10,7 +10,7 @@
             style="width: 100%; display: block"
             :hoverable="true"
           >
-          {{item.returnType}}
+          <!-- {{item.returnType}} -->
             <a slot="extra" href="#">
               <a-button @click="deleteItem(item)"
                 ><a-icon type="delete"

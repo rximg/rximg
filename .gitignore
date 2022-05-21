@@ -9,3 +9,4 @@ configs/meta.json
 custom/opencv_zoo
 frontend/dist
 frontend/dist/index.html
+resultimg

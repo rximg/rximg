@@ -110,7 +110,6 @@ class Args(object):
                 raise ValueError("arg kind error:{}".format(data))
 
     def build_on_context(self,key,context):
-        #TODO 新增一种可执行方式
         if key.find('(')>-1:
             res = eval(key,all_context)
         elif key.find('.') > -1:

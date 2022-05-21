@@ -41,6 +41,7 @@ def recursion_json_check(obj):
 
 
 class ExeStack(object):
+    model_register = {}
     store = []
     ndarray_store = {}
     def __init__(self) -> None:
@@ -106,6 +107,11 @@ class ExeStack(object):
             }
         )
 
+    @classmethod
+    def init_store(cls):
+        cls.store.clear()
+        cls.ndarray_store.clear()
+        cls.model_register.clear()
     # @classmethod
     # def log_exe_stack(cls):
     #     lines = []
@@ -123,17 +129,17 @@ class ExeStack(object):
     #     with open('./server/exe_stack.log','w') as f:
     #         f.write('\n'.join(lines))
 
-def view(func):
-    ret_collects = []
-    @wraps(func)
-    def inner(*args,**kwargs):
-        res = func(*args,**kwargs)
-        ret_collects.append(res)
-        # pdb.set_trace()
-        return res
-    inner.return_view = True
-    inner.ret_collects = ret_collects
-    return inner
+# def view(func):
+#     ret_collects = []
+#     @wraps(func)
+#     def inner(*args,**kwargs):
+#         res = func(*args,**kwargs)
+#         ret_collects.append(res)
+#         # pdb.set_trace()
+#         return res
+#     inner.return_view = True
+#     inner.ret_collects = ret_collects
+#     return inner
 
 def rx_func(func_type='callable',func_visible=True):
     def rx_func_func(func):
@@ -166,6 +172,11 @@ def rx_func(func_type='callable',func_visible=True):
         # print(func_type,type(func_type))
         inner.func_type=func_type
         return inner
+    return rx_func_func
+
+def fake_rx_func(*args,**kwargs):
+    def rx_func_func(func):
+        return func
     return rx_func_func
 
 # def register_value(*valuenames):

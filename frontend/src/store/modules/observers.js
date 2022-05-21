@@ -68,13 +68,11 @@ const mutations = {
     let params = op+funcData.name + ":";
     let copy_args = deepcopy(funcData.args);
     if (copy_args){
-
-    
       Object.keys(args).forEach((k) => {
+
         copy_args[k].value = args[k];
         copy_args[k].choices = null;
       });
-
       Object.keys(copy_args).forEach((k) => {
         let v = copy_args[k];
         params += k + "=" + v.value + ",";

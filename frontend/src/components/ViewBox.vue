@@ -79,10 +79,16 @@
 
         </a-timeline-item>
           <div v-if="item.type == 'exception'">
-            {{ item.trace }}
+            <a-button type="danger" style="width=100%" @click="handleTraceVisible(true)"> traceback</a-button>
           </div>
         </div>
       </a-timeline>
+      <a-modal 
+          :visible="traceModalVisibleFlag" 
+          title="traceback" 
+          @ok="handleTraceVisible(false)">
+        {{ traceback }}
+      </a-modal>
     </div>
   </div>
 </template>
@@ -106,6 +112,7 @@ export default {
         "font-size": "x-large",
       },
       domWidth: null,
+      traceModalVisible:false
 
     };
   },
@@ -116,8 +123,13 @@ export default {
   computed: {
     // ...mapState("views", { allViews: "data", viewResult: "results" }),
     // ...mapGetters("relations", ["relationChange"]),
+    ...mapGetters("views",["traceback",]),
     // ...mapState("relations", { allRelations: "data" }),
-    ...mapState("views", { resultsLog: "logs", parameters: "parameters" }),
+    ...mapState("views", { resultsLog: "logs", 
+        parameters: "parameters", }),
+    traceModalVisibleFlag() {
+      return this.traceModalVisible && this.traceback.length!=0
+    },
     // viewWidth:function () {
     //   return this.
     // }
@@ -129,15 +141,20 @@ export default {
     //   return this.allViews;
     // },
   },
+  // watch
   methods: {
     ...mapActions(["save"]),
     ...mapMutations("views", ["cleanLogs", "addParameter", "delParameter"]),
     imgurl(item) {
       return this.$apiurl + "/ndarray/" + item;
     },
+    handleTraceVisible(flag){
+      this.traceModalVisible = flag
+    },
     execute() {
       this.cleanLogs()
-      this.$socket.emit("execute_event", "start");
+      this.$socket.emit("execute_event",);
+      this.traceModalVisible = true
     },
     parameterChange(item) {
       // console.log('para:',item)

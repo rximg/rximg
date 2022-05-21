@@ -163,7 +163,7 @@ const mutations = {
   addPipe: (state, { key, pipe_uuid }) => {
     Vue.set(
       state.data[key].args.pipe.value,
-      state.data[key].args.pipe.value.length+1,
+      state.data[key].args.pipe.value.length,
       "@"+pipe_uuid
     )
     state.contentChangeTimes += 1;

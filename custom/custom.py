@@ -4,7 +4,7 @@ from numpy.typing import ArrayLike,NDArray
 from typing import Any, Tuple
 from engine.ndarray_tools import normal_ndarray_to_gray
 from utils.config import IMG_CACHE_DIR
-from engine.decorator import view,rx_func
+from engine.decorator import rx_func
 import os.path as osp
 import pdb
 import typing
@@ -55,6 +55,11 @@ def glob_dirs(dirs:List):
 def print_(input_:typing.Any):
     return PrintShow(input_)
 
+@rx_func(func_type="list_")
+def list_(*args):
+    return args
+
+#TODO change parameter to var
 @rx_func(func_type="parameter")
 def parameter(input_):
     return input_

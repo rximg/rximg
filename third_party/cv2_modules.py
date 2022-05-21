@@ -9,6 +9,7 @@ import cv2
 import os.path as osp
 import os
 import pdb
+import requests
 import sys
 sys.path.append('.')
 # class CVENUM(IntEnum):
@@ -194,7 +195,13 @@ def imread(filename: str, flags: ENUM_CV_ImreadModes = ENUM_CV_ImreadModes.defau
 
     """
     # filename = osp.join('./cache',filename)
-    return cv2.imread(filename=filename, flags=1)
+    
+    if filename.lower().startswith("http://") or filename.lower().startswith("https://"):
+        rep = requests.get(filename)
+        image = np.asarray(bytearray(rep.content), dtype="uint8")
+        image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
+        return image
+    return cv2.imread(filename=filename, flags=cv2.IMREAD_UNCHANGED)
 
 
 @rx_func()

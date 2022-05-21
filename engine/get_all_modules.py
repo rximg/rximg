@@ -41,8 +41,9 @@ class CustomModules(object):
                 reskvback_i[c.__name__] = c
                 reskvfront_i[c.__name__] = CustomRXFunctionParser(c,str(i)).get()
                 # print(reskvfront_i[c.__name__])
-            reskvfront[i]=reskvfront_i
-            reskvback[i]=reskvback_i
+            if calls:
+                reskvfront[i]=reskvfront_i
+                reskvback[i]=reskvback_i
         return reskvfront, reskvback
 
 
