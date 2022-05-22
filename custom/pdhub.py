@@ -24,7 +24,7 @@ def cached_model(func_uniquekey,model_type,*args,**kwargs):
     return model
 
 @rx_func()
-def result_img_show(input_):
+def parse_result(input_):
     if isinstance(input_,list):
         input_ = input_[0]
     if isinstance(input_,ndarray):

@@ -1,0 +1,253 @@
+{
+  "observers": {
+    "0f1c7dcddf0ed850d0e844f439809519": {
+      "args": {
+        "args": {
+          "choices": null,
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "name": "args",
+          "type": "list",
+          "value": [
+            "@parameter_input"
+          ]
+        }
+      },
+      "from": "observables",
+      "name": "of",
+      "op": "",
+      "returnType": "Observable",
+      "type": "func",
+      "uuid": "0f1c7dcddf0ed850d0e844f439809519"
+    },
+    "75b6ccf158d21d6efb896ed56ef137a2": {
+      "args": {
+        "mat": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "mat",
+          "type": "NDArray",
+          "value": null
+        }
+      },
+      "from": "custom",
+      "name": "imshow",
+      "op": "",
+      "returnType": "Any",
+      "type": "func",
+      "uuid": "75b6ccf158d21d6efb896ed56ef137a2"
+    },
+    "79cadf6ea1be2e231cbf436f8ea6928c": {
+      "args": {
+        "filename": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "filename",
+          "type": "str",
+          "value": null
+        },
+        "flags": {
+          "choices": {
+            "IMREAD_ANYCOLOR": 4,
+            "IMREAD_ANYDEPTH": 2,
+            "IMREAD_COLOR": 1,
+            "IMREAD_GRAYSCALE": 0,
+            "IMREAD_IGNORE_ORIENTATION": 128,
+            "IMREAD_LOAD_GDAL": 8,
+            "IMREAD_REDUCED_COLOR_2": 17,
+            "IMREAD_REDUCED_COLOR_4": 33,
+            "IMREAD_REDUCED_COLOR_8": 65,
+            "IMREAD_REDUCED_GRAYSCALE_2": 16,
+            "IMREAD_REDUCED_GRAYSCALE_4": 32,
+            "IMREAD_REDUCED_GRAYSCALE_8": 64,
+            "IMREAD_UNCHANGED": -1,
+            "default": 0
+          },
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "flags",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "from": "cv2",
+      "name": "imread",
+      "op": "map",
+      "returnType": "Callable",
+      "type": "func",
+      "uuid": "79cadf6ea1be2e231cbf436f8ea6928c"
+    },
+    "883dddc6a26e1b4d98e5032b7e35558c": {
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "input_",
+          "type": "Any",
+          "value": null
+        }
+      },
+      "from": "custom",
+      "name": "print_",
+      "op": "",
+      "returnType": "empty",
+      "type": "func",
+      "uuid": "883dddc6a26e1b4d98e5032b7e35558c"
+    },
+    "bbe2bf4f096554033be0bdf675d2eb95": {
+      "args": {
+        "func_uniquekey": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "func_uniquekey",
+          "type": "str",
+          "value": "classification"
+        },
+        "image": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "image",
+          "type": "Any",
+          "value": null
+        },
+        "model_type": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "model_type",
+          "type": "str",
+          "value": "mobilenet_v3_small_imagenet_ssld"
+        },
+        "top_k": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "top_k",
+          "type": "int",
+          "value": 1
+        },
+        "use_gpu": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "use_gpu",
+          "type": "bool",
+          "value": false
+        }
+      },
+      "from": "pdhub",
+      "name": "run_pbhub_classification",
+      "op": "map",
+      "returnType": "Callable",
+      "type": "func",
+      "uuid": "bbe2bf4f096554033be0bdf675d2eb95"
+    },
+    "fd1e4051f080893ec0786da3172f0945": {
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "input_",
+          "type": "Any",
+          "value": null
+        }
+      },
+      "from": "pdhub",
+      "name": "parse_result",
+      "op": "map",
+      "returnType": "Callable",
+      "type": "func",
+      "uuid": "fd1e4051f080893ec0786da3172f0945"
+    },
+    "f79a914ee6088765bd6be45d4589f762": {
+      "type": "func",
+      "from": "pdhub",
+      "uuid": "f79a914ee6088765bd6be45d4589f762",
+      "name": "run_pdhub_object_detection",
+      "op": "map",
+      "returnType": "Callable",
+      "args": {
+        "func_uniquekey": {
+          "index": 5,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "func_uniquekey",
+          "type": "str",
+          "value": "object_detection"
+        },
+        "image": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "image",
+          "type": "Any",
+          "value": null
+        },
+        "model_type": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "model_type",
+          "type": "str",
+          "value": "yolov3_mobilenet_v1_coco2017"
+        },
+        "output_dir": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "output_dir",
+          "type": "str",
+          "value": "resultimg"
+        },
+        "score_thresh": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "score_thresh",
+          "type": "float",
+          "value": 0.5
+        },
+        "use_gpu": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "use_gpu",
+          "type": "bool",
+          "value": false
+        }
+      }
+    }
+  },
+  "relations": {
+    "c011cd4d3c2bdde8c49183999b075bb0": {
+      "args": {
+        "head": {
+          "value": "@0f1c7dcddf0ed850d0e844f439809519"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@79cadf6ea1be2e231cbf436f8ea6928c",
+            "@f79a914ee6088765bd6be45d4589f762",
+            "@fd1e4051f080893ec0786da3172f0945"
+          ]
+        },
+        "subscribe": {
+          "extraData": {
+            "type": "single",
+            "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+          },
+          "type": "str",
+          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
+        }
+      },
+      "from": "core",
+      "name": "build_observerable",
+      "type": "observerable"
+    }
+  },
+  "parameters": {
+    "parameter_input": {
+      "tag": "input",
+      "name": "parameter",
+      "from": "custom",
+      "args": {
+        "input_": {
+          "type": "str",
+          "value": "https://gitee.com/paddlepaddle/PaddleDetection/raw/release/2.4/demo/000000014439_640x640.jpg"
+        }
+      }
+    }
+  }
+}
