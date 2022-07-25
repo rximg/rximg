@@ -1,18 +1,25 @@
 <template>
-  <span >
+  <span>
     <template v-if="selectStatus">
-      <a-select style="width: 128px" v-model="group" option-label-prop="label" @change="selectChange">
-        <div slot="dropdownRender" slot-scope="menu">
-          <v-nodes :vnodes="menu" />
-          <a-divider style="margin: 4px 0" />
-          <div
-            style="padding: 4px 8px; cursor: pointer"
-            @mousedown="(e) => e.preventDefault()"
-            @click="switchToNewItem"
-          >
-            <a-icon type="plus" /> New
+      <a-select
+        style="width: 128px"
+        v-model:value="group"
+        option-label-prop="label"
+        @change="selectChange"
+      >
+        <template v-slot:dropdownRender="menu">
+          <div>
+            <v-nodes :vnodes="menu" />
+            <a-divider style="margin: 4px 0" />
+            <div
+              style="padding: 4px 8px; cursor: pointer"
+              @mousedown="(e) => e.preventDefault()"
+              @click="switchToNewItem"
+            >
+              <plus-square-outlined /> New
+            </div>
           </div>
-        </div>
+        </template>
         <a-select-option
           class="delete-icon"
           :value="item"
@@ -21,9 +28,8 @@
           :label="item"
         >
           {{ item }}
-          <a-icon
+          <delete-outlined 
             style="position: absolute; top: 30%; right: 10%"
-            type="delete"
             @click.stop="deleteItem(item)"
           />
         </a-select-option>
@@ -31,22 +37,25 @@
     </template>
     <template v-else>
       <a-input
-        style="width:128px"
-        v-model="editNameValue"
+        style="width: 128px"
+        v-model:value="editNameValue"
         placeholder="enter a new name"
         @pressEnter="finishNewEdit"
       >
-        <a-icon slot="addonAfter" type="enter" @click="finishNewEdit" />
+        <template v-slot:addonAfter>
+          <enter-outlined @click="finishNewEdit"/>
+        </template>
       </a-input>
     </template>
   </span>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
-import axios from "axios";
+import * as Vue from 'vue'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
+import axios from 'axios'
 export default {
-  name: "editSelect",
+  name: 'editSelect',
   components: {
     VNodes: {
       functional: true,
@@ -59,39 +68,39 @@ export default {
       selectStatus: true,
       groupListValue: undefined,
       groupValue: undefined,
-      editNameValue: "",
-    };
+      editNameValue: '',
+    }
   },
   computed: {
     ...mapState({
       configNamesX: (state) => state.confignames,
     }),
     // ...mapGetters(["currentConfigName","configNames"])
-    group:{
-      get:function () {
-        if (this.groupValue==undefined){
+    group: {
+      get: function () {
+        if (this.groupValue == undefined) {
           // this.groupList = this.configNamesX.names
           return this.configNamesX.current
-        }else{
+        } else {
           return this.groupValue
         }
       },
-      set:function (value) {
+      set: function (value) {
         this.groupValue = value
-      }
+      },
     },
-    groupList:{
-      get:function () {
-        if (this.groupListValue==undefined){
+    groupList: {
+      get: function () {
+        if (this.groupListValue == undefined) {
           return this.configNamesX.names
-        }else{
+        } else {
           return this.groupListValue
         }
       },
-      set:function (value) {
+      set: function (value) {
         this.groupListValue = value
-      }
-    }
+      },
+    },
   },
   // watch:{
   //   configNamesX: function(config){
@@ -101,42 +110,42 @@ export default {
   //   }
   // },
   // mouted(){
-    // this.groupList = this.names
-    // this.group = this.current
+  // this.groupList = this.names
+  // this.group = this.current
   // },
   methods: {
-    ...mapActions(["setCurrentConfigNameAndReload",]),
+    ...mapActions(['setCurrentConfigNameAndReload']),
     async deleteItem(label) {
-      let response = await axios.delete("api/config/" + label);
-      if (response.data.type == "success") {
+      let response = await axios.delete('api/config/' + label)
+      if (response.data.type == 'success') {
         let groupList = this.groupList
-        const index = groupList.indexOf(label);
-        groupList.splice(index, 1);
+        const index = groupList.indexOf(label)
+        groupList.splice(index, 1)
         this.groupList = groupList
         //TODO 删除文件的bug。
       }
     },
     selectChange(value) {
-      console.log('select change',value)
-      this.setCurrentConfigNameAndReload(value);
+      console.log('select change', value)
+      this.setCurrentConfigNameAndReload(value)
     },
     switchToNewItem() {
-      this.selectStatus = false;
+      this.selectStatus = false
     },
     finishNewEdit() {
       let groupList = this.groupList
-      groupList.splice(0, 0, this.editNameValue);
+      groupList.splice(0, 0, this.editNameValue)
       this.groupList = groupList
-      this.group = this.editNameValue;
-      this.selectStatus = true;
+      this.group = this.editNameValue
+      this.selectStatus = true
       this.setCurrentConfigNameAndReload(this.group)
     },
   },
-};
+}
 </script>
 
 <style scoped>
-.ant-input{
+.ant-input {
   width: 128px;
 }
 </style>

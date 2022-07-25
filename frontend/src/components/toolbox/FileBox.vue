@@ -16,115 +16,123 @@
         :infinite-scroll-disabled="busy"
         :infinite-scroll-distance="10"
       >
-        <a-list-item slot-scope="{ item }" @click="fetchFiles(item.value, item.type)">
-          <a-icon :type="item.type" />
-          <li type="float:left" >{{ item.value }}</li>
-        
-          <a-button 
-            v-if="item.type!='rollback'" 
-            icon="plus" 
-            @click.stop="setDirText(item.value)"
-            size="small"> 
-          </a-button>
-        </a-list-item>
+        <template v-slot="{ item }">
+          <a-list-item @click="fetchFiles(item.value, item.type)">
+            <a-icon :type="item.type" />
+            <li type="float:left">{{ item.value }}</li>
+
+            <a-button
+              v-if="item.type != 'rollback'"
+              icon="plus"
+              @click.stop="setDirText(item.value)"
+              size="small"
+            >
+            </a-button>
+          </a-list-item>
+        </template>
       </RecycleScroller>
     </a-list>
-        <a-input-search v-model="dirText" placeholder="input dir" size="small" @search="addDirTexts">
-      <a-button slot="enterButton">
-        <a-icon type="plus" />
-      </a-button>
+    <a-input-search
+      :value="dirText"
+      placeholder="input dir"
+      size="small"
+      @search="addDirTexts"
+    >
+      <template v-slot:enterButton>
+        <a-button>
+          <a-icon type="plus" />
+        </a-button>
+      </template>
     </a-input-search>
     <a-list item-layout="horizontal" style="height: 96px">
-        <a-list-item v-for="(text,index) in retDirTexts" :key=index>
-          <li >{{ text }}</li>
-        </a-list-item>
+      <a-list-item v-for="(text, index) in retDirTexts" :key="index">
+        <li>{{ text }}</li>
+      </a-list-item>
     </a-list>
   </div>
 </template>
 
 <script>
-
-import infiniteScroll from "vue-infinite-scroll";
-import { RecycleScroller } from "vue-virtual-scroller";
-import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
-import { mapActions, mapGetters } from "vuex";
+import infiniteScroll from 'vue-infinite-scroll'
+import { RecycleScroller } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "FileBox",
+  name: 'FileBox',
   directives: { infiniteScroll },
   components: {
     RecycleScroller,
   },
   data() {
     return {
-      currentDir: "~",
+      currentDir: '~',
       files: [],
       index: 15,
       loading: false,
       busy: false,
       page: 10,
       isHiddenFile: true,
-      dirText:"",
-      retDirTexts:[],
-    };
+      dirText: '',
+      retDirTexts: [],
+    }
   },
   computed: {
-    items: function() {
-      let allFiles = this.files;
+    items: function () {
+      let allFiles = this.files
       // console.log('len allFiles',allFiles.length)
       if (this.isHiddenFile) {
-        allFiles = this.files.filter(function(item) {
+        allFiles = this.files.filter(function (item) {
           // console.log('length',item.value,item.value[0] != "." ,item.value=='..',(item.value[0] != ".") | (item.value=='..'))
-          if ((item.value[0] != ".") | (item.value == "..")) {
-            return true;
+          if ((item.value[0] != '.') | (item.value == '..')) {
+            return true
           }
-        });
+        })
       }
       // console.log('len allFiles',allFiles.length,allFiles)
-      return allFiles;
+      return allFiles
     },
     // ...mapGetters(["fileLists"]),
   },
-  watch:{
-    retDirTexts(val){
-      console.log("sendArg",val);
-      this.$emit("sendArgData",val)
-    }
+  watch: {
+    retDirTexts(val) {
+      console.log('sendArg', val)
+      this.$emit('sendArgData', val)
+    },
   },
-
-  mounted: function() {
+  mounted: function () {
     this.getFileList({
-      type: "init",
+      type: 'init',
     }).then((v) => {
-      this.files = v["data"];
-      this.currentDir = v["origin"];
-    });
+      this.files = v['data']
+      this.currentDir = v['origin']
+    })
   },
   methods: {
-    ...mapActions(["getFileList"]),
+    ...mapActions(['getFileList']),
     fetchFiles(dir_, type) {
-      if (type != "file") {
+      if (type != 'file') {
         this.getFileList({
           dir: dir_,
           origin: this.currentDir,
         }).then((v) => {
-          this.files = v["data"];
-          this.currentDir = v["origin"];
-        });
+          this.files = v['data']
+          this.currentDir = v['origin']
+        })
       }
     },
     handleInfiniteOnLoad() {
       if (this.index < this.items.length) {
-        this.index += this.page;
+        this.index += this.page
       }
     },
-    setDirText(text){
-      this.dirText =this.currentDir+'/'+text 
+    setDirText(text) {
+      this.dirText = this.currentDir + '/' + text
     },
-    addDirTexts(text){
+    addDirTexts(text) {
       this.retDirTexts.push(text)
-    }
+    },
   },
-};
+  emits: ['sendArgData'],
+}
 </script>
-<style></style>

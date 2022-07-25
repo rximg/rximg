@@ -67,89 +67,88 @@
 </template>
 
 <script>
-//TODO args list parameter 换成统一的多类型控件
 export default {
-  name: "Parameter",
+  name: 'Parameter',
   props: {
     viewType: {
       default: true,
       type: Boolean,
     },
     type: {
-      default: "str",
+      default: 'str',
       type: String,
     },
     name: {
-      default: "",
+      default: '',
       type: String,
     },
     value: null,
   },
   data() {
     return {
-      typeOptions: ["int", "float", "bool", "str", "tuple"],
+      typeOptions: ['int', 'float', 'bool', 'str', 'tuple'],
       data: {
         type: this.type,
         name: this.name,
         value: this.value,
       },
-      alertValue: "",
-    };
+      alertValue: '',
+    }
   },
   methods: {
     emitOut() {
-      this.$emit("emitValue", {
+      this.$emit('emitValue', {
         type: this.data.type,
         name: this.data.name,
         value: this.data.value,
-      });
+      })
     },
     inputChange(value) {
       // console.log("on emit", value);
-      this.data.value = value;
-      this.emitOut();
+      this.data.value = value
+      this.emitOut()
     },
     tupleChange(value) {
-      value = value.target.value;
-      this.data.value = value;
-      const tupleregex = /^\([0-9,]+\)$/gm;
-      let regexRet = tupleregex.exec(value);
+      value = value.target.value
+      this.data.value = value
+      const tupleregex = /^\([0-9,]+\)$/gm
+      let regexRet = tupleregex.exec(value)
       if (regexRet != null) {
-        this.emitOut();
-        this.alertValue = "";
+        this.emitOut()
+        this.alertValue = ''
       } else {
-        this.alertValue = "tuple format: ([0-9,]).";
+        this.alertValue = 'tuple format: ([0-9,]).'
       }
     },
     lineChange(value) {
-      // this.$emit("emitValue", value.target.value);
-      this.data.value = value.target.value;
-      this.emitOut();
+      this.data.value = value.target.value
+      this.emitOut()
     },
     nameChange(value) {
-      this.data.name = value.target.value;
-      this.emitOut();
+      this.data.name = value.target.value
+      this.emitOut()
     },
     handleTypeChange(value) {
       // console.log("handle change",value)
       switch (value) {
-        case "int":
-          this.data.value = 0;
-          break;
-        case "float":
-          this.data.value = 0;
-          break;
-        case "str":
-          this.data.value = "";
-          break;
-        case "bool":
-          this.data.value = false;
-          break;
+        case 'int':
+          this.data.value = 0
+          break
+        case 'float':
+          this.data.value = 0
+          break
+        case 'str':
+          this.data.value = ''
+          break
+        case 'bool':
+          this.data.value = false
+          break
         default:
-          break;
+          break
       }
-      this.data.type = value;
+      this.data.type = value
     },
   },
-};
+  emits: ['emitValue', 'update:value'],
+}
 </script>

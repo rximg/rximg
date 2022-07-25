@@ -1,5 +1,5 @@
 <template>
-  <div class="main" ref="viewbox" id="viewbox">
+  <div class="main" ref="ViewBoxRef" id="viewbox">
     <h1>Viewer</h1>
     <!-- <div></div> -->
     <!-- <img :src="ndimgurl(1)" > -->
@@ -10,7 +10,11 @@
       :hoverable="false"
       :headStyle="headTools"
     >
-      <a slot="extra" href="#">
+      <template #extra href="#">
+        <a-button style="margin-right: 4px" @click="persistStore()"
+          >Save
+          <a-icon type="play-circle" />
+        </a-button>
         <a-button style="margin-right: 4px" @click="execute"
           >Execute
           <a-icon type="play-circle" />
@@ -19,8 +23,8 @@
           >Clean
           <a-icon type="delete" />
         </a-button> -->
-      </a>
-      <a-row v-for="(item, index) in parameters" :key="index">
+      </template>
+      <!-- <a-row v-for="(item, index) in parameters" :key="index">
         <a-col :span="22">
           <parameter
             :type="item.args.input_.type"
@@ -33,11 +37,11 @@
         <a-col :span="2">
           <a-button icon="delete" @click="parameterDel(item.tag)"></a-button>
         </a-col>
-      </a-row>
+      </a-row> -->
     </a-card>
     <div style="margin-top: 16px overflow-y: auto">
       <a-timeline>
-        <div v-for="(item, index) in resultsLog" :key="index" > 
+        <div v-for="(item, index) in ViewStore.logs" :key="index" > 
         <a-timeline-item  v-if="item.type == 'result' && item.visible==true">
           <div>
             <li>
@@ -54,7 +58,7 @@
 
             <a v-if="item.ret.type == 'imshow'">
               <div class="box">
-                <img :src="imgurl(item.ret.imname)" />
+                <img :src="CurrentStateStore.getNdarrayUrl(item.ret.imname)" />
               </div>
             </a>
             <a v-else-if="item.ret.type == 'print'">
@@ -64,9 +68,9 @@
               <NDArray
                 :title="item.ret.repr"
                 :id="item.ret.id"
-                :winWidth="domWidth"
+                :winWidth="width"
+                :apiurl="CurrentStateStore.apiurl"
               />
-              <!-- {{ item.ret.show }} -->
             </a>
 
             <a v-else>
@@ -86,90 +90,90 @@
       <a-modal 
           :visible="traceModalVisibleFlag" 
           title="traceback" 
-          @ok="handleTraceVisible(false)">
+          :destroyOnClose="true"
+          @ok="handleTraceVisible(false)"
+          @cancel="handleTraceVisible(false)">
         {{ traceback }}
       </a-modal>
     </div>
   </div>
 </template>
 
-<script>
+<script setup lang='ts'>
 //TODO view缩略，缩略args
-import Parameter from "./stateless/Parameter.vue";
-import NDArray from "./stateless/NDArray.vue";
-import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
-export default {
-  name: "Viewer",
-  props: {
-    msg: String,
-  },
-  components: { Parameter, NDArray },
-  data() {
-    return {
-      headTools: {
+//TODO 显示traceback
+//TODO 考虑显示最后一个card的subscribe的结果
+// import Parameter from "./stateless/Parameter.vue";
+// import NDArray from "./stateless/NDArray.vue";
+import { onMounted,computed,ref,type Ref } from "vue";
+import axios from "axios";
+import {ViewStore,CurrentStateStore,persistStore}  from "@/store";
+import { useElementSize } from '@vueuse/core'
+const headTools = {
         background: "#348498",
         color: "white",
         "font-size": "x-large",
-      },
-      domWidth: null,
-      traceModalVisible:false
-
-    };
-  },
-  mounted: function () {
-    // console.log('get dom',document.getElementById("viewbox"),this.$refs)
-    this.domWidth = this.$refs.viewbox.clientWidth;
-  },
-  computed: {
+      }
+const traceModalVisible = ref(false)
+const ViewBoxRef:Ref<any> = ref(null)
+// const domWidth = computed(()=>{
+//   return ViewBoxRef.value.$el.clientHeight;
+// })
+// let apiurl = ""
+const { width } = useElementSize(ViewBoxRef)
+onMounted(
+    ()=>{
+        // console.log('view this',ViewBoxRef)
+        // console.log('get dom',document.getElementById("viewbox"),this.$refs)
+        // ViewBoxRef.value.$el.clientHeight;
+    }
+)
     // ...mapState("views", { allViews: "data", viewResult: "results" }),
     // ...mapGetters("relations", ["relationChange"]),
-    ...mapGetters("views",["traceback",]),
-    // ...mapState("relations", { allRelations: "data" }),
-    ...mapState("views", { resultsLog: "logs", 
-        parameters: "parameters", }),
-    traceModalVisibleFlag() {
-      return this.traceModalVisible && this.traceback.length!=0
-    },
-    // viewWidth:function () {
-    //   return this.
-    // }
-    // ...mapGetters("views", ["allParameters"]),
-    // getViews: function() {
-    //   var change = this.relationChange;
-    //   console.log("view get change time", change);
-    //   this.flushViews(this.allRelations);
-    //   return this.allViews;
-    // },
-  },
-  // watch
-  methods: {
-    ...mapActions(["save"]),
-    ...mapMutations("views", ["cleanLogs", "addParameter", "delParameter"]),
-    imgurl(item) {
-      return this.$apiurl + "/ndarray/" + item;
-    },
-    handleTraceVisible(flag){
-      this.traceModalVisible = flag
-    },
-    execute() {
-      this.cleanLogs()
-      this.$socket.emit("execute_event",);
-      this.traceModalVisible = true
-    },
-    parameterChange(item) {
-      // console.log('para:',item)
-      // let {type,value,type } = item.args.input_
-      this.addParameter(item);
-      this.save();
-    },
-    parameterDel(name) {
-      // console.log('para:',name)
-      // let {type,value,type } = item.args.input_
-      this.delParameter(name);
-      this.save();
-    },
-  },
-};
+    // ...mapGetters("views",["traceback",]),
+    // // ...mapState("relations", { allRelations: "data" }),
+    // ...mapState("views", { resultsLog: "logs", 
+    //     parameters: "parameters", }),
+const traceModalVisibleFlag = computed(()=>{
+      return traceModalVisible.value && traceback.length!=0
+    })
+
+    // ...mapActions(["save"]),
+    // ...mapMutations("views", ["cleanLogs", "addParameter", "delParameter"]),
+// const imgurl= (item)=> {
+//       return CurrentStateStore.apiurl + "/ndarray/" + item;
+//     }
+
+const traceback = computed(()=>{
+        var traces =""
+        for (var i in ViewStore.logs) {
+            var item = ViewStore.logs[i]
+            if (item.type == 'exception'){
+                traces = traces+item.trace
+            }
+        }
+        return traces
+    }
+)
+const handleTraceVisible = (flag:boolean)=>{
+      traceModalVisible.value = flag
+    }
+const  execute = async ()=> {
+      ViewStore.cleanLogs()
+      await axios.get('api/execute')
+    //   this.$socket.emit("execute_event",);
+      traceModalVisible.value = false
+    }
+// const parameterChange=(item)=> {
+//       this.addParameter(item);
+//       this.save();
+//     }
+// const  parameterDel=(name)=> {
+//       // console.log('para:',name)
+//       // let {type,value,type } = item.args.input_
+//       this.delParameter(name);
+//       this.save();
+//     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

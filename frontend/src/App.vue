@@ -1,289 +1,261 @@
 <template>
-  <div id="app">
-    <!-- <a-modal :visible="true" title="Basic Modal" > -->
-    <!-- <FileBox/> -->
-    <!-- <Test/> -->
-    <!-- </a-modal> -->
-    <a-layout style="height=fullHeight">
-      <a-layout-header style="background: #f0f2f5"
-        ><a-page-header
-          style="border: 1px solid rgb(235, 237, 240)"
-          title="RxImg"
-          sub-title="Reactive image processing"
-        >
-          <template slot="extra">
-            <span key="1"> name: </span>
+  <div class="container">
+    <a-row type="flex">
+      <a-col flex="480px">
+        <MainMenu></MainMenu>
+      </a-col>
+      <a-col flex="auto">
+        <template v-if="CurrentStateStore.global_datarefresh">
+          <Graph :autoResize="true" @ready="ready">
+            <!-- <VueShape
+          primer="rect"
+          :id="librarynode"
+          :x="10"
+          :y="10"
+          :width="160"
+          :attrs="{ rect: { fill: '#ddd' } }"
+          @added="added"
+          @cell:change:zIndex="changed"
+          :zIndex="9999"
+        ></VueShape> -->
+            <template v-for="(node, nkey) in ObserverablesStore" :key="nkey">
+              <VueShape primer="rect" :id="nkey" :x="node.location.x" :y="node.location.y"
+                :width="node.location.boxWidth" :height="node.location.boxHeight" :attrs="{ rect: { fill: '#ddd' } }"
+                @cell:change:zIndex="changed">
+                <div>
+                  <ObserverableCard :ObservableItem="node"></ObserverableCard>
+                </div>
+                <template #port>
 
-            <edit-select key="2" />
-            <!-- <a-radio-group key="3" @change="radioChange">
-              <a-radio-button value="element">Element</a-radio-button>
-              <a-radio-button value="observer">Observer</a-radio-button>
-              <a-radio-button value="relations">Relations</a-radio-button>
-              <a-radio-button value="viewer">Viewer</a-radio-button>
-            </a-radio-group> -->
-            <a-button-group id="title-group" key="3">
-              <a-button
-                :class="
-                  colShow.element
-                    ? 'title-button-selected'
-                    : 'title-button-disselected'
-                "
-                @click="radioChange('element')"
-                >Library</a-button
-              >
-              <a-button
-                :class="
-                  colShow.observer
-                    ? 'title-button-selected'
-                    : 'title-button-disselected'
-                "
-                @click="radioChange('observer')"
-                >Operators</a-button
-              >
-              <a-button
-                :class="
-                  colShow.relations
-                    ? 'title-button-selected'
-                    : 'title-button-disselected'
-                "
-                @click="radioChange('relations')"
-                >Observerables</a-button
-              >
-              <a-button
-                :class="
-                  colShow.viewer
-                    ? 'title-button-selected'
-                    : 'title-button-disselected'
-                "
-                @click="radioChange('viewer')"
-                >Viewer</a-button
-              >
-            </a-button-group>
+                  <PortGroup name="in" position="top" :attrs="{ circle: { r: 6, magnet: true, stroke: '#31d0c6' } }">
+                    <template v-for="(port, port_index) in inPorts(node)" :key="port_index">
 
-            <!-- <a-button key="1" type="primary">
-              Setting
-            </a-button> -->
-          </template>
-        </a-page-header>
-      </a-layout-header>
-      <a-layout-content>
-        <a-row :gutter="8">
-          <a-col :span="colShow.element ? colSpan : 0">
-            <Element
-              class="main-box-border"
-              :style="{ height: clientHeight * 0.85 + 'px' }"
-            />
-          </a-col>
-          <a-col :span="colShow.observer ? colSpan : 0">
-            <Observer
-              class="main-box-border"
-              :style="{ height: clientHeight * 0.85 + 'px' }"
-            />
-          </a-col>
-          <a-col :span="colShow.relations ? colSpan : 0">
-            <Relations
-              class="main-box-border"
-              :style="{ height: clientHeight * 0.85 + 'px' }"
-            />
-          </a-col>
-          <a-col :span="colShow.viewer ? colSpan : 0">
-            <Viewer
-              class="main-box-border"
-              :style="{ height: clientHeight * 0.85 + 'px' }"
-            />
-          </a-col>
-        </a-row>
-        <!-- </div>
-        </template> -->
-      </a-layout-content>
-      <a-layout-footer style="text-align: center">copyright</a-layout-footer>
-    </a-layout>
+                      <Port :id="port.port_id" />
+                    </template>
+                  </PortGroup>
+
+                  <PortGroup name="out" position="bottom"
+                    :attrs="{ circle: { r: 6, magnet: true, stroke: '#C1693C' } }">
+                    <template v-for="(port, port_index) in outPorts(node)" :key="port_index">
+                      <Port :id="port" />
+                    </template>
+                  </PortGroup>
+                </template>
+              </VueShape>
+            </template>
+
+            <template v-for="(edge, ekey) in CurrentStateStore.edges" :key="ekey">
+              <template v-if="edge">
+                <Edge :id="ekey" :source="edge.source" :target="edge.target"
+                  :router="{ name: 'metro', args: { padding: 10 } }" :label="ekey" />
+              </template>
+            </template>
+            <Scroller :width="graphWidth" :height="graphHeight" />
+            <Background />
+            <Grid :visible="true" />
+
+            <Snapline />
+
+            <MouseWheel />
+            <MiniMap />
+
+            <Connecting :validateEdge="validateEdge" :allowBlank="false" allowMulti="withPort" :allowLoop="false"
+              :allowEdge="false" :allowPort="true" />
+            <TeleportContainer />
+          </Graph>
+        </template>
+
+      </a-col>
+    </a-row>
   </div>
 </template>
 
-<script>
-import Relations from "./components/RelationsBox.vue";
-import Viewer from "./components/ViewBox.vue";
-import Observer from "./components/ObserversBox.vue";
-import Element from "./components/ElementsBox.vue";
-import { mapActions } from "vuex";
-import editSelect from "./components/stateless/editSelect.vue";
+<script lang="ts">
 
-import VueDraggableResizable from "vue-draggable-resizable";
-import FileBox from "./components/toolbox/FileBox.vue";
-export default {
-  components: { Relations, Viewer, Observer, Element, editSelect },
+
+import { defineComponent, ref, h, toRefs, computed, shallowRef, onMounted } from "vue";
+import { Port, PortGroup, TeleportContainer } from "antv-x6-vue";
+import Graph, {
+  Node,
+  Edge,
+  VueShape,
+  useVueShape,
+  VueShapeProps,
+  GraphContext,
+  useCellEvent,
+  Grid,
+  Background,
+  Clipboard,
+  Snapline,
+  Selection,
+  Keyboard,
+  Scroller,
+  MouseWheel,
+  MiniMap,
+  Connecting,
+} from "antv-x6-vue";
+
+import _ from 'lodash'
+// import Observerable from "./components/ObservableCard.vue";
+import ObserverableCard from "./components/ObserverableCard.vue";
+// import { Menu } from "ant-design-vue";
+// import {useStore} from 'vuex';
+import "ant-design-vue/es/menu/style/css";
+// import demo from '../src/components/demo.vue'
+// import VueDemo from "./components/VueDemo.vue";
+import MainMenu from "./components/MainMenu.vue";
+import {
+  initStore,
+  ObserverablesStore,
+  RXFunctionsStore,
+  CurrentStateStore,
+  persistStore,
+  ViewStore,
+} from "@/store";
+import type { Observerable } from "./store/Observers";
+
+const App = defineComponent({
   name: "App",
-  // mounted() {
-  //   window.onresize = () => {
-  //     return (() => {
-  //       this.fullHeight = document.documentElement.clientHeight;
-  //       console.log(this.fullHeight);
-  //     })();
-  //   };
-  // },
-  // components: {
-  //   HelloWorld
-  // }
-  data() {
-    return {
-      clientHeight: document.body.clientHeight,
-      width: 0,
-      height: 0,
-      x: 0,
-      y: 0,
-      colShow: {
-        element: true,
-        observer: true,
-        relations: true,
-        viewer: true,
-      },
-    };
-  },
-  created: function () {
-    // created: function() {
-    this.initStore();
-    // console.log('so emit')
-    // },
-  },
-  mounted() {
-    // const that = this
-    window.onresize = () => {
-      return (() => {
-        // window.screenHeight = document.body.clientHeight
-        this.clientHeight = document.body.clientHeight;
-        // console.log(that.clientHeight)
-      })();
-    };
-  },
-  watch: {
-    clientHeight(val) {
-      if (!this.timer) {
-        this.clientHeight = val;
-        this.timer = true;
-        let that = this;
-        setTimeout(function () {
-          // 打印screenWidth变化的值
-          console.log(that.clientHeight);
-          that.timer = false;
-        }, 400);
-      }
-    },
-  },
-  computed: {
-    colSpan: function () {
-      var num = 0;
-      for (let key in this.colShow) {
-        if (this.colShow[key] == true) {
-          num = num + 1;
-        }
+  setup(props, context) {
+
+    const bodyWidth = ref(document.body.clientWidth);
+    const graphWidth = computed(() => bodyWidth.value - 480);
+
+    onMounted(async () => {
+      await initStore();
+      window.onresize = () => {
+        return (() => {
+          bodyWidth.value = document.documentElement.clientWidth;
+        })()
       }
 
-      return 24 / num;
-    },
+    });
+
+    const outPorts = computed(() => (node: Observerable) => {
+      // console.log('outports index', node.subscribe.cast_value)
+      if (typeof node.subscribe.cast_value == 'number') {
+        //最大长度为this.subscribe.cast_value 的列表
+        const result = Array.from({ length: node.subscribe.cast_value }, (_, i) => `${node.uuid}_out_${i}`)
+        // console.log('outPorts', result)
+        return result
+      } else {
+        return []
+      }
+    })
+    type InPort = {
+      name: string,
+      port_id: string,
+      index: number,
+    }
+    const inPorts = computed(() => (node: Observerable) => {
+      const port = node.upstream.extraInPorts
+      const result: InPort[] = []
+      if (port) {
+        Object.keys(port).forEach(
+          (key) => {
+            const value = port[key]
+            if (value > 0) {
+              for (let i = 0; i < value; i++) {
+                result.push({ name: key, index: i, port_id: `${node.upstream.uuid}_${key}_${i}` })
+              }
+            } else {
+              result.push({ name: key, index: 0, port_id: `${node.upstream.uuid}_${key}_${0}` })
+            }
+          }
+        )
+        // console.log('input ports', result)
+        return result
+        // return Array.from({ length: this.upstream.extraInPorts.index }, (_, i) => `${this.uuid}_in_${i}`)
+      } else {
+        return []
+      }
+    })
+    const removedEdge = async ({ edge }) => {
+      console.log("removedEdge", edge);
+      delete CurrentStateStore.edges[edge.id];
+      persistStore()
+    };
+    const changedEdge = async ({ edge }) => {
+      console.log("changedEdge", edge);
+      CurrentStateStore.edges[edge.id] = { source: edge.source, target: edge.target };
+      persistStore()
+    };
+
+
+    const ready = ({ graph }) => {
+      graph.on("edge:connected", ({ isNew, edge }) => {
+        changedEdge({ edge })
+
+      })
+      graph.on("edge:dblclick", removedEdge);
+
+    }
+    return {
+      // stencil,
+      // addedEdge,
+      graphWidth,
+      ready,
+      inPorts,
+      outPorts,
+      // global_library,
+      ObserverablesStore,
+      RXFunctionsStore,
+      CurrentStateStore,
+      ViewStore,
+      // computedBoxSize,
+      graphHeight: ref(document.body.clientHeight),
+    };
   },
-  methods: {
-    onResize: function (x, y, width, height) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
-    },
-    onDrag: function (x, y) {
-      this.x = x;
-      this.y = y;
-    },
-    ...mapActions(["initStore"]),
-    radioChange(value) {
-      // let value = target.value
-      this.colShow[value] = !this.colShow[value];
-      console.log("radio change:", value);
-    },
+  components: {
+    Graph,
+    Node,
+    Edge,
+    // VueDemo,
+    MainMenu,
+    Grid,
+    Background,
+    ObserverableCard,
+    // Clipboard,
+    Snapline,
+    // demodata,
+    // Selection,
+    Scroller,
+    // Keyboard,
+    MouseWheel,
+    Connecting,
+    MiniMap,
+    VueShape,
+    // CustomNode,
+    // Stencil,
+    // StencilGroup,
+    // ContextMenu,
+    // Menu,
+    // MenuItem,
+    Port,
+    PortGroup,
+    TeleportContainer,
   },
-};
+});
+
+export default App;
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+<style lang="less">
+.container {
 
-h1 {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+  // display: flex;
+  // height: 99vh;
+  .x6-graph-scroller {
+    height: 100%;
+  }
 
-/* div.main {
-  padding: 10px;
-} */
-/* .app >>> .ant-row > div {
-  background: transparent;
-  border: 0;
-} */
-/* .gutter-box {
-  background: #00a0e9;
-  padding: 5px 0;
-} */
-.main-box-border {
-  padding: 10px;
-  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.08);
-  /* min-height: 600px; */
-  border-radius: 2px;
-  background: white;
-  overflow-y: auto;
-  /* height: 100%; */
+  // .stencil {
+  //   width: 100%;
+  //   height: 100%;
+  //   position: relative;
+  // }
+  // #graph-contaner {
+  //   flex: 1;
+  // }
 }
-
-.title-button-selected {
-  background-color: #305a56;
-  border-color: #305a56;
-  color: #fff;
-  border-style: solid;
-}
-
-.title-button-disselected {
-  background-color: white;
-  border-color: #305a56;
-  color: #305a56;
-  border-style: dashed;
-}
-#title-group > .ant-btn:hover,
-#title-group > .ant-btn:focus {
-  color: #305a56;
-  background-color: #fff;
-  border-color: #305a56;
-}
-
-/* #title-group>.ant-btn:focus {
-    color: #fff;
-    background-color: #305A56;
-    border-color: #305A56;
-} */
-
-#title-group::selection {
-  color: #fff;
-  background: #305a56;
-}
-
-
-
-div::-webkit-scrollbar {
-  width: 10px;
-  height: 1px;
-}
-div::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background: #cad0d6;
-}
-div::-webkit-scrollbar-track {
-  border-radius: 2px;
-  background: transparent;
-}
-/* a-col.relation-box { */
-/* min-height: 600px; */
-/* } */
 </style>
