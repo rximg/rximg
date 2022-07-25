@@ -85,7 +85,8 @@ class Args(object):
             # print(v)
             self.index_dict[k]=v.get('index',0)
             if value == None:
-
+                self.null_args.append(k)
+            elif isinstance(value,str) and value=='None':
                 self.null_args.append(k)
             elif isinstance(value, str) and value.startswith('@'):
                 ret = self.build_on_context(value[1:],context)
@@ -106,6 +107,7 @@ class Args(object):
                     self.args = ret
                 else:
                     self.args = [ret]
+                print('get VAR_POSITIONAL',ret,self.args)
             else:
                 raise ValueError("arg kind error:{}".format(data))
 
@@ -162,6 +164,7 @@ def eval_called(func, module, args: Args):
         ExeStack.exception(str(error))
         raise error
     try:
+        print("eval_func",eval_func.__name__,args.args,args.kwargs)
         ret = eval_func(*args.args, **args.kwargs)
     except Exception as e:
         ExeStack.exception(traceback.format_exc())
@@ -189,6 +192,7 @@ class SingleCallable(object):
     def __call__(self, placeholder: Any) -> Any:
         null_key = self.args.null_args[0]
         self.args.kwargs[null_key] = placeholder
+        # print("SingleCallable",self.args.args,self.func)
         ret = self.func(*self.args.args, **self.args.kwargs)
         return ret
 

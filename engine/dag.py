@@ -107,12 +107,51 @@ class RecursiveParse(object):
             context[dagk] = func.get_instance()
         return context
 
+    # def get_upstream(self,port_id,edges):
+    #     for k,v in edges.items():
+    #         if v['target']['port'] == port_id:
+    #             cell = v['source']['cell']
+    #             if not cell.startswith('@'):
+    #                 cell = "@core.get_subject('{}')".format(cell)
+    #             return cell
+    def target_source_map(self,edges):
+        ret = {}
+        for k,v in edges.items():
+            ret[v['target']['port']] = v['source']['cell']
+        return ret
+
+    def merge_edges(self,observers,edges_map):
+        for ob_k,ob_info in observers.items():
+            addargs = {}
+            if 'extraInPorts' in ob_info.keys() and ob_info['extraInPorts']:
+                for extra_arg_k,extra_arg_v in ob_info['extraInPorts'].items():
+                    arg_list = []
+                    for index in range(extra_arg_v):
+                        port_id = "{}_{}_{}".format(ob_k,extra_arg_k,index)
+                        target_cell = edges_map[port_id]
+                        target_cmd = "@core.get_subject('{}')".format(target_cell)
+                        arg_list.append(target_cmd)
+                    addargs[extra_arg_k] = arg_list
+            if addargs:
+                for arg_k,arg_v in ob_info['args'].items():
+                    is_list = arg_v['type']=='list' and isinstance(arg_v['type'],list)
+                    if is_list:
+                        arg_v['value'].extend(addargs[arg_k])
+                    else:
+                        arg_v['value'] = addargs[arg_k]
+
+        return observers
+                        
+
+
 
     def run(self,data,):
         observers={}
         observers.update(data["observers"])
         observers.update(data["relations"])
         observers.update(data["parameters"])
+        edgemap = self.target_source_map(data["edges"])
+        observers = self.merge_edges(observers,edgemap)
         dag = DAGParser(observers)
         sorteddag = dag.run()
         ready = self.build_on_sorted(observers,sorteddag)
@@ -121,13 +160,15 @@ class RecursiveParse(object):
                 # print('subscribe',v)
                 # v.subscribe()
 
+        return ready
+
 
 if __name__ == "__main__":
 
     # with open('./tests/dag_observers.json','r') as f:
     #     line = f.read()
     #     odata = json.loads(line)
-    with open('./configs/seamlessClone.json','r') as f:
+    with open('./configs/test.json','r') as f:
         line = f.read()
         rdata = json.loads(line)
     # obss = data["observers"]

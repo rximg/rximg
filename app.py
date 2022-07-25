@@ -93,6 +93,21 @@ def execute_event():
         ExeStack.exception(traceback.format_exc())
         raise e
 
+
+@app.route('/api/execute',methods=['GET'])
+def execute():
+    data = jsoncfg.load_params()
+    # stack.deq.append(
+        # partial()
+    # )
+    ExeStack.init_store()
+    try:
+        RecursiveParse().run(data)
+    except Exception as e:
+        ExeStack.exception(traceback.format_exc())
+        raise e
+    return {'type':'success'}
+
 @app.route('/api/config/<name>',methods=['PUT','DELETE'])
 def set_current_name(name):
     if request.method == 'PUT':

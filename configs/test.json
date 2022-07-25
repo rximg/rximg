@@ -1,159 +1,164 @@
 {
   "observers": {
-    "75b6ccf158d21d6efb896ed56ef137a2": {
-      "args": {
-        "mat": {
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "mat",
-          "type": "NDArray",
-          "value": null
-        }
-      },
+    "994bc21f6bbe547a0675f3d57ba7b949": {
+      "type": "lambda",
       "from": "custom",
-      "name": "imshow",
-      "op": "",
-      "output": [],
-      "returnType": "Any",
-      "type": "func",
-      "uuid": "75b6ccf158d21d6efb896ed56ef137a2"
-    },
-    "79cadf6ea1be2e231cbf436f8ea6928c": {
-      "args": {
-        "filename": {
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "filename",
-          "type": "Any",
-          "value": null
-        },
-        "flags": {
-          "choices": {
-            "IMREAD_ANYCOLOR": 4,
-            "IMREAD_ANYDEPTH": 2,
-            "IMREAD_COLOR": 1,
-            "IMREAD_GRAYSCALE": 0,
-            "IMREAD_IGNORE_ORIENTATION": 128,
-            "IMREAD_LOAD_GDAL": 8,
-            "IMREAD_REDUCED_COLOR_2": 17,
-            "IMREAD_REDUCED_COLOR_4": 33,
-            "IMREAD_REDUCED_COLOR_8": 65,
-            "IMREAD_REDUCED_GRAYSCALE_2": 16,
-            "IMREAD_REDUCED_GRAYSCALE_4": 32,
-            "IMREAD_REDUCED_GRAYSCALE_8": 64,
-            "IMREAD_UNCHANGED": -1,
-            "default": 0
-          },
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "name": "flags",
-          "type": "choices",
-          "value": 0
-        }
-      },
-      "from": "cv2",
-      "name": "imread",
+      "uuid": "994bc21f6bbe547a0675f3d57ba7b949",
+      "name": "lambda_",
       "op": "map",
-      "output": [],
-      "returnType": "NDArray",
-      "type": "func",
-      "uuid": "79cadf6ea1be2e231cbf436f8ea6928c"
-    },
-    "ff892c8889952456a195e27a72737e82": {
+      "returnType": "Any",
       "args": {
         "args": {
-          "choices": null,
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "name": "args",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
           "type": "list",
           "value": [
-            "data/wd.jpg"
+            "x0",
+            "x1"
+          ]
+        },
+        "line": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "x0+x1"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "ca4989a6e4530657902d9384877033fd": {
+      "type": "func",
+      "from": "observables",
+      "uuid": "ca4989a6e4530657902d9384877033fd",
+      "name": "zip",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {
+        "args": 2
+      }
+    },
+    "da7695037b246a75bdca698858191c5f": {
+      "type": "func",
+      "from": "observables",
+      "uuid": "da7695037b246a75bdca698858191c5f",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            0,
+            2
           ]
         }
       },
-      "from": "observables",
-      "name": "of",
-      "op": "",
-      "output": [],
-      "returnType": "Observable",
+      "extraInPorts": {}
+    },
+    "f18e96b5761feec05159a9ed8aa0f5fd": {
       "type": "func",
-      "uuid": "ff892c8889952456a195e27a72737e82"
+      "from": "custom",
+      "uuid": "f18e96b5761feec05159a9ed8aa0f5fd",
+      "name": "print_",
+      "returnType": "empty",
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
     }
   },
   "relations": {
-    "196f833689baa78d589f526ca2f91635": {
+    "284cd35f-d1a0-431b-97b7-0bc9a52be85a": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "284cd35f-d1a0-431b-97b7-0bc9a52be85a",
+      "name": "build_observerable",
+      "location": {
+        "x": 0,
+        "y": 0,
+        "type": "obserable",
+        "boxWidth": 425,
+        "boxHeight": 178
+      },
       "args": {
         "head": {
-          "value": "@ff892c8889952456a195e27a72737e82"
+          "value": "@da7695037b246a75bdca698858191c5f"
+        },
+        "pipe": {
+          "type": "list",
+          "value": []
+        },
+        "subscribe": {
+          "type": "MultiCast",
+          "value": "@core.get_subject('284cd35f-d1a0-431b-97b7-0bc9a52be85a')",
+          "cast_value": 2
+        }
+      }
+    },
+    "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5",
+      "name": "build_observerable",
+      "location": {
+        "x": 0,
+        "y": 0,
+        "type": "obserable",
+        "boxWidth": 425,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@ca4989a6e4530657902d9384877033fd"
         },
         "pipe": {
           "type": "list",
           "value": [
-            null,
-            "@79cadf6ea1be2e231cbf436f8ea6928c"
+            "@994bc21f6bbe547a0675f3d57ba7b949"
           ]
         },
         "subscribe": {
-          "extraData": {
-            "type": "multicast",
-            "value": [
-              1,
-              2
-            ]
-          },
-          "type": "str",
-          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635')"
-        }
-      },
-      "from": "core",
-      "name": "build_observerable",
-      "type": "observerable"
-    },
-    "196f833689baa78d589f526ca2f91635_1": {
-      "args": {
-        "head": {
-          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635')"
-        },
-        "pipe": {
-          "type": "list",
-          "value": []
-        },
-        "subscribe": {
-          "extraData": {
-            "type": "single",
-            "value": "@75b6ccf158d21d6efb896ed56ef137a2"
-          },
-          "type": "str",
-          "value": "@75b6ccf158d21d6efb896ed56ef137a2"
-        }
-      },
-      "from": "core",
-      "name": "build_observerable",
-      "type": "observerable"
-    },
-    "196f833689baa78d589f526ca2f91635_2": {
-      "type": "observerable",
-      "from": "core",
-      "name": "build_observerable",
-      "args": {
-        "head": {
-          "value": "@core.get_subject('196f833689baa78d589f526ca2f91635')"
-        },
-        "pipe": {
-          "type": "list",
-          "value": []
-        },
-        "subscribe": {
-          "type": "str",
-          "value": "@75b6ccf158d21d6efb896ed56ef137a2",
-          "extraData": {
-            "type": "single",
-            "value": "@75b6ccf158d21d6efb896ed56ef137a2"
-          }
+          "type": "SingleCast",
+          "value": "@f18e96b5761feec05159a9ed8aa0f5fd",
+          "cast_value": "f18e96b5761feec05159a9ed8aa0f5fd"
         }
       }
     }
   },
-  "parameters": {}
+  "parameters": {},
+  "edges": {
+    "daf56ef3-9931-4ef4-9f45-451ea7a0ef9a": {
+      "source": {
+        "cell": "284cd35f-d1a0-431b-97b7-0bc9a52be85a",
+        "port": "284cd35f-d1a0-431b-97b7-0bc9a52be85a_out_1"
+      },
+      "target": {
+        "cell": "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5",
+        "port": "ca4989a6e4530657902d9384877033fd_args_1"
+      }
+    },
+    "faedfefe-e862-4434-af14-52b2b2b8f6bc": {
+      "source": {
+        "cell": "284cd35f-d1a0-431b-97b7-0bc9a52be85a",
+        "port": "284cd35f-d1a0-431b-97b7-0bc9a52be85a_out_0"
+      },
+      "target": {
+        "cell": "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5",
+        "port": "ca4989a6e4530657902d9384877033fd_args_0"
+      }
+    }
+  }
 }

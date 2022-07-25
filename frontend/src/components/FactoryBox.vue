@@ -101,6 +101,9 @@
             </a-mentions>
           </span>
         </div>
+        <div v-else-if="fuctionData.type=='list'">
+          <List @change="change_listitems"></List>
+        </div>
         <div v-else-if="functionData.type == 'parameter'">
           <parameter :viewType="false" @emitValue="setParameter" />
         </div>
@@ -120,6 +123,7 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 import ArgItem from "./stateless/ArgItem.vue";
 import FileBox from "./toolbox/FileBox.vue";
 import Parameter from "./stateless/Parameter.vue";
+import List from "./stateless/List.vue";
 export default {
   data() {
     return {
@@ -131,10 +135,11 @@ export default {
       argData: {},
       op: "",
       parameterValue: {},
+      listItems:[]
     };
   },
   name: "Factory",
-  components: { ArgItem, FileBox, Parameter },
+  components: { ArgItem, FileBox, Parameter, List },
   computed: {
     ...mapGetters("factory", ["lockedStatus", "functionData"]),
     // ...mapGetters(["allRefable"]),
@@ -228,7 +233,9 @@ export default {
     setParameter(value) {
       this.parameterValue = value;
     },
-
+    change_listitems(items){
+      this.listItems = items
+    }
     // setDirArgData(event){
     //   this.argData=event
     // }

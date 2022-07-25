@@ -62,6 +62,49 @@
       "output": [],
       "type": "func",
       "uuid": "883dddc6a26e1b4d98e5032b7e35558c"
+    },
+    "95036684e06ef424dc7c792d0688f8c5": {
+      "type": "lambda",
+      "from": "custom",
+      "line": "x0>5",
+      "args": {
+        "line": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "x0>5"
+        },
+        "args": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0"
+          ]
+        }
+      },
+      "op": "",
+      "uuid": "95036684e06ef424dc7c792d0688f8c5",
+      "name": "LAMBDA"
+    },
+    "263682c32c59bf62a4d7452d5d6943f7": {
+      "type": "func",
+      "from": "operators",
+      "uuid": "263682c32c59bf62a4d7452d5d6943f7",
+      "name": "filter",
+      "op": "",
+      "returnType": "Callable",
+      "args": {
+        "predicate": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "predicate",
+          "type": "Any",
+          "value": "@95036684e06ef424dc7c792d0688f8c5",
+          "choices": null,
+          "title_tag": true
+        }
+      }
     }
   },
   "relations": {
@@ -74,7 +117,8 @@
           "type": "list",
           "value": [
             null,
-            "@17729c1dd25c1bb1b886068a5e2e9cd7"
+            "@17729c1dd25c1bb1b886068a5e2e9cd7",
+            "@263682c32c59bf62a4d7452d5d6943f7"
           ]
         },
         "subscribe": {

@@ -201,6 +201,7 @@ def imread(filename: str, flags: ENUM_CV_ImreadModes = ENUM_CV_ImreadModes.defau
         image = np.asarray(bytearray(rep.content), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
         return image
+    print(filename)
     return cv2.imread(filename=filename, flags=cv2.IMREAD_UNCHANGED)
 
 

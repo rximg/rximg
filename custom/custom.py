@@ -79,10 +79,10 @@ def take_return_index(returns,index:int):
 
 def except_eval(line,kwargs):
     try:
-        print('lambda:',line)
+        # print('###lambda:###',line)
         return eval(line,kwargs)
     except Exception as e:
-        print(traceback.format_exc())
+        # print(traceback.format_exc())
         ExeStack.exception(traceback.format_exc())
         raise e
 
@@ -100,14 +100,14 @@ class LambdaCallable(object):
         # assert len(self.args) == len(args), "input key len:{} vs args len:{}".format(len(self.args),len(args))
             for k, v in zip(self.args, args):
                 kwargs[k] = v
+        # print('###lambda:###',self.line,kwargs)
         ret = except_eval(self.line, kwargs,)
 
         return ret
 
 @rx_func(func_type='lambda')
-def LAMBDA(line:str,args:List)->Any:
+def lambda_(line:str,args:List)->Any:
     if len(args) == 0:
         return except_eval(line, LAMBDACONTEXT.copy())
     else:
-        # context.update(args)
         return LambdaCallable(line, args)
