@@ -17,6 +17,7 @@ export const CurrentStateStore: CurrentState = new CurrentState()
 export const ViewStore: ViewState = new ViewState()
 
 export const initStore = async () => {
+
     let response = await axios.get('api/elements')
     // console.log('response library',response.data)
     libraryStore.value = response.data
@@ -44,10 +45,19 @@ export const initStore = async () => {
     )
     CurrentStateStore.edges = reactive(response.data.edges)
     CurrentStateStore.global_datarefresh.value += 1
+    response = await axios.get('api/config')
+    CurrentStateStore.updateConfigNames(response.data)
     // ObserverablesStore.value = response.data
     return true
 
 }
+
+// export const reloadStore = async (name:string)=>{
+//     let response = await axios.put(`api/config/${name}`)
+//     Object.keys(RXFunctionsStore).forEach(key => RXFunctionsStore[key] = undefined);
+//     Object.keys(RXFunctionsStore).forEach(key => ObserverablesStore[key] = undefined);
+//     await initStore()
+// }
 
 const persistStore_func = async () => {
     const observer_data = {}

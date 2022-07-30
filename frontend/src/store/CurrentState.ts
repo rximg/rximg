@@ -1,5 +1,5 @@
 import type { RXFunction } from "./RxLibrary";
-import { ref,shallowReactive,shallowRef, type ShallowRef, type ShallowReactive } from "vue";
+import { ref,shallowReactive,shallowRef,reactive, type ShallowRef, type ShallowReactive } from "vue";
 import type {Ref} from "vue"
 type Edge ={
     cell:string,
@@ -9,12 +9,17 @@ type Port={
     source:Edge,
     target:Edge
 }
+type Config = {
+    names:string[],
+    current:string,
+}
 export class CurrentState {
     function_data:Ref<RXFunction|any>
     main_menu:Ref<string[]>
     edges:ShallowReactive<Record<string,Port>>
     apiurl:string
     global_datarefresh:Ref<number>
+    config:Config
 
     constructor() {
         this.function_data = shallowRef({})
@@ -22,6 +27,7 @@ export class CurrentState {
         this.edges = shallowReactive({})
         this.apiurl = ""
         this.global_datarefresh = ref(0)
+        this.config = reactive<Config>({names:[],current:''})
     }
     setFunction(function_data:RXFunction){
         this.function_data.value = function_data
@@ -35,5 +41,20 @@ export class CurrentState {
 
     getNdarrayUrl(ndarray_uuid:string){
         return this.apiurl + "/ndarray/" + ndarray_uuid;
+    }
+    deleteEdgeByCell(cell:string){
+        for (const key in this.edges){
+            if (this.edges[key].source.cell == cell || this.edges[key].target.cell == cell){
+                delete this.edges[key]
+            }
+        }
+    }
+    updateConfigNames(data:Config){
+        this.config.current = data.current
+        data.names.forEach(
+            (value)=>{
+                this.config.names.push(value)
+            }
+        )
     }
 }

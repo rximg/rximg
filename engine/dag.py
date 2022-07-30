@@ -67,7 +67,10 @@ class DAGParser(object):
         # print(nodes)
         for k,v in nodes.items():
             for i in v['in']:
-                nodes[i]['out'].append(k)
+                try:
+                    nodes[i]['out'].append(k)
+                except KeyError:
+                    raise KeyError("can't find key:{} in nodes".format(i))
         # pprint(nodes)
         return nodes
 
@@ -123,6 +126,8 @@ class RecursiveParse(object):
     def merge_edges(self,observers,edges_map):
         for ob_k,ob_info in observers.items():
             addargs = {}
+            # if ob_info['name'] == 'zip':
+            #     pdb.set_trace()
             if 'extraInPorts' in ob_info.keys() and ob_info['extraInPorts']:
                 for extra_arg_k,extra_arg_v in ob_info['extraInPorts'].items():
                     arg_list = []
@@ -137,8 +142,13 @@ class RecursiveParse(object):
                     is_list = arg_v['type']=='list' and isinstance(arg_v['type'],list)
                     if is_list:
                         arg_v['value'].extend(addargs[arg_k])
-                    else:
+
+                    elif arg_v['type']=='list':
                         arg_v['value'] = addargs[arg_k]
+                    else:
+                        # pdb.set_trace()
+                        arg_v['value'] = addargs[arg_k][0]
+
 
         return observers
                         

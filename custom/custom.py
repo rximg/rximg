@@ -1,12 +1,14 @@
 import cv2
 from numpy import ndarray
 from numpy.typing import ArrayLike,NDArray
-from typing import Any, Tuple
+from typing import Any, Tuple,TypeVar
 from engine.ndarray_tools import normal_ndarray_to_gray
 from utils.config import IMG_CACHE_DIR
 from engine.decorator import rx_func
 import os.path as osp
 import pdb
+from reactivex import create,Subject
+from reactivex.observable import Observable
 import typing
 import glob
 from third_party.rxtypes import ImageShow,PrintShow
@@ -17,6 +19,7 @@ import traceback
 # from rx.core import Observable
 import numpy as np
 from utils.config import LAMBDACONTEXT
+_T = TypeVar("_T")
 
 @rx_func()
 def imshow(mat:NDArray) -> Any:
@@ -83,7 +86,7 @@ def except_eval(line,kwargs):
         return eval(line,kwargs)
     except Exception as e:
         # print(traceback.format_exc())
-        ExeStack.exception(traceback.format_exc())
+        # ExeStack.exception(traceback.format_exc())
         raise e
 
 class LambdaCallable(object):
@@ -111,3 +114,8 @@ def lambda_(line:str,args:List)->Any:
         return except_eval(line, LAMBDACONTEXT.copy())
     else:
         return LambdaCallable(line, args)
+
+#TODO subject强制设为变量
+@rx_func(mutable_args=('subject'))
+def create_by_Subject(subject:Subject)->Observable[_T]:
+    return create(subject.subscribe)

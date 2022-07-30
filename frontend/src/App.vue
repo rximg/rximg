@@ -2,7 +2,12 @@
   <div class="container">
     <a-row type="flex">
       <a-col flex="480px">
-        <MainMenu></MainMenu>
+        <!-- <div >
+          <EditSelect></EditSelect>
+        </div> -->
+        <div>
+          <MainMenu></MainMenu>
+        </div>
       </a-col>
       <a-col flex="auto">
         <template v-if="CurrentStateStore.global_datarefresh">
@@ -20,8 +25,7 @@
         ></VueShape> -->
             <template v-for="(node, nkey) in ObserverablesStore" :key="nkey">
               <VueShape primer="rect" :id="nkey" :x="node.location.x" :y="node.location.y"
-                :width="node.location.boxWidth" :height="node.location.boxHeight" :attrs="{ rect: { fill: '#ddd' } }"
-                @cell:change:zIndex="changed">
+                :width="node.location.boxWidth" :height="node.location.boxHeight" :attrs="{ rect: { fill: '#ddd' } }">
                 <div>
                   <ObserverableCard :ObservableItem="node"></ObserverableCard>
                 </div>
@@ -181,13 +185,19 @@ const App = defineComponent({
       persistStore()
     };
 
-
+    const nodemoved=({ e, x, y, node, view })=>{
+        // console.log('node_moved', {x, y, node, view})
+        const nodeitem = ObserverablesStore[node.id]
+        nodeitem.location.x = x - nodeitem.location.boxWidth / 2
+        nodeitem.location.y = y - nodeitem.location.boxHeight / 2
+    }
     const ready = ({ graph }) => {
       graph.on("edge:connected", ({ isNew, edge }) => {
         changedEdge({ edge })
 
       })
       graph.on("edge:dblclick", removedEdge);
+      graph.on("node:moved", nodemoved);
 
     }
     return {
@@ -197,6 +207,7 @@ const App = defineComponent({
       ready,
       inPorts,
       outPorts,
+      // nodemoved,
       // global_library,
       ObserverablesStore,
       RXFunctionsStore,
@@ -248,6 +259,22 @@ export default App;
   .x6-graph-scroller {
     height: 100%;
   }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: inherit;
+  background-color: rgba(144, 147, 153, 0.3);
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
 
   // .stencil {
   //   width: 100%;

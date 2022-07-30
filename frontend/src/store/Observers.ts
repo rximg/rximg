@@ -2,17 +2,11 @@ import { RXArg, RXFunction, createArgs } from "./RxLibrary";
 import type { RXFunctionInterface, RXArgInterface } from "./RxLibrary";
 import { ref, reactive, computed, watch, isProxy, toRaw, readonly, } from "vue"
 import type { Ref, ComputedRef } from "vue"
-import { unHatAt, hatAt } from "./utils";
+import { unHatAt, hatAt,getUuid } from "./utils";
 import md5 from 'md5'
 
 //TODO ref系统需要开发了 不能用裸@了
-function getUuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (Math.random() * 16) | 0,
-            v = c == 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
+
 
 
 

@@ -93,7 +93,9 @@
           :destroyOnClose="true"
           @ok="handleTraceVisible(false)"
           @cancel="handleTraceVisible(false)">
-        {{ traceback }}
+        <div style="word-break: break-all;" v-for="(text) in traceback">
+          {{ text }}
+        </div>
       </a-modal>
     </div>
   </div>
@@ -101,7 +103,6 @@
 
 <script setup lang='ts'>
 //TODO view缩略，缩略args
-//TODO 显示traceback
 //TODO 考虑显示最后一个card的subscribe的结果
 // import Parameter from "./stateless/Parameter.vue";
 // import NDArray from "./stateless/NDArray.vue";
@@ -145,11 +146,13 @@ const traceModalVisibleFlag = computed(()=>{
 //     }
 
 const traceback = computed(()=>{
-        var traces =""
+        const traces =[]
         for (var i in ViewStore.logs) {
             var item = ViewStore.logs[i]
             if (item.type == 'exception'){
-                traces = traces+item.trace
+                item.trace.forEach(element => {
+                  traces.push(element)
+                });
             }
         }
         return traces

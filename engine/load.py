@@ -101,11 +101,11 @@ class Stack(Thread):
         while True:
             if len(list(self.deq)) != 0:
                 task = self.deq.popleft()
-                try:
-                    task()
-                except Exception as e:
-                    print(traceback.format_exc())
-                    ExeStack.exception(traceback.format_exc())
+                # try:
+                task()
+                # except Exception as e:
+                    # print(traceback.format_exc())
+                    # ExeStack.exception(traceback.format_exc())
                 # print('len task',len(list(self.deq)))
             sleep(0.1)
 

@@ -1,5 +1,6 @@
 <template>
   <div class="mainMenu" :style="hHeight">
+  <EditSelect/>
     <a-menu v-model:selectedKeys="current" mode="horizontal" :multiple=false>
       <a-menu-item key="library">
         <template #icon>
@@ -26,7 +27,13 @@
         View
       </a-menu-item>
     </a-menu>
-
+        <draggable v-model="testlist" group="people" @start="startDrag($event)" @end="endDrag($event)">
+          <template #item="{ element, index }">
+            <a-tag   class="argitems" :visible="true" closable >
+                {{ element }}
+            </a-tag>
+          </template>
+        </draggable>
     <div v-show="current[0] === 'library'"><LibraryBox></LibraryBox></div>
     <div v-show="current[0] === 'factory'"><Factory></Factory></div>
     <div v-show="current[0] === 'observer'"><Observer></Observer></div>
@@ -35,24 +42,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRef, computed, onMounted} from "vue";
+import { defineComponent, ref,reactive, toRef, computed, onMounted} from "vue";
 // import {useStore} from "vuex";
+import draggable from "vuedraggable";
+
 import {  CurrentStateStore } from "@/store";
 import LibraryBox from "./LibraryBox.vue";
 import Factory from "./FactoryBox.vue";
 import Observer from "./ObserversBox.vue";
 import ViewBox from "./ViewBox.vue";
+import EditSelect from "./stateless/EditSelect.vue";
+
 export default defineComponent({
   name: "MainMenu",
   components: {
     LibraryBox,
     Observer,
     Factory,
-    ViewBox
+    ViewBox,
+    EditSelect,
+    draggable
 },
   setup() {
     // const store = useStore()
     const current = CurrentStateStore.main_menu;
+    const testlist = reactive(['1', '2', '3']);
+    const drag = ref(false)
+    const startDrag=(e)=>{
+      drag.value = true
+    }
+    const endDrag = (e) => {
+      console.log('drag',e)
+      drag.value = false;
+    }
     // onMounted(
     //     ()=>store.dispatch('initStore') 
     // )
@@ -64,7 +86,10 @@ export default defineComponent({
     };
     return {
       current,
-      hHeight
+      hHeight,
+      testlist,
+      startDrag,
+      endDrag
     };
   },
 });

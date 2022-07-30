@@ -1,9 +1,11 @@
 from functools import partial
+import pdb
+import traceback
 from utils.exception import ObservableTypeError
 from reactivex import Observable, Subject
 from reactivex.subject import ReplaySubject,BehaviorSubject
 from typing import Callable, List
-from engine.decorator import rx_func
+from engine.decorator import ExeStack, rx_func
 from typing import Any
 # subjects = []
 
@@ -25,16 +27,20 @@ class SubjectStore(object):
     def __init__(self) -> None:
         pass
 
+def on_error(error):
+    ExeStack.exception(str(error).split('\n'))
+
+
 @rx_func(func_visible=False)
-def build_observerable(head:Observable,pipe:List,subscribe:List)->Observable:
+def build_observerable(head:Observable,pipe:List,subscribe:Any)->Observable:
     if not isinstance(head,Observable):
-        raise ObservableTypeError("head type:{}".format(type(head)))
+        raise ObservableTypeError("head type:{}-{}".format(type(head),head))
     if len(pipe):
-        pipe = [p for p in pipe if p is not None]
+        # pipe = [p for p in pipe if p is not None]
         head = head.pipe(*pipe)
     # for sub in subscribe:
     if subscribe:
-        head.subscribe(subscribe)
+        head.subscribe(subscribe,on_error=on_error)
     return head
 
 

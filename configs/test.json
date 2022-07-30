@@ -1,53 +1,25 @@
 {
   "observers": {
-    "994bc21f6bbe547a0675f3d57ba7b949": {
-      "type": "lambda",
+    "4be97624f36bde9112bb39f727d581c3": {
+      "type": "callable",
       "from": "custom",
-      "uuid": "994bc21f6bbe547a0675f3d57ba7b949",
-      "name": "lambda_",
+      "uuid": "4be97624f36bde9112bb39f727d581c3",
+      "name": "imshow",
       "op": "map",
       "returnType": "Any",
       "args": {
-        "args": {
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "list",
-          "value": [
-            "x0",
-            "x1"
-          ]
-        },
-        "line": {
+        "mat": {
           "index": 0,
           "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "str",
-          "value": "x0+x1"
+          "type": "NDArray",
+          "value": "None"
         }
       },
       "extraInPorts": {}
     },
-    "ca4989a6e4530657902d9384877033fd": {
-      "type": "func",
+    "713e388ffd1f74438d6c201c91732395": {
       "from": "observables",
-      "uuid": "ca4989a6e4530657902d9384877033fd",
-      "name": "zip",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "type": "list",
-          "value": "None"
-        }
-      },
-      "extraInPorts": {
-        "args": 2
-      }
-    },
-    "da7695037b246a75bdca698858191c5f": {
-      "type": "func",
-      "from": "observables",
-      "uuid": "da7695037b246a75bdca698858191c5f",
+      "uuid": "713e388ffd1f74438d6c201c91732395",
       "name": "of",
       "returnType": "Observable",
       "args": {
@@ -56,24 +28,87 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            0,
-            2
+            "data/lenna.png"
           ]
         }
       },
       "extraInPorts": {}
     },
-    "f18e96b5761feec05159a9ed8aa0f5fd": {
-      "type": "func",
-      "from": "custom",
-      "uuid": "f18e96b5761feec05159a9ed8aa0f5fd",
-      "name": "print_",
-      "returnType": "empty",
+    "a8366af9dab9b9cc496b7e5c298b0674": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "a8366af9dab9b9cc496b7e5c298b0674",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
       "args": {
-        "input_": {
+        "filename": {
           "index": 0,
           "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "Any",
+          "type": "str",
+          "value": "None"
+        },
+        "flags": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "extraInPorts": {}
+    },
+    "dbd1237b6f3ecea558e539db5085d389": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "dbd1237b6f3ecea558e539db5085d389",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "ec4a82a87b99b6a3a516a2105afdcfba": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "ec4a82a87b99b6a3a516a2105afdcfba",
+      "name": "GaussianBlur",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "borderType": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "ksize": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(13,13)"
+        },
+        "sigmaX": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "sigmaY": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray",
           "value": "None"
         }
       },
@@ -81,84 +116,37 @@
     }
   },
   "relations": {
-    "284cd35f-d1a0-431b-97b7-0bc9a52be85a": {
+    "3fbd5d5c-0648-4c43-8456-7caefb7d108b": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "284cd35f-d1a0-431b-97b7-0bc9a52be85a",
+      "uuid": "3fbd5d5c-0648-4c43-8456-7caefb7d108b",
       "name": "build_observerable",
       "location": {
-        "x": 0,
-        "y": 0,
+        "x": 280,
+        "y": 249,
         "type": "obserable",
-        "boxWidth": 425,
-        "boxHeight": 178
-      },
-      "args": {
-        "head": {
-          "value": "@da7695037b246a75bdca698858191c5f"
-        },
-        "pipe": {
-          "type": "list",
-          "value": []
-        },
-        "subscribe": {
-          "type": "MultiCast",
-          "value": "@core.get_subject('284cd35f-d1a0-431b-97b7-0bc9a52be85a')",
-          "cast_value": 2
-        }
-      }
-    },
-    "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5": {
-      "type": "Observerable",
-      "from": "core",
-      "uuid": "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5",
-      "name": "build_observerable",
-      "location": {
-        "x": 0,
-        "y": 0,
-        "type": "obserable",
-        "boxWidth": 425,
+        "boxWidth": 420,
         "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@ca4989a6e4530657902d9384877033fd"
+          "value": "@713e388ffd1f74438d6c201c91732395"
         },
         "pipe": {
           "type": "list",
           "value": [
-            "@994bc21f6bbe547a0675f3d57ba7b949"
+            "@a8366af9dab9b9cc496b7e5c298b0674",
+            "@ec4a82a87b99b6a3a516a2105afdcfba"
           ]
         },
         "subscribe": {
-          "type": "SingleCast",
-          "value": "@f18e96b5761feec05159a9ed8aa0f5fd",
-          "cast_value": "f18e96b5761feec05159a9ed8aa0f5fd"
+          "type": "MultiCast",
+          "value": "@core.get_subject('3fbd5d5c-0648-4c43-8456-7caefb7d108b')",
+          "cast_value": 2
         }
       }
     }
   },
   "parameters": {},
-  "edges": {
-    "daf56ef3-9931-4ef4-9f45-451ea7a0ef9a": {
-      "source": {
-        "cell": "284cd35f-d1a0-431b-97b7-0bc9a52be85a",
-        "port": "284cd35f-d1a0-431b-97b7-0bc9a52be85a_out_1"
-      },
-      "target": {
-        "cell": "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5",
-        "port": "ca4989a6e4530657902d9384877033fd_args_1"
-      }
-    },
-    "faedfefe-e862-4434-af14-52b2b2b8f6bc": {
-      "source": {
-        "cell": "284cd35f-d1a0-431b-97b7-0bc9a52be85a",
-        "port": "284cd35f-d1a0-431b-97b7-0bc9a52be85a_out_0"
-      },
-      "target": {
-        "cell": "ead6a16f-fe07-4bd2-b3de-92feb4e5f3c5",
-        "port": "ca4989a6e4530657902d9384877033fd_args_0"
-      }
-    }
-  }
+  "edges": {}
 }

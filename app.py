@@ -1,4 +1,3 @@
-# TOP 考虑一下柯里化，curry+bind kwarg的形式，kwarg保持进类变量的字典。
 from io import BytesIO
 from flask_socketio import SocketIO#, emit, send
 from collections import deque
@@ -90,7 +89,7 @@ def execute_event():
     try:
         RecursiveParse().run(data)
     except Exception as e:
-        ExeStack.exception(traceback.format_exc())
+        # ExeStack.exception(traceback.format_exc())
         raise e
 
 
@@ -104,7 +103,7 @@ def execute():
     try:
         RecursiveParse().run(data)
     except Exception as e:
-        ExeStack.exception(traceback.format_exc())
+        # ExeStack.exception(traceback.format_exc())
         raise e
     return {'type':'success'}
 

@@ -2,6 +2,7 @@
 import pprint
 import inspect
 import re
+from uuid import uuid4
 from numpy.typing import NDArray
 from enum import Enum
 import json
@@ -49,11 +50,15 @@ class ArgsParser(object):
 
     def get(self,):
         sig = inspect.signature(self.func)
+        # pdb.set_trace()
         for i,item in enumerate(sig.parameters.items()):
             k,v = item
             _ = self.parse(k,v)
             _['index'] = i
             _['name'] = k
+            if hasattr(self.func,'mutable_args'):
+                if k in self.func.mutable_args:
+                    _['mutable'] = True
             self.args_abstract[k] = _
         try:
             json.dumps(self.args_abstract)

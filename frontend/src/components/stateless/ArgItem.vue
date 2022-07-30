@@ -18,16 +18,16 @@
         </div>
         <div v-else-if="type == 'choices'">
           <a-select
-            label-in-value
             style="width: 100%"
+            :options="options"
             v-model:value="arg_value"
           >
-            <a-select-option
+            <!-- <a-select-option
               v-for="(value, label) in get_choices(arg)"
               :key="label"
             >
               {{ label }}[{{ value }}]
-            </a-select-option>
+            </a-select-option> -->
           </a-select>
         </div>
         <div v-else-if="type == 'list'">
@@ -92,9 +92,17 @@ const arg_value = arg.value;
 const allRXfunctions = computed(() => {
   return Object.values(RXFunctionsStore);
 });
-const get_choices = (arg: RXArg | ChoiceArg) => {
-  return (<ChoiceArg>arg).choices;
+const get_choices = (arg: ChoiceArg) => {
+const choices = []
+  Object.keys(arg.choices).forEach(
+    (key) => choices.push({ label:`${key}[${arg.choices[key]}]`, value:arg.choices[key]})
+  );  
+  console.log(choices);
+  return choices
 };
-
+let options = []
+if (arg.type == 'choices'){
+  options = get_choices(arg);
+}
 const emits = defineEmits<(e: "emitValue", value: any) => void>();
 </script>

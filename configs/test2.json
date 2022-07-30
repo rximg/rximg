@@ -1,0 +1,417 @@
+{
+  "observers": {
+    "20c2d5d582ddfe0d84992f6f63d5f0de": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "20c2d5d582ddfe0d84992f6f63d5f0de",
+      "name": "create_by_Subject",
+      "returnType": "Observable",
+      "args": {
+        "subject": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": "None",
+          "mutable": "f32ca8c9-eff1-4d9e-9998-ac3a4e0d313a"
+        }
+      },
+      "extraInPorts": {
+        "subject": 1
+      }
+    },
+    "33da3b1467e3f8d3f616d23fccc735c9": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "33da3b1467e3f8d3f616d23fccc735c9",
+      "name": "print_",
+      "op": "map",
+      "returnType": "empty",
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "74e89d94320fdc8eb566e033b2ab2050": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "74e89d94320fdc8eb566e033b2ab2050",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "None"
+        },
+        "flags": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "extraInPorts": {}
+    },
+    "b3513d329c7334fedf97b752a7fd0454": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "b3513d329c7334fedf97b752a7fd0454",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "b9ba7353ce7bf717c32496d72a18aa3c": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "b9ba7353ce7bf717c32496d72a18aa3c",
+      "name": "print_",
+      "returnType": "empty",
+      "args": {
+        "input_": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "bfe799c708142142b8d5fa79b315ae41": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "bfe799c708142142b8d5fa79b315ae41",
+      "name": "GaussianBlur",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "borderType": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "ksize": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(7,7)"
+        },
+        "sigmaX": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "sigmaY": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "c00d89a654cb95fab264593ddc622d50": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "c00d89a654cb95fab264593ddc622d50",
+      "name": "GaussianBlur",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "borderType": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "ksize": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(13,13)"
+        },
+        "sigmaX": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "sigmaY": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "c072f78e8a53a0e18f0afa7894ed7c5d": {
+      "from": "observables",
+      "uuid": "c072f78e8a53a0e18f0afa7894ed7c5d",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ]
+        }
+      },
+      "extraInPorts": {}
+    },
+    "cd718c07c896ae1e5d4b1296163b5cb8": {
+      "type": "lambda",
+      "from": "custom",
+      "uuid": "cd718c07c896ae1e5d4b1296163b5cb8",
+      "name": "lambda_",
+      "op": "map",
+      "returnType": "Any",
+      "args": {
+        "args": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0",
+            "x1"
+          ]
+        },
+        "line": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "x0-x1+127"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "d3c739f6c926029c8a52611c186c0eec": {
+      "from": "observables",
+      "uuid": "d3c739f6c926029c8a52611c186c0eec",
+      "name": "zip",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": "None"
+        }
+      },
+      "extraInPorts": {
+        "args": 2
+      }
+    },
+    "f99b67afb41708a5f553d484b218fc4f": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "f99b67afb41708a5f553d484b218fc4f",
+      "name": "create_by_Subject",
+      "returnType": "Observable",
+      "args": {
+        "subject": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any",
+          "value": "None",
+          "mutable": "f32ca8c9-eff1-4d9e-9998-ac3a4e0d313a"
+        }
+      },
+      "extraInPorts": {
+        "subject": 1
+      }
+    }
+  },
+  "relations": {
+    "42767310-ca51-4e09-be12-90103c236d2f": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "42767310-ca51-4e09-be12-90103c236d2f",
+      "name": "build_observerable",
+      "location": {
+        "x": 150,
+        "y": 571,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 178
+      },
+      "args": {
+        "head": {
+          "value": "@f99b67afb41708a5f553d484b218fc4f"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@bfe799c708142142b8d5fa79b315ae41"
+          ]
+        },
+        "subscribe": {
+          "type": "MultiCast",
+          "value": "@core.get_subject('42767310-ca51-4e09-be12-90103c236d2f')",
+          "cast_value": 1
+        }
+      }
+    },
+    "47890a8d-57b7-489d-8b52-112824b9045a": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "47890a8d-57b7-489d-8b52-112824b9045a",
+      "name": "build_observerable",
+      "location": {
+        "x": 340,
+        "y": 941,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@d3c739f6c926029c8a52611c186c0eec"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@cd718c07c896ae1e5d4b1296163b5cb8"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@b3513d329c7334fedf97b752a7fd0454",
+          "cast_value": "b3513d329c7334fedf97b752a7fd0454"
+        }
+      }
+    },
+    "71e17f57-e65a-4316-914f-de923593d974": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "71e17f57-e65a-4316-914f-de923593d974",
+      "name": "build_observerable",
+      "location": {
+        "x": 380,
+        "y": 290,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 178
+      },
+      "args": {
+        "head": {
+          "value": "@c072f78e8a53a0e18f0afa7894ed7c5d"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@74e89d94320fdc8eb566e033b2ab2050"
+          ]
+        },
+        "subscribe": {
+          "type": "MultiCast",
+          "value": "@core.get_subject('71e17f57-e65a-4316-914f-de923593d974')",
+          "cast_value": 2
+        }
+      }
+    },
+    "afe815e9-f48c-4935-9581-7e5b54891598": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "afe815e9-f48c-4935-9581-7e5b54891598",
+      "name": "build_observerable",
+      "location": {
+        "x": 640,
+        "y": 571,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 178
+      },
+      "args": {
+        "head": {
+          "value": "@20c2d5d582ddfe0d84992f6f63d5f0de"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@c00d89a654cb95fab264593ddc622d50"
+          ]
+        },
+        "subscribe": {
+          "type": "MultiCast",
+          "value": "@core.get_subject('afe815e9-f48c-4935-9581-7e5b54891598')",
+          "cast_value": 1
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "edges": {
+    "025e9504-16f3-4ec3-a711-94d66fdaa4fb": {
+      "source": {
+        "cell": "afe815e9-f48c-4935-9581-7e5b54891598",
+        "port": "afe815e9-f48c-4935-9581-7e5b54891598_out_0"
+      },
+      "target": {
+        "cell": "47890a8d-57b7-489d-8b52-112824b9045a",
+        "port": "d3c739f6c926029c8a52611c186c0eec_args_1"
+      }
+    },
+    "1141ca9a-d0d0-4f82-836a-2db3dfd21b8e": {
+      "source": {
+        "cell": "42767310-ca51-4e09-be12-90103c236d2f",
+        "port": "42767310-ca51-4e09-be12-90103c236d2f_out_0"
+      },
+      "target": {
+        "cell": "47890a8d-57b7-489d-8b52-112824b9045a",
+        "port": "d3c739f6c926029c8a52611c186c0eec_args_0"
+      }
+    },
+    "6abad889-0353-47a7-a621-a521978beb74": {
+      "source": {
+        "cell": "71e17f57-e65a-4316-914f-de923593d974",
+        "port": "71e17f57-e65a-4316-914f-de923593d974_out_0"
+      },
+      "target": {
+        "cell": "42767310-ca51-4e09-be12-90103c236d2f",
+        "port": "f99b67afb41708a5f553d484b218fc4f_subject_0"
+      }
+    },
+    "740df183-dca6-413f-af9d-30976f1d5347": {
+      "source": {
+        "cell": "71e17f57-e65a-4316-914f-de923593d974",
+        "port": "71e17f57-e65a-4316-914f-de923593d974_out_1"
+      },
+      "target": {
+        "cell": "afe815e9-f48c-4935-9581-7e5b54891598",
+        "port": "20c2d5d582ddfe0d84992f6f63d5f0de_subject_0"
+      }
+    }
+  }
+}

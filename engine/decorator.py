@@ -141,7 +141,7 @@ class ExeStack(object):
 #     inner.ret_collects = ret_collects
 #     return inner
 
-def rx_func(func_type='callable',func_visible=True):
+def rx_func(func_type='callable',func_visible=True,mutable_args=()):
     def rx_func_func(func):
         @wraps(func)
         def inner(*args,**kwargs):
@@ -154,7 +154,7 @@ def rx_func(func_type='callable',func_visible=True):
             except Exception as e:
                 print("====error====")
                 print(traceback.format_exc())
-                ExeStack.exception(traceback.format_exc())
+                # ExeStack.exception(traceback.format_exc())
                 exe_obj.visible = func_visible
                 ExeStack.stack(exe_obj)
                 raise e
@@ -168,7 +168,7 @@ def rx_func(func_type='callable',func_visible=True):
             else:
                 return res
         inner.rx_func = True
-        
+        inner.mutable_args = mutable_args
         # print(func_type,type(func_type))
         inner.func_type=func_type
         return inner

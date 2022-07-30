@@ -1,6 +1,5 @@
 <template>
-  <!-- :class="isObservers(item) ? 'card':'card-ob'" -->
-  <div class="main">
+  <div class="main" :style="{height:bodyHeight+'px' }">
     <div v-for="(item, index) in rxfunctionItems" :key="index">
       <a-space direction="vertical" style="width: 100%">
         <a-card
@@ -45,7 +44,8 @@
 
 <script setup lang="ts">
 // import { mapGetters, mapState, mapMutations } from 'vuex'
-import { computed,toRaw } from "vue";
+//TODO observers的滚动条
+import { computed,toRaw,ref } from "vue";
 import type {ShallowReactive} from "vue";
 import {
   CurrentStateStore,
@@ -81,6 +81,7 @@ const rxfunctionItems:ShallowReactive<Record<string, RXFunctionInterface>>  = RX
 // const repr = (uuid:string) => {
 //   return uuid.substring(0, 8)
 // }
+const bodyHeight = ref(document.body.clientHeight);
 const deleteItem = (item: RXFunctionInterface) => {
   delete rxfunctionItems[item.uuid as string];
   persistStore()
@@ -99,6 +100,8 @@ function sortObj(obj: Record<string, RXArgInterface>): RXArgInterface[] {
 <style scoped>
 div.main {
   padding: 10px;
+  overflow-y:scroll;
+  overflow-x:hidden;
 }
 div.itemUuid {
   display: block;

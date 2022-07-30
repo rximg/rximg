@@ -69,15 +69,19 @@
       </a-button-group>
     </template>
     <div>
-      <a-tag :color="getColorByHex(ObservableItem.upstream.uuid)">{{ ObservableItem.upstream }}</a-tag>
+      <a-tag  :color="getColorByHex(ObservableItem.upstream.uuid)">
+        <div style="word-break: break-all;word-wrap: break-word">
+          {{ ObservableItem.upstream }}
+        </div>
+      </a-tag>
     </div>
 
     <div>
       <span v-if="!(ObservableItem.pipes.value.length == 0)">
-        <draggable v-model="ObservableItem.pipes.value" group="people" @start="drag = true" @end="endDrag($event)">
+        <draggable v-model="ObservableItem.pipes.value" group="people" @start="startDrag($event)" @end="endDrag($event)">
           <template #item="{ element, index }">
-            <a-tag class="argitems" :visible="true" v-if="element" closable @close="ObservableItem.removePipe(index)">
-              {{ refTarget(element).toString() }}
+            <a-tag   class="argitems" :visible="true" closable @close="ObservableItem.removePipe(index)">
+                {{ refTarget(element).toString() }}
             </a-tag>
           </template>
         </draggable>
@@ -109,7 +113,7 @@
 <script setup lang="ts">
 
 import { computed, ref, watch, onMounted,toRef } from 'vue'
-import { RXFunctionsStore, ObserverablesStore, persistStore } from '@/store';
+import { RXFunctionsStore, ObserverablesStore, persistStore,CurrentStateStore } from '@/store';
 // import { isString } from '../store/utils.js'
 import type { Observerable } from '@/store/Observers';
 // import type {Observerable} from "@/types/Observers"
@@ -184,11 +188,15 @@ const onlyCallables = computed(() => {
   })
 })
 const deleteObserverable = (uuid: string) => {
+  CurrentStateStore.deleteEdgeByCell(uuid)
   delete ObserverablesStore[uuid]
 }
 
+const startDrag=(e)=>{
+  drag.value = true
+}
 const endDrag = (e) => {
-  // console.log('drag',e,index)
+  console.log('drag',e)
   drag.value = false;
   ObservableItem.swapPipe(e.oldIndex, e.newIndex)
 }

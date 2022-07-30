@@ -102,9 +102,11 @@ class Args(object):
             kind = v.get("kind","POSITIONAL_OR_KEYWORD")
             if kind in ("POSITIONAL_OR_KEYWORD",):
                 self.kwargs[k] = ret
-            elif kind == "VAR_POSITIONAL" and len(ret)!=0:
+            elif kind == "VAR_POSITIONAL":
                 if isinstance(ret,List):
                     self.args = ret
+                elif ret==None:
+                    self.args = []
                 else:
                     self.args = [ret]
                 print('get VAR_POSITIONAL',ret,self.args)
@@ -167,7 +169,7 @@ def eval_called(func, module, args: Args):
         print("eval_func",eval_func.__name__,args.args,args.kwargs)
         ret = eval_func(*args.args, **args.kwargs)
     except Exception as e:
-        ExeStack.exception(traceback.format_exc())
+        # ExeStack.exception(traceback.format_exc())
         raise e
     return ret
 
@@ -212,9 +214,9 @@ class MutilArgCallable(SingleCallable):
 
     def __call__(self, placeholders: Any) -> Any:
         null_key = self.args.null_args
-
-        if len(null_key) != len(placeholders):
-            raise ArgsError("null inputs:{} vs args input:{}".format(len(null_key) , len(placeholders)))
+        if isinstance(placeholders,list):
+            if len(null_key) != len(placeholders):
+                raise ArgsError("null inputs:{} vs args input:{}".format(len(null_key) , len(placeholders)))
         # print((self.args.null_args,[ print_numpy(p) for p in placeholders]))
         try:
             indexs = [(self.args.index_dict[n],n) for n in self.args.null_args]

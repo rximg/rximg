@@ -1,6 +1,7 @@
 /*eslint prefer-const: 2*/
 import { isProxy, reactive, ref } from "vue"
 import type { Ref, ComputedRef } from "vue"
+import {getUuid} from "./utils"
 // import { array, number } from "vue-types"
 import md5 from 'md5'
 export type CommonValueType = string | number | string[] | boolean | null
@@ -12,12 +13,14 @@ export type RefCommonValueType = Ref<CommonValueType>//Ref<string> | Ref<number>
 //     index: number,
 // }
 
+//TODO mutable:const/var  default:undefined, uuid
 export interface RXArgInterface {
     index: number
     kind?: string
     type: string
     value: RefCommonValueType
     name?: string
+    mutable?: string|boolean
     toString(): string
     tojson(): any//stringify
     md5(): string
@@ -31,46 +34,47 @@ export interface RXArgInterface {
 export interface ChoiceArgInterface extends RXArgInterface {
     choices: Record<string, number | string>
 }
-function init_value_by_type(type: string,): RefCommonValueType {
-    let value: any
-    switch (type) {
-        case 'bool':
-            value = false
-            break;
-        case 'int':
-            value = 0
-            break;
-        case 'float':
-            value = 0.0
-            break;
-        case 'tuple':
-            value = [0, 0]
-            break;
-        case 'list':
-            value = []
-            break;
-        case 'str':
-            value = ''
-            break;
-        case 'ref':
-            value = ""
-            break;
-        default:
-            value = null
-            break;
-    }
+// function init_value_by_type(type: string,): RefCommonValueType {
+//     let value: any
+//     switch (type) {
+//         case 'bool':
+//             value = false
+//             break;
+//         case 'int':
+//             value = 0
+//             break;
+//         case 'float':
+//             value = 0.0
+//             break;
+//         case 'tuple':
+//             value = [0, 0]
+//             break;
+//         case 'list':
+//             value = []
+//             break;
+//         case 'str':
+//             value = ''
+//             break;
+//         case 'ref':
+//             value = ""
+//             break;
+//         default:
+//             value = null
+//             break;
+//     }
 
-    return ref(value)
-}
+//     return ref(value)
+// }
 export class RXArg implements RXArgInterface {
     index: number
     kind?: string
     type: string
     name?: string
+    mutable?: string|boolean
     // extraInPorts?:Ref<InPort[]>
     value: RefCommonValueType
 
-    constructor(index: number, type: string, kind?: string, value?: CommonValueType, name?: string) {
+    constructor(index: number, type: string, kind?: string, value?: CommonValueType, name?: string, mutable?: string) {
         this.index = index
         this.type = type
         if (kind) {
@@ -88,6 +92,7 @@ export class RXArg implements RXArgInterface {
             this.value = ref(value)
         }
         this.name = name ? name : undefined
+        this.mutable = mutable ? mutable : undefined
         // if (extraInPorts){
         //     this.extraInPorts = ref(extraInPorts) 
         // }
@@ -120,12 +125,13 @@ export class RXArg implements RXArgInterface {
             kind: this.kind,
             type: this.type,
             value: value,
+            mutable:this.mutable?this.mutable:undefined,
             // extraInPorts:this.extraInPorts?.value
         }
     }
 
     md5(): string {
-        return md5(`${this.type}` + this.toString())
+        return md5(`${this.type}` + this.toString()+`${this.mutable}`)
     }
 }
 
@@ -196,6 +202,7 @@ export interface RXFunctionInterface {
     toString(): string
     tojson(): any//stringify
     md5(): string
+    onSubmit():void
     // createArgs(data: any):RXArgInterface
     // fromjson(data:Record<string,unknown>):void
 }
@@ -206,11 +213,11 @@ export interface RXFunctionInterface {
 // }
 
 export const createArgs = (data: Record<string, any>): RXArgInterface => {
-    const { index, type, kind, value, name } = data
+    const { index, type, kind, value, name ,mutable} = data
     if (data.type == 'choices') {
         return new ChoiceArg(index, data.choices, kind, value, name)
     } else {
-        return new RXArg(index, type, kind, value, name)
+        return new RXArg(index, type, kind, value, name,mutable)
     }
 }
 
@@ -223,7 +230,7 @@ export class RXFunction implements RXFunctionInterface {
     from: string
     extraInPorts?: Record<string, number>
     returnType: string
-
+    
     // constructor(data:Record<string,any>)
     // constructor(args:Record<string,RXArg>,op:string,name:string,type:string,)
     // 1、由defined_data 生成。
@@ -305,7 +312,25 @@ export class RXFunction implements RXFunctionInterface {
         }
     }
     md5(): string {
-        return md5(this.toString())
+
+        let argstr = ""
+        for (const key in this.args) {
+            argstr = argstr + `${key}=${this.args[key].md5()},`
+        }
+        let tempop = ""
+        if (this.op) {
+            tempop = `${this.op}:`
+        }
+        return md5(`${tempop}${this.name}(${argstr})`)
+    }
+
+    onSubmit(): void {
+        for (const key in this.args) {
+            if (this.args[key].mutable==true){
+                this.args[key].mutable=getUuid()
+            }
+        }
+        this.uuid = this.md5()
     }
 
 }
