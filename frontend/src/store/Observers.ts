@@ -97,9 +97,9 @@ export class Observerable {
             throw new Error(`upstream.extraInPorts at [${this.uuid},${this.upstream.uuid}] is undefined`)
         }
         if (this.upstream.extraInPorts[name] == undefined) {
-            this.upstream.extraInPorts[name] = 0
+            this.upstream.extraInPorts[name] = 1
         }
-        if (this.upstream.args[name].type == 'list') {
+        if (this.upstream.args[name].type === 'list') {
             this.upstream.extraInPorts[name]++
         }
     }
@@ -165,8 +165,8 @@ export class Observerable {
     decrementMulticast(): void {
         if (this.subscribe.type == 'MultiCast') {
             //TODO check inports
-            if (typeof this.subscribe.cast_value == 'number') {
-                this.subscribe.cast_value = this.subscribe.cast_value + 1
+            if (typeof this.subscribe.cast_value == 'number'||this.subscribe.cast_value>0) {
+                this.subscribe.cast_value = this.subscribe.cast_value - 1
             }
         } else {
             throw new Error(`Type error. ${this.subscribe.type}`);

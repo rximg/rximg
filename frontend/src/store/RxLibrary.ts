@@ -12,7 +12,12 @@ export type RefCommonValueType = Ref<CommonValueType>//Ref<string> | Ref<number>
 //     port_name: string,
 //     index: number,
 // }
-
+/**
+ * value有这么些情况
+ * type=[str,int,float,bool,ref,list] value有default或者没有default。
+ * type=[types] value=undefined 表示这是个多输入的函数。
+ * type=[types] value=变量 
+ */
 //TODO mutable:const/var  default:undefined, uuid
 export interface RXArgInterface {
     index: number
@@ -68,7 +73,7 @@ export interface ChoiceArgInterface extends RXArgInterface {
 export class RXArg implements RXArgInterface {
     index: number
     kind?: string
-    type: string
+    readonly type: string
     name?: string
     mutable?: string|boolean
     // extraInPorts?:Ref<InPort[]>
@@ -84,25 +89,22 @@ export class RXArg implements RXArgInterface {
             this.value = ref(undefined)
 
         }
-        else if (typeof (value) == 'string' && value == 'None') {
-            this.value = ref(undefined)
-        }
+        // else if (typeof (value) == 'string' && value == 'None') {
+        //     this.value = ref(undefined)
+        // }
         else {
             // this.value = init_value_by_type(type)
             this.value = ref(value)
         }
         this.name = name ? name : undefined
         this.mutable = mutable ? mutable : undefined
-        // if (extraInPorts){
-        //     this.extraInPorts = ref(extraInPorts) 
-        // }
 
     }
 
 
 
     toString(): string {
-        const isplaceholder = this.value == undefined || this.value.value == undefined || this.value.value === "None"
+        const isplaceholder = this.value == undefined || this.value.value == undefined
         if (isplaceholder) {
             return '#'
         }
@@ -118,13 +120,13 @@ export class RXArg implements RXArgInterface {
     }
 
     tojson() {
-        const value = this.value.value == undefined ? 'None' : this.value.value
+        // const value = this.value.value == undefined ? 'None' : this.value.value
 
         return {
             index: this.index,
             kind: this.kind,
             type: this.type,
-            value: value,
+            value: this.value.value,
             mutable:this.mutable?this.mutable:undefined,
             // extraInPorts:this.extraInPorts?.value
         }

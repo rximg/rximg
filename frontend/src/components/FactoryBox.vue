@@ -140,13 +140,15 @@ function submitFunction() {
       const { argValue, line } = lambda;
       functionData.value.args.line.value.value = line;
       functionData.value.args.args.value.value = argValue;
-      functionData.value.uuid = functionData.value.md5()
+      functionData.value.onSubmit();
+      // functionData.value.uuid = functionData.value.md5()
       RXFunctionsStore[functionData.value.uuid] = functionData.value;
       break;
     
     default:
       //以uuid作为唯一的实例，出现重复则报错
-      functionData.value.uuid = functionData.value.md5()
+      // functionData.value.uuid = functionData.value.md5()
+      functionData.value.onSubmit();
       RXFunctionsStore[functionData.value.uuid as string] =
         functionData.value;
       if (functionData.value.returnType=='Observable'){

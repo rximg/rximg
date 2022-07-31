@@ -167,9 +167,7 @@ const App = defineComponent({
             }
           }
         )
-        // console.log('input ports', result)
         return result
-        // return Array.from({ length: this.upstream.extraInPorts.index }, (_, i) => `${this.uuid}_in_${i}`)
       } else {
         return []
       }

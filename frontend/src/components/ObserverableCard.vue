@@ -144,32 +144,6 @@ const drag = ref(false)
 let currentDom = ref<HTMLInputElement | null>(null)
 const { width, height } = useElementSize(currentDom)
 ObservableItem.location.boxHeight = height
-onMounted(
-  () => {
-    // console.log('client height',observerableCardDom,observerableCardDom.value,observerableCardDom.value.clientHeight)
-    // if (currentDom.value) {
-      // const { width, height } = useElementSize(currentDom)
-      // const height = <number>currentDom.value?.clientHeight
-      // ObservableItem.location.boxHeight = height ? height : 240
-    // }
-  }
-)
-// const headTools = {
-//   background: "#348498",
-//   color: "white",
-//   "font-size": "medium",
-// }
-// const headHead = {
-//   background: "#8bc6af",
-//   color: "white",
-//   "font-size": "medium",
-// }
-// const headSubscribe = {
-//   background: "#FFC329",
-//   color: "white",
-//   "font-size": "medium",
-// }
-// const ObservableItem = ObserverablesStore[uuid]
 
 const getHeadStyle = (uuid: string) => {
   var color = getColorByHex(uuid);
@@ -204,7 +178,7 @@ const inPortKeys = computed(
   () => {
     const keys = []
       for (const key in ObservableItem.upstream.args){
-        if (ObservableItem.upstream.args[key].type='list'){
+        if (ObservableItem.upstream.args[key].mutable){
           keys.push(key)
         }
       }
@@ -247,11 +221,11 @@ watch([ObservableItem.pipes, ObservableItem.subscribe], async (newpipe, newsubsc
   margin-top: 4px;
   color: #4289b9;
 }
-
+*/
 .argitems {
-  margin-top: 2px;
-  margin-bottom: 2px;
-} */
+  z-index: 1;
+  -webkit-user-drag: element;
+} 
 
 /* div.subtitle {
   margin-top: 8px;

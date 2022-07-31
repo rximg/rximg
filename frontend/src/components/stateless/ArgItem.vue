@@ -51,6 +51,11 @@
         </div>
         <!-- <a-alert v-if="alertValue" :message="alertValue" banner /> -->
       </a-col>
+      <a-col :span="3">
+        <a-switch v-model:checked="mutable" checked-children="var" un-checked-children="const">
+          
+        </a-switch>
+      </a-col>
       <a-col :span="2">
         <a-select v-model:value="type">
           <a-select-option
@@ -75,7 +80,7 @@ import List from "./List.vue";
 import { PaperClipOutlined, EditOutlined } from "@ant-design/icons-vue";
 import type { RXArg, ChoiceArg, CommonValueType } from "@/store/RxLibrary";
 import { RXFunctionsStore } from "@/store";
-import { computed, ref, toRaw, isProxy } from "vue";
+import { computed, ref, toRaw, isProxy,watch } from "vue";
 
 type PropsType = {
   arg: RXArg | ChoiceArg;
@@ -89,6 +94,7 @@ const {
 const name = arg.name;
 const type = ref(arg.type);
 const arg_value = arg.value;
+const mutable = ref(arg.mutable)
 const allRXfunctions = computed(() => {
   return Object.values(RXFunctionsStore);
 });
@@ -100,6 +106,15 @@ const choices = []
   console.log(choices);
   return choices
 };
+watch(type, (newValue, oldValue) => {
+  // if (newValue !== oldValue) {
+    console.log('arg type watch',newValue,oldValue);
+    arg.type = newValue;
+  // }  
+});
+watch(mutable, (newValue, oldValue) => {
+    arg.mutable = newValue;
+});
 let options = []
 if (arg.type == 'choices'){
   options = get_choices(arg);

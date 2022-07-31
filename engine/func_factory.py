@@ -80,15 +80,14 @@ class Args(object):
     def build_args(self, data: Dict,context):
 
         for k, v in data.items():
+            self.index_dict[k]=v.get('index',0)
+            if 'value' not in v.keys():
+                self.null_args.append(k)
+                continue
             value = v['value']
             ret = None
             # print(v)
-            self.index_dict[k]=v.get('index',0)
-            if value == None:
-                self.null_args.append(k)
-            elif isinstance(value,str) and value=='None':
-                self.null_args.append(k)
-            elif isinstance(value, str) and value.startswith('@'):
+            if isinstance(value, str) and value.startswith('@'):
                 ret = self.build_on_context(value[1:],context)
             elif isinstance(value, List):
                 ret = []

@@ -27,13 +27,7 @@
         View
       </a-menu-item>
     </a-menu>
-        <draggable v-model="testlist" group="people" @start="startDrag($event)" @end="endDrag($event)">
-          <template #item="{ element, index }">
-            <a-tag   class="argitems" :visible="true" closable >
-                {{ element }}
-            </a-tag>
-          </template>
-        </draggable>
+
     <div v-show="current[0] === 'library'"><LibraryBox></LibraryBox></div>
     <div v-show="current[0] === 'factory'"><Factory></Factory></div>
     <div v-show="current[0] === 'observer'"><Observer></Observer></div>
@@ -42,10 +36,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref,reactive, toRef, computed, onMounted} from "vue";
+import { defineComponent, ref, toRef, computed, onMounted} from "vue";
 // import {useStore} from "vuex";
-import draggable from "vuedraggable";
-
 import {  CurrentStateStore } from "@/store";
 import LibraryBox from "./LibraryBox.vue";
 import Factory from "./FactoryBox.vue";
@@ -60,21 +52,11 @@ export default defineComponent({
     Observer,
     Factory,
     ViewBox,
-    EditSelect,
-    draggable
+    EditSelect
 },
   setup() {
     // const store = useStore()
     const current = CurrentStateStore.main_menu;
-    const testlist = reactive(['1', '2', '3']);
-    const drag = ref(false)
-    const startDrag=(e)=>{
-      drag.value = true
-    }
-    const endDrag = (e) => {
-      console.log('drag',e)
-      drag.value = false;
-    }
     // onMounted(
     //     ()=>store.dispatch('initStore') 
     // )
@@ -86,10 +68,7 @@ export default defineComponent({
     };
     return {
       current,
-      hHeight,
-      testlist,
-      startDrag,
-      endDrag
+      hHeight
     };
   },
 });

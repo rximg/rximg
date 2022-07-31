@@ -56,13 +56,14 @@ class DAGParser(object):
             for arg_k,arg_v in value['args'].items():
                 # print(arg_v)
                 # if isinstance(arg_v,Dict):
-                value = arg_v['value']
-                if isinstance(value,str) and value !="" and value[0] == '@' and (not value.find('.')>-1):
-                    in_.append(value[1:])
-                elif isinstance(value,List):
-                    for list_item in value:
-                        if isinstance(list_item,str) and list_item[0] == '@' and (not list_item.find('.')>-1):
-                            in_.append(list_item[1:])
+                if 'value' in arg_v.keys():
+                    value = arg_v['value']
+                    if isinstance(value,str) and value !="" and value[0] == '@' and (not value.find('.')>-1):
+                        in_.append(value[1:])
+                    elif isinstance(value,List):
+                        for list_item in value:
+                            if isinstance(list_item,str) and list_item[0] == '@' and (not list_item.find('.')>-1):
+                                in_.append(list_item[1:])
             nodes[k] = {'in':in_,'out':[],'on_trace':False}
         # print(nodes)
         for k,v in nodes.items():
@@ -126,8 +127,7 @@ class RecursiveParse(object):
     def merge_edges(self,observers,edges_map):
         for ob_k,ob_info in observers.items():
             addargs = {}
-            # if ob_info['name'] == 'zip':
-            #     pdb.set_trace()
+
             if 'extraInPorts' in ob_info.keys() and ob_info['extraInPorts']:
                 for extra_arg_k,extra_arg_v in ob_info['extraInPorts'].items():
                     arg_list = []
@@ -148,7 +148,8 @@ class RecursiveParse(object):
                     else:
                         # pdb.set_trace()
                         arg_v['value'] = addargs[arg_k][0]
-
+            # if ob_info['name'] == 'zip':
+            #     pdb.set_trace()
 
         return observers
                         

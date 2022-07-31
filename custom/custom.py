@@ -86,7 +86,7 @@ def except_eval(line,kwargs):
         return eval(line,kwargs)
     except Exception as e:
         # print(traceback.format_exc())
-        # ExeStack.exception(traceback.format_exc())
+        ExeStack.exception(traceback.format_exc())
         raise e
 
 class LambdaCallable(object):
@@ -105,7 +105,7 @@ class LambdaCallable(object):
                 kwargs[k] = v
         # print('###lambda:###',self.line,kwargs)
         ret = except_eval(self.line, kwargs,)
-
+        # pdb.set_trace()
         return ret
 
 @rx_func(func_type='lambda')
@@ -118,4 +118,8 @@ def lambda_(line:str,args:List)->Any:
 #TODO subject强制设为变量
 @rx_func(mutable_args=('subject'))
 def create_by_Subject(subject:Subject)->Observable[_T]:
-    return create(subject.subscribe)
+    try:
+        return create(subject.subscribe)
+    except Exception as e:
+        print(subject)
+        raise e
