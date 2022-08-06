@@ -58,7 +58,7 @@ const switchToNewItem = () => {
 
 const setNewConfig = async (name: string) => {
   let response = await axios.put(`api/config/${name}`)
-  persistStore()
+  await persistStore()
   location.reload(true)
 }
 

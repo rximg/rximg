@@ -523,7 +523,7 @@ def fillConvexPoly(img: NDArray, points: NDArray, color: tuple = (255, 255, 255)
 
 
 @rx_func()
-def GaussianBlur(src: NDArray, ksize: tuple, sigmaX: int, sigmaY: int = 0,
+def GaussianBlur(src: NDArray, ksize: tuple, sigmaX: int=0, sigmaY: int = 0,
                  borderType: ENUM_CV_BorderTypes = ENUM_CV_BorderTypes.default) -> NDArray:
     """    "GaussianBlur(src:NDArray, ksize, sigmaX[, dst[, sigmaY[, borderType]]]) -> dst
 .   @brief Blurs an image using a Gaussian filter.
@@ -1043,7 +1043,7 @@ def seamlessClone(src: NDArray, dst: NDArray, mask: NDArray, p: tuple, flags: EN
 .   @param flags Cloning method that could be cv::NORMAL_CLONE, cv::MIXED_CLONE or cv::MONOCHROME_TRANSFER'
 
     """
-    print(src.shape, dst.shape, mask.shape)
+    # print(src.shape, dst.shape, mask.shape)
     return cv2.seamlessClone(src, dst, mask, p, flags,)
 
 

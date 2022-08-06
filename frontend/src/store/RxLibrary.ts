@@ -133,7 +133,7 @@ export class RXArg implements RXArgInterface {
     }
 
     md5(): string {
-        return md5(`${this.type}` + this.toString()+`${this.mutable}`)
+        return md5(`${this.type}${this.value.value}${this.mutable}`)
     }
 }
 

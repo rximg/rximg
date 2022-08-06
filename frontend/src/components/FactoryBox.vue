@@ -68,8 +68,8 @@
         </div>
         <div v-else>
           <div
-            v-for="(arg, key) in functionData.args"
-            :key="functionData.name + key"
+            v-for="(arg, key) in sortObj(functionData.args)"
+            :key="getIndex(arg.index,functionData.name)"
           >
               <arg-item
                 :arg="arg"
@@ -172,6 +172,12 @@ function setArgValue(event) {
   console.log("get arg event", event);
   // argData[key] = event;
 }
+
+const getIndex=(index:number,name:string)=>{
+  // console.log(index.toString().padStart(5,'0'))
+  return `${index.toString().padStart(5,'0')}${name}`
+}
+
 </script>
 
 <style scoped>

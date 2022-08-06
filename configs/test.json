@@ -1,53 +1,51 @@
 {
   "observers": {
-    "1688ad6dc677a63c9def9ee486fadbf8": {
-      "type": "callable",
-      "from": "custom",
-      "uuid": "1688ad6dc677a63c9def9ee486fadbf8",
-      "name": "create_by_Subject",
+    "6e28d2c65822f82d44a0826910d67824": {
+      "from": "observables",
+      "uuid": "6e28d2c65822f82d44a0826910d67824",
+      "name": "zip",
       "returnType": "Observable",
       "args": {
-        "subject": {
+        "args": {
           "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "Any",
-          "mutable": "8c99ad3e-c082-45a6-95a7-83a0ee2d6ec0"
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "mutable": "5fa3b388-44bd-4849-b7ee-91d9ccb106a3"
         }
       },
       "extraInPorts": {
-        "subject": 1
+        "args": 2
       }
     },
-    "265968eb65b54559fcbdd6859d4ef323": {
+    "6f3e38de6a672ce02d893f5bb7b9b526": {
       "type": "callable",
       "from": "cv2",
-      "uuid": "265968eb65b54559fcbdd6859d4ef323",
-      "name": "GaussianBlur",
-      "op": "map",
+      "uuid": "6f3e38de6a672ce02d893f5bb7b9b526",
+      "name": "resize",
       "returnType": "NDArray",
       "args": {
-        "borderType": {
-          "index": 4,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "choices",
-          "value": 0
-        },
-        "ksize": {
+        "dsize": {
           "index": 1,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "tuple",
-          "value": "(5,5)"
+          "value": "(512,512)"
         },
-        "sigmaX": {
+        "fx": {
           "index": 2,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "int",
           "value": 0
         },
-        "sigmaY": {
+        "fy": {
           "index": 3,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "int",
+          "value": 0
+        },
+        "interpolation": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
           "value": 0
         },
         "src": {
@@ -58,9 +56,9 @@
       },
       "extraInPorts": {}
     },
-    "713e388ffd1f74438d6c201c91732395": {
+    "93364f80839b9510486d7dff81eea750": {
       "from": "observables",
-      "uuid": "713e388ffd1f74438d6c201c91732395",
+      "uuid": "93364f80839b9510486d7dff81eea750",
       "name": "of",
       "returnType": "Observable",
       "args": {
@@ -69,29 +67,68 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            "data/Lenna.png"
+            "data/wd.jpg"
           ]
         }
       },
       "extraInPorts": {}
     },
-    "7669b048e1ea1b3cf788632d00d55f3b": {
+    "9815be699b9e1d472436ac4696c0c39e": {
       "type": "callable",
-      "from": "custom",
-      "uuid": "7669b048e1ea1b3cf788632d00d55f3b",
-      "name": "create_by_Subject",
-      "returnType": "Observable",
+      "from": "cv2",
+      "uuid": "9815be699b9e1d472436ac4696c0c39e",
+      "name": "resize",
+      "op": "map",
+      "returnType": "NDArray",
       "args": {
-        "subject": {
+        "dsize": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(512,512)"
+        },
+        "fx": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "fy": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "interpolation": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "src": {
           "index": 0,
           "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "Any",
-          "mutable": "087e4101-5a1a-4d9e-b55f-90f523a01178"
+          "type": "NDArray"
         }
       },
-      "extraInPorts": {
-        "subject": 1
-      }
+      "extraInPorts": {}
+    },
+    "991db7aea8b162dc1b119e51c8c9ad7f": {
+      "from": "observables",
+      "uuid": "991db7aea8b162dc1b119e51c8c9ad7f",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/text0.jpg"
+          ]
+        }
+      },
+      "extraInPorts": {}
     },
     "a8366af9dab9b9cc496b7e5c298b0674": {
       "type": "callable",
@@ -115,89 +152,6 @@
       },
       "extraInPorts": {}
     },
-    "ec4a82a87b99b6a3a516a2105afdcfba": {
-      "type": "callable",
-      "from": "cv2",
-      "uuid": "ec4a82a87b99b6a3a516a2105afdcfba",
-      "name": "GaussianBlur",
-      "op": "map",
-      "returnType": "NDArray",
-      "args": {
-        "borderType": {
-          "index": 4,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "choices",
-          "value": 0
-        },
-        "ksize": {
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "tuple",
-          "value": "(13,13)"
-        },
-        "sigmaX": {
-          "index": 2,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "int",
-          "value": 0
-        },
-        "sigmaY": {
-          "index": 3,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "int",
-          "value": 0
-        },
-        "src": {
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "NDArray"
-        }
-      },
-      "extraInPorts": {}
-    },
-    "192565c43a66c09a04fec2526fa48679": {
-      "from": "observables",
-      "uuid": "192565c43a66c09a04fec2526fa48679",
-      "name": "zip",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "type": "list",
-          "mutable": "c6f173ea-fd08-4331-b8a7-675b54661317"
-        }
-      },
-      "extraInPorts": {
-        "args": 2
-      }
-    },
-    "cd718c07c896ae1e5d4b1296163b5cb8": {
-      "type": "lambda",
-      "from": "custom",
-      "uuid": "cd718c07c896ae1e5d4b1296163b5cb8",
-      "name": "lambda_",
-      "op": "map",
-      "returnType": "Any",
-      "args": {
-        "args": {
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "list",
-          "value": [
-            "x0",
-            "x1"
-          ]
-        },
-        "line": {
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "str",
-          "value": "x0-x1+127"
-        }
-      },
-      "extraInPorts": {}
-    },
     "dbd1237b6f3ecea558e539db5085d389": {
       "type": "callable",
       "from": "custom",
@@ -212,82 +166,144 @@
         }
       },
       "extraInPorts": {}
+    },
+    "e5c37ed61106cd99a9a9e261c6ae7fab": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "e5c37ed61106cd99a9a9e261c6ae7fab",
+      "name": "seamlessClone",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "dst": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        },
+        "flags": {
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "mask": {
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "ref",
+          "value": "@fd2eb4be1b7802109d26cf2dfaebdbaf"
+        },
+        "p": {
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(256,256)"
+        },
+        "src": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "fd2eb4be1b7802109d26cf2dfaebdbaf": {
+      "type": "callable",
+      "from": "np",
+      "uuid": "fd2eb4be1b7802109d26cf2dfaebdbaf",
+      "name": "ones",
+      "returnType": "empty",
+      "args": {
+        "dtype": {
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": "uint8"
+        },
+        "shape": {
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(162,327,3)"
+        }
+      },
+      "extraInPorts": {}
     }
   },
   "relations": {
-    "4839f4fd-4bba-4b29-b11e-0cd24a8d9de7": {
+    "346865f4-7661-4c43-93aa-4b2bc6c85f0c": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "4839f4fd-4bba-4b29-b11e-0cd24a8d9de7",
+      "uuid": "346865f4-7661-4c43-93aa-4b2bc6c85f0c",
       "name": "build_observerable",
       "location": {
-        "x": 710,
-        "y": 611,
+        "x": 330,
+        "y": 650,
         "type": "obserable",
         "boxWidth": 420,
-        "boxHeight": 178
+        "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@7669b048e1ea1b3cf788632d00d55f3b"
+          "value": "@6e28d2c65822f82d44a0826910d67824"
         },
         "pipe": {
           "type": "list",
           "value": [
-            "@ec4a82a87b99b6a3a516a2105afdcfba"
+            "@e5c37ed61106cd99a9a9e261c6ae7fab"
           ]
         },
         "subscribe": {
-          "type": "MultiCast",
-          "value": "@core.get_subject('4839f4fd-4bba-4b29-b11e-0cd24a8d9de7')",
-          "cast_value": 1
+          "type": "SingleCast",
+          "value": "@dbd1237b6f3ecea558e539db5085d389",
+          "cast_value": "dbd1237b6f3ecea558e539db5085d389"
         }
       }
     },
-    "a8f6a720-ab67-4fd9-9323-c6364e304e7e": {
+    "da7fdf0d-a778-4b37-94c8-b8db8e4f54e3": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "a8f6a720-ab67-4fd9-9323-c6364e304e7e",
+      "uuid": "da7fdf0d-a778-4b37-94c8-b8db8e4f54e3",
       "name": "build_observerable",
       "location": {
-        "x": 200,
-        "y": 611,
+        "x": 530,
+        "y": 220,
         "type": "obserable",
         "boxWidth": 420,
-        "boxHeight": 178
+        "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@1688ad6dc677a63c9def9ee486fadbf8"
+          "value": "@93364f80839b9510486d7dff81eea750"
         },
         "pipe": {
           "type": "list",
           "value": [
-            "@265968eb65b54559fcbdd6859d4ef323"
+            "@a8366af9dab9b9cc496b7e5c298b0674",
+            "@9815be699b9e1d472436ac4696c0c39e"
           ]
         },
         "subscribe": {
           "type": "MultiCast",
-          "value": "@core.get_subject('a8f6a720-ab67-4fd9-9323-c6364e304e7e')",
+          "value": "@core.get_subject('da7fdf0d-a778-4b37-94c8-b8db8e4f54e3')",
           "cast_value": 1
         }
       }
     },
-    "e86c78f3-099e-4c06-8640-1a297ece4665": {
+    "e0a3e212-e055-4109-be5b-2b1c73eccaa8": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "e86c78f3-099e-4c06-8640-1a297ece4665",
+      "uuid": "e0a3e212-e055-4109-be5b-2b1c73eccaa8",
       "name": "build_observerable",
       "location": {
-        "x": 270,
-        "y": 341,
+        "x": 160,
+        "y": 191,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 178
       },
       "args": {
         "head": {
-          "value": "@713e388ffd1f74438d6c201c91732395"
+          "value": "@991db7aea8b162dc1b119e51c8c9ad7f"
         },
         "pipe": {
           "type": "list",
@@ -297,81 +313,32 @@
         },
         "subscribe": {
           "type": "MultiCast",
-          "value": "@core.get_subject('e86c78f3-099e-4c06-8640-1a297ece4665')",
-          "cast_value": 2
-        }
-      }
-    },
-    "e372f80e-af87-4db4-80e8-c0c24b281cf9": {
-      "type": "Observerable",
-      "from": "core",
-      "uuid": "e372f80e-af87-4db4-80e8-c0c24b281cf9",
-      "name": "build_observerable",
-      "location": {
-        "x": 240,
-        "y": 900,
-        "type": "obserable",
-        "boxWidth": 420,
-        "boxHeight": 200
-      },
-      "args": {
-        "head": {
-          "value": "@192565c43a66c09a04fec2526fa48679"
-        },
-        "pipe": {
-          "type": "list",
-          "value": [
-            "@cd718c07c896ae1e5d4b1296163b5cb8"
-          ]
-        },
-        "subscribe": {
-          "type": "SingleCast",
-          "value": "@dbd1237b6f3ecea558e539db5085d389",
-          "cast_value": "@dbd1237b6f3ecea558e539db5085d389"
+          "value": "@core.get_subject('e0a3e212-e055-4109-be5b-2b1c73eccaa8')",
+          "cast_value": 1
         }
       }
     }
   },
   "parameters": {},
   "edges": {
-    "2852bd6a-276b-4cf4-a1d1-d6fe5c0b73d3": {
+    "3c055be0-d8e7-4191-a08b-e260f3b94555": {
       "source": {
-        "cell": "e86c78f3-099e-4c06-8640-1a297ece4665",
-        "port": "e86c78f3-099e-4c06-8640-1a297ece4665_out_0"
+        "cell": "e0a3e212-e055-4109-be5b-2b1c73eccaa8",
+        "port": "e0a3e212-e055-4109-be5b-2b1c73eccaa8_out_0"
       },
       "target": {
-        "cell": "a8f6a720-ab67-4fd9-9323-c6364e304e7e",
-        "port": "1688ad6dc677a63c9def9ee486fadbf8_subject_0"
+        "cell": "346865f4-7661-4c43-93aa-4b2bc6c85f0c",
+        "port": "6e28d2c65822f82d44a0826910d67824_args_0"
       }
     },
-    "fa0dbf3d-b81e-4923-9aaa-6c52b394de96": {
+    "40196258-42e9-4a42-83cb-5f97b4461229": {
       "source": {
-        "cell": "e86c78f3-099e-4c06-8640-1a297ece4665",
-        "port": "e86c78f3-099e-4c06-8640-1a297ece4665_out_1"
+        "cell": "da7fdf0d-a778-4b37-94c8-b8db8e4f54e3",
+        "port": "da7fdf0d-a778-4b37-94c8-b8db8e4f54e3_out_0"
       },
       "target": {
-        "cell": "4839f4fd-4bba-4b29-b11e-0cd24a8d9de7",
-        "port": "7669b048e1ea1b3cf788632d00d55f3b_subject_0"
-      }
-    },
-    "08e1abc0-0e93-435c-8cca-ae6db705855c": {
-      "source": {
-        "cell": "a8f6a720-ab67-4fd9-9323-c6364e304e7e",
-        "port": "a8f6a720-ab67-4fd9-9323-c6364e304e7e_out_0"
-      },
-      "target": {
-        "cell": "e372f80e-af87-4db4-80e8-c0c24b281cf9",
-        "port": "192565c43a66c09a04fec2526fa48679_args_0"
-      }
-    },
-    "4ca43b71-5bb4-4e92-8d84-86148dd05c87": {
-      "source": {
-        "cell": "4839f4fd-4bba-4b29-b11e-0cd24a8d9de7",
-        "port": "4839f4fd-4bba-4b29-b11e-0cd24a8d9de7_out_0"
-      },
-      "target": {
-        "cell": "e372f80e-af87-4db4-80e8-c0c24b281cf9",
-        "port": "192565c43a66c09a04fec2526fa48679_args_1"
+        "cell": "346865f4-7661-4c43-93aa-4b2bc6c85f0c",
+        "port": "6e28d2c65822f82d44a0826910d67824_args_1"
       }
     }
   }

@@ -19,15 +19,11 @@
         <div v-else-if="type == 'choices'">
           <a-select
             style="width: 100%"
-            :options="options"
+            show-search
+            :options="choicesOptions"
+            :filter-option="choicesFilterOption"
             v-model:value="arg_value"
           >
-            <!-- <a-select-option
-              v-for="(value, label) in get_choices(arg)"
-              :key="label"
-            >
-              {{ label }}[{{ value }}]
-            </a-select-option> -->
           </a-select>
         </div>
         <div v-else-if="type == 'list'">
@@ -36,14 +32,15 @@
         <div v-else-if="type == 'tuple'">
           <a-input v-model:value="arg_value" style="width: 100%" />
         </div>
+        <div v-else-if="type == 'None'">
+          <a-input v-model:value=None disabled="true" style="width: 100%" />
+        </div>
         <div v-else-if="type == 'ref'">
-          <a-select style="width: 100%" v-model="arg_value">
-            <a-select-option
-              v-for="(value, index) in allRXfunctions"
-              :key="index"
-            >
-              {{ value.toString() }}
-            </a-select-option>
+          <a-select
+            style="width: 100%"
+            :options="refOptions"
+            v-model:value="arg_value"
+          >
           </a-select>
         </div>
         <div v-else>
@@ -57,7 +54,7 @@
         </a-switch>
       </a-col>
       <a-col :span="2">
-        <a-select v-model:value="type">
+        <a-select v-model:value="type" >
           <a-select-option
             v-for="(value, index) in types"
             :key="index"
@@ -88,7 +85,7 @@ type PropsType = {
 };
 const {
   arg,
-  types = ["bool", "int", "float", "choices", "list", "tuple", "ref"],
+  types = ["bool", "int", "float", "choices", "list", "tuple", "ref","None"],
 } = defineProps<PropsType>();
 
 const name = arg.name;
@@ -98,26 +95,36 @@ const mutable = ref(arg.mutable)
 const allRXfunctions = computed(() => {
   return Object.values(RXFunctionsStore);
 });
-const get_choices = (arg: ChoiceArg) => {
-const choices = []
-  Object.keys(arg.choices).forEach(
-    (key) => choices.push({ label:`${key}[${arg.choices[key]}]`, value:arg.choices[key]})
-  );  
-  console.log(choices);
-  return choices
-};
 watch(type, (newValue, oldValue) => {
   // if (newValue !== oldValue) {
     console.log('arg type watch',newValue,oldValue);
-    arg.type = newValue;
+    if (newValue === "None") {
+      arg.type = newValue
+      arg.value.value = null
+    }else{
+      arg.type = newValue;
+    }
   // }  
 });
 watch(mutable, (newValue, oldValue) => {
-    arg.mutable = newValue;
+  arg.mutable = newValue;
 });
-let options = []
-if (arg.type == 'choices'){
-  options = get_choices(arg);
-}
+const get_choices = (arg: ChoiceArg) => Object.keys(arg.choices).map(
+  (key) => ({ label:`${key}[${arg.choices[key]}]`, value:arg.choices[key]}) );
+
+const choicesOptions = arg.type=='choices'?get_choices(arg):[]
+const choicesFilterOption = (input: string, option: any) => {
+      return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    };
+// if (arg.type == 'choices'){
+  // choicesOptions = get_choices(arg);
+// }
+const refOptions = computed(
+  ()=> allRXfunctions.value.map(
+    (value) => ({ label:value.toString(), value:`@${value.uuid}`})
+  )
+) 
+// const refOptions = get_refchoices
+// console.log('ref',refOptions);
 const emits = defineEmits<(e: "emitValue", value: any) => void>();
 </script>

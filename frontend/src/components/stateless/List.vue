@@ -80,7 +80,7 @@ import {CloseOutlined, PlusOutlined} from "@ant-design/icons-vue";
 
 const emit = defineEmits(["update:valueModel"]);
 const selectType = ref("int");
-const typeOptions = ["int", "float", "bool", "ref", "str"];
+const typeOptions = ["str","ref", "int", "float", "bool" ];
 const visible = ref(false);
 // type PropsType = {
 //   valueModel: any[];

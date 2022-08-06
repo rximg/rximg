@@ -2,7 +2,7 @@
 
 # sys.path.append('.')
 
-from third_party import cv2_modules,np_modules
+from third_party import cv2_modules,np_modules,observer_modules
 from engine.module_parsers import CustomRXFunctionParser
 import inspect
 import os
@@ -105,15 +105,30 @@ class RXModules(object):
 
     def __init__(self) -> None:
         super().__init__()
-        # self.get_rxs()
+        self.mod = observer_modules
+        self.reskvfront = {}
+        self.reskvback = {}
+
+    def get_func_from_module(self, mod):
+        rx_funcs = []
+        for m in dir(mod):
+            f = getattr(mod,m)
+            if callable(f):
+                if hasattr(f,'rx_func') and f.rx_func==True:
+                    rx_funcs.append(f)
+        return rx_funcs
 
     def get_rxs(self):
-        observables_back,observables_front = {},{}
-        for r in dir(rx):
-            func = getattr(rx,r)
-            if inspect.isfunction(func):#type(_)==types.FunctionType:
-                observables_back[r]=func
-                observables_front[r] =CustomRXFunctionParser(func,"observables").get()
+        calls = self.get_func_from_module(self.mod)
+        for c in calls:
+            self.reskvback[c.__name__] = c
+            self.reskvfront[c.__name__] = CustomRXFunctionParser(c,"observables").get()
+        # observables_back,observables_front = {},{}
+        # for r in dir(rx):
+        #     func = getattr(rx,r)
+        #     if inspect.isfunction(func):#type(_)==types.FunctionType:
+        #         observables_back[r]=func
+        #         observables_front[r] =CustomRXFunctionParser(func,"observables").get()
         operators_back,operators_front = {},{}
         for r in dir(operators):
             func = getattr(operators,r)
@@ -121,11 +136,11 @@ class RXModules(object):
                 operators_back[r]=func
                 operators_front[r] =CustomRXFunctionParser(func,"operators").get()
         self.rx_backend = {
-            "observables":observables_back,
+            "observables":self.reskvback,
             "operators":operators_back,
         }
         self.rx_frontend = {
-            "observables":observables_front,
+            "observables":self.reskvfront,
             "operators":operators_front,
         }
     

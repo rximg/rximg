@@ -163,6 +163,7 @@ const handleTraceVisible = (flag:boolean)=>{
     }
 const  execute = async ()=> {
       ViewStore.cleanLogs()
+      await persistStore()
       await axios.get('api/execute')
     //   this.$socket.emit("execute_event",);
       traceModalVisible.value = false
