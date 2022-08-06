@@ -19,7 +19,7 @@ export class CurrentState {
     edges:ShallowReactive<Record<string,Port>>
     apiurl:string
     global_datarefresh:Ref<number>
-    config:Config
+    tasks:string[]
 
     constructor() {
         this.function_data = shallowRef({})
@@ -27,7 +27,8 @@ export class CurrentState {
         this.edges = shallowReactive({})
         this.apiurl = ""
         this.global_datarefresh = ref(0)
-        this.config = reactive<Config>({names:[],current:''})
+        // this.config = reactive<Config>({names:[],current:''})
+        this.tasks = reactive([])
     }
     setFunction(function_data:RXFunction){
         this.function_data.value = function_data
@@ -49,11 +50,11 @@ export class CurrentState {
             }
         }
     }
-    updateConfigNames(data:Config){
-        this.config.current = data.current
-        data.names.forEach(
+    updateTaskNames(names){
+        // this.config.current = data.current
+        names.forEach(
             (value)=>{
-                this.config.names.push(value)
+                this.tasks.push(value)
             }
         )
     }

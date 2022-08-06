@@ -6,6 +6,8 @@ import { Observerable } from './Observers'
 import _ from 'lodash'
 import { CurrentState } from './CurrentState'
 import { ViewState } from './View'
+import { useLocalStorage } from '@vueuse/core'
+
 export const libraryStore: Record<string, any> = shallowRef({})
 
 export const RXFunctionsStore: ShallowReactive<Record<string, RXFunction>> = shallowReactive({})
@@ -16,6 +18,9 @@ export const CurrentStateStore: CurrentState = new CurrentState()
 
 export const ViewStore: ViewState = new ViewState()
 
+
+export const localStorage = useLocalStorage('current', { taskName: ''})
+
 export const initStore = async () => {
 
     let response = await axios.get('api/elements')
@@ -23,8 +28,8 @@ export const initStore = async () => {
     libraryStore.value = response.data
     // response = await axios.get('api/config')
 
-    response = await axios.get('api/observers')
-    // console.log('response:',response.data.observers,response.data.relations)
+    response = await axios.get(`api/observers/${localStorage.value.taskName}`)
+    // console.log('response:',localStorage.value.taskName,response.data,response.data.observers,response.data.relations)
     Object.values(response.data.observers).forEach(
         (item) => {
             if (item.type=='lambda'){
@@ -45,8 +50,9 @@ export const initStore = async () => {
     )
     CurrentStateStore.edges = reactive(response.data.edges)
     CurrentStateStore.global_datarefresh.value += 1
+    console.log(localStorage,localStorage.value.taskName)
     response = await axios.get('api/config')
-    CurrentStateStore.updateConfigNames(response.data)
+    CurrentStateStore.updateTaskNames(response.data.names)
     // ObserverablesStore.value = response.data
     return true
 
@@ -59,7 +65,7 @@ export const initStore = async () => {
 //     await initStore()
 // }
 
-const persistStore_func = async () => {
+export const persistStoreFunc = async () => {
     const observer_data = {}
     let temp: any
     const observer_raw = toRaw(ObserverablesStore)
@@ -84,7 +90,7 @@ const persistStore_func = async () => {
     for (const edgek in CurrentStateStore.edges) {
         edges[edgek] = CurrentStateStore.edges[edgek]
     }
-    await axios.post('api/observers', {
+    await axios.post(`api/observers/${localStorage.value.taskName}`, {
         observers: rx_data,
         relations: observer_data,
         parameters: {},
@@ -92,7 +98,7 @@ const persistStore_func = async () => {
     })
 }
 
-export const persistStore = _.throttle(persistStore_func, 500)
+export const persistStore = _.throttle(persistStoreFunc, 500)
 
 
 // export const addMulticast = (item:Observerable,)=>{

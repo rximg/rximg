@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-
+//TODO delete extra edge
 
 import { defineComponent, ref, h, toRefs, computed, shallowRef, onMounted } from "vue";
 import { Port, PortGroup, TeleportContainer } from "antv-x6-vue";

@@ -123,6 +123,7 @@ export class RXArg implements RXArgInterface {
         // const value = this.value.value == undefined ? 'None' : this.value.value
 
         return {
+            name:this.name,
             index: this.index,
             kind: this.kind,
             type: this.type,
@@ -144,6 +145,7 @@ export class ChoiceArg implements ChoiceArgInterface {
     name?: string
     value: RefCommonValueType
     choices: Record<string, number | string>
+    mutable?: string|boolean
 
 
 
@@ -152,6 +154,7 @@ export class ChoiceArg implements ChoiceArgInterface {
         kind?: string,
         value?: CommonValueType,
         name?: string,
+        mutable?: string|boolean
     ) {
         this.index = index
         this.type = "choices"
@@ -165,6 +168,7 @@ export class ChoiceArg implements ChoiceArgInterface {
         }
         this.name = name ? name : undefined
         this.choices = choices
+        this.mutable = mutable ? mutable : undefined
     }
 
 
@@ -179,10 +183,12 @@ export class ChoiceArg implements ChoiceArgInterface {
     }
     tojson() {
         return {
+            name:this.name,
             index: this.index,
             kind: this.kind,
             type: this.type,
-            value: this.value.value
+            value: this.value.value,
+            mutable:this.mutable?this.mutable:undefined
         }
     }
     md5(): string {
@@ -217,7 +223,7 @@ export interface RXFunctionInterface {
 export const createArgs = (data: Record<string, any>): RXArgInterface => {
     const { index, type, kind, value, name ,mutable} = data
     if (data.type == 'choices') {
-        return new ChoiceArg(index, data.choices, kind, value, name)
+        return new ChoiceArg(index, data.choices, kind, value, name,mutable)
     } else {
         return new RXArg(index, type, kind, value, name,mutable)
     }

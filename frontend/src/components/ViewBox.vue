@@ -108,7 +108,7 @@
 // import NDArray from "./stateless/NDArray.vue";
 import { onMounted,computed,ref,type Ref } from "vue";
 import axios from "axios";
-import {ViewStore,CurrentStateStore,persistStore}  from "@/store";
+import {ViewStore,CurrentStateStore,persistStore,localStorage}  from "@/store";
 import { useElementSize } from '@vueuse/core'
 const headTools = {
         background: "#348498",
@@ -164,7 +164,7 @@ const handleTraceVisible = (flag:boolean)=>{
 const  execute = async ()=> {
       ViewStore.cleanLogs()
       await persistStore()
-      await axios.get('api/execute')
+      await axios.get(`api/execute/${localStorage.value.taskName}`)
     //   this.$socket.emit("execute_event",);
       traceModalVisible.value = false
     }

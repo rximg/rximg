@@ -88,10 +88,6 @@ const deleteItem = (item: RXFunctionInterface) => {
   persistStore()
 };
 
-const tagToTitile = (uuid: string, name: string) => {
-  return uuid;
-};
-
 function sortObj(obj: Record<string, RXArgInterface>): RXArgInterface[] {
   return Object.values(obj).sort((a, b) => a.index - b.index);
 }

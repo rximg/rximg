@@ -21,24 +21,28 @@ default_config = {
 class JsonConfig(object):
 
 
-    def __init__(self) -> None:
-        self.meta_config_path = './configs/meta.json'
+    def __init__(self,name) -> None:
+        # self.meta_config_path = './configs/meta.json'
         self.config_dir = './configs/'
         
-        if not osp.isdir(self.config_dir):
-            osp.makedirs(self.config_dir)
-        if osp.isfile(self.meta_config_path):
-            with open(self.meta_config_path,'r') as f:
-                line = f.read()
-                data = json.loads(line)
-            self.current_name = data['current']
-        else:
-            self.meta_config = {
-                "current":"undefined"
-            }
-            with open(self.meta_config_path,'w') as f:
-                f.write(json.dumps(self.meta_config,indent=2))
+        # if not osp.isdir(self.config_dir):
+        #     osp.makedirs(self.config_dir)
+        # if osp.isfile(self.meta_config_path):
+        #     with open(self.meta_config_path,'r') as f:
+        #         line = f.read()
+        #         data = json.loads(line)
+        #     self.current_name = data['current']
+        # else:
+        #     self.meta_config = {
+        #         "current":"undefined"
+        #     }
+        #     with open(self.meta_config_path,'w') as f:
+        #         f.write(json.dumps(self.meta_config,indent=2))
+        #     self.current_name = 'undefined'
+        if name == "":
             self.current_name = 'undefined'
+        else:
+            self.current_name = name
         # else:
 
     
@@ -52,16 +56,17 @@ class JsonConfig(object):
             f.write(json.dumps(data,indent=2))
         return value
 
-    def list_config_names(self):
-        dirs = os.listdir(self.config_dir)
+    @staticmethod
+    def list_config_names():
+        dirs = os.listdir('./configs/')
         dirs = [osp.splitext(d)[0] for d in dirs if d.endswith('.json')]
         dirs.remove('meta')
-        if len(dirs) == 0 :
-            dirs.append(self.current_name)
+        # if len(dirs) == 0 :
+        #     dirs.append(self.current_name)
         
         return {
             'names':dirs,
-            'current':self.current_name
+            # 'current':self.current_name
         }
 
 

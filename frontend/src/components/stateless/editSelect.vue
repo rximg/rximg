@@ -1,7 +1,7 @@
 <template>
   <span >
     <template v-if="selectStatus">
-      <a-select style="width: 100%" v-model:value="CurrentStateStore.config.current" option-label-prop="label"
+      <a-select style="width: 100%" v-model:value="taskname" option-label-prop="label"
         @change="selectChange">
         <template #dropdownRender="{ menuNode: menu }">
           <div>
@@ -13,7 +13,7 @@
             </div>
           </div>
         </template>
-        <a-select-option class="delete-icon" :value="item" v-for="item in CurrentStateStore.config.names" :key="item"
+        <a-select-option class="delete-icon" :value="item" v-for="item in CurrentStateStore.tasks" :key="item"
           :label="item">
           {{ item }}
           <delete-outlined style="position: absolute; top: 30%; right: 10%" @click.stop="deleteItem(item)" />
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 // import * as Vue from 'vue'
 import { ref, computed } from 'vue'
-import { CurrentStateStore, persistStore } from '@/store'
+import { CurrentStateStore, persistStoreFunc, localStorage } from '@/store'
 // import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import axios from 'axios'
 const VNodes = (_, { attrs }) => {
@@ -42,14 +42,15 @@ const VNodes = (_, { attrs }) => {
 }
 const selectStatus = ref(true)
 const groupListValue = ref(null)
+const taskname = ref(localStorage.value.taskName || '')
 
 const groupValue = ref("")
 const editNameValue = ref("")
 const deleteItem = async (label: string) => {
   let response = await axios.delete('api/config/' + label)
   if (response.data.type == 'success') {
-    const index = CurrentStateStore.config.names.indexOf(label)
-    CurrentStateStore.config.names.splice(index, 1)
+    const index = CurrentStateStore.tasks.indexOf(label)
+    CurrentStateStore.tasks.splice(index, 1)
   }
 }
 const switchToNewItem = () => {
@@ -57,8 +58,10 @@ const switchToNewItem = () => {
 }
 
 const setNewConfig = async (name: string) => {
-  let response = await axios.put(`api/config/${name}`)
-  await persistStore()
+  // let response = await axios.put(`api/config/${name}`)
+  // await persistStoreFunc()
+  localStorage.value.taskName = name
+  
   location.reload(true)
 }
 
@@ -68,10 +71,9 @@ const selectChange = (value: string) => {
 }
 
 const finishNewEdit = () => {
-  CurrentStateStore.config.names.splice(0, 0, editNameValue.value)
-  CurrentStateStore.config.current = editNameValue.value
+  CurrentStateStore.tasks.splice(0, 0, editNameValue.value)
   selectStatus.value = true
-  setNewConfig(CurrentStateStore.config.current)
+  setNewConfig(taskname.value)
 }
 </script>
 

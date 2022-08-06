@@ -53,7 +53,7 @@ def index():
 
 stack = Stack()
 stack.start()
-jsoncfg = JsonConfig()
+
 
 
 
@@ -63,11 +63,12 @@ def elements():
     return all_const_front
 
 
-@app.route('/api/observers', methods=['GET', 'POST'])
-def observers():
+@app.route('/api/observers/<name>', methods=['GET', 'POST'])
+def observers(name):
     if request.method == 'POST':
         # pprint.pprint(request.get_json())
         jsd = request.get_json()
+        jsoncfg = JsonConfig(name)
         # line = json.dumps(jsd, indent=2)
         jsoncfg.save_params(jsd)
         # with open('./server/observers.json', 'w') as f:
@@ -77,25 +78,26 @@ def observers():
         # with open('./server/observers.json', 'r') as f:
         #     line = f.read()
         # return json.loads(line)
+        jsoncfg = JsonConfig(name)
         return jsoncfg.load_params()
 
-@socketio.on('execute_event')
-def execute_event():
-    data = jsoncfg.load_params()
-    # stack.deq.append(
-        # partial()
-    # )
-    ExeStack.init_store()
-    try:
-        RecursiveParse().run(data)
-    except Exception as e:
-        # ExeStack.exception(traceback.format_exc())
-        raise e
+# @socketio.on('execute_event')
+# def execute_event():
+#     data = jsoncfg.load_params()
+#     # stack.deq.append(
+#         # partial()
+#     # )
+#     ExeStack.init_store()
+#     try:
+#         RecursiveParse().run(data)
+#     except Exception as e:
+#         # ExeStack.exception(traceback.format_exc())
+#         raise e
 
 
-@app.route('/api/execute',methods=['GET'])
-def execute():
-    data = jsoncfg.load_params()
+@app.route('/api/execute/<name>',methods=['GET'])
+def execute(name):
+    data = JsonConfig(name).load_params()
     # stack.deq.append(
         # partial()
     # )
@@ -107,15 +109,15 @@ def execute():
         raise e
     return {'type':'success'}
 
-@app.route('/api/config/<name>',methods=['PUT','DELETE'])
-def set_current_name(name):
-    if request.method == 'PUT':
+# @app.route('/api/config/<name>',methods=['PUT','DELETE'])
+# def set_current_name(name):
+#     if request.method == 'PUT':
 
-        name = jsoncfg.set_current_name(name)
-        return {'type':'success','data':name}
-    elif request.method == 'DELETE':
-        jsoncfg.delete_config_by_name(name)
-        return {'type':'success'}
+#         name = jsoncfg.set_current_name(name)
+#         return {'type':'success','data':name}
+#     elif request.method == 'DELETE':
+#         jsoncfg.delete_config_by_name(name)
+#         return {'type':'success'}
 
 # @app.route('/api/config/<name>',methods=['DELETE',])
 # def set_current_name(name):
@@ -124,7 +126,7 @@ def set_current_name(name):
 
 @app.route('/api/config',methods=['GET',])
 def list_config_names():
-    _ = jsoncfg.list_config_names()
+    _ = JsonConfig.list_config_names()
     _['type'] = 'success'
     return _
 # @app.login_manager.unauthorized_handler
