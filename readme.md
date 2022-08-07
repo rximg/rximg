@@ -4,8 +4,7 @@ RxImg, a Reactive image processing tool.
 
 ## pipeline
 
-<!-- ![image](https://i.postimg.cc/hGrXf3Pm/video.gif) -->
-[![video.gif](https://i.postimg.cc/hGrXf3Pm/video.gif)](https://postimg.cc/DWSvN6Gf)
+![image](https://github.com/rximg/rximgimagebed/blob/master/firstdemo.gif?raw=true)
 
 ## Quick Start
 
