@@ -18,25 +18,25 @@ default_config = {
     "parameters":{},
     "edges":{}
 }
+root_dir = osp.join(osp.dirname(__file__), '..')
 
 class JsonConfig(object):
 
 
     def __init__(self,name) -> None:
-        # self.meta_config_path = './configs/meta.json'
-        self.config_dir = './configs/'
+        self.config_dir = osp.join(root_dir,'configs')
         self.current_name = name        # else:
 
     
     def new_config(self,):
         # self.current_name = value
-        with open(self.config_dir+self.current_name +'.json','w') as f:
+        with open('{}/{}.json'.format(self.config_dir,self.current_name),'w') as f:
             f.write(json.dumps(default_config,indent=2))
         return self.current_name 
 
     @staticmethod
     def list_config_names():
-        dirs = os.listdir('./configs/')
+        dirs = os.listdir(osp.join(root_dir,'configs'))
         dirs = [osp.splitext(d)[0] for d in dirs if d.endswith('.json')]
         # dirs.remove('meta')
         # if len(dirs) == 0 :

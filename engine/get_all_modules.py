@@ -13,11 +13,12 @@ from reactivex import operators
 class CustomModules(object):
 
     def __init__(self) -> None:
-        super().__init__()
-        self.dir = 'custom'
+        self.custom_tag = 'custom'
+        updir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        self.dir = osp.join(updir, self.custom_tag)
 
     def get_modules(self, name):
-        cmd = self.dir+'.'+name
+        cmd = self.custom_tag+'.'+name
         mod = __import__(cmd, fromlist=[name])
         callss = [getattr(mod, m) for m in dir(mod)]
         callss = [v for k, v in mod.__dict__.items() if hasattr(v, 'rx_func')]

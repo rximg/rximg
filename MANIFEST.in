@@ -1,0 +1,5 @@
+include rximg\\frontend\\dist\\*.*
+include rximg\\frontend\dist\assets\*.*
+include rximg\\configs\\*.json
+include rximg\\data\\*.jpg
+include rximg\\data\\*.png

@@ -1,6 +1,6 @@
 Flask
 Flask-Cors
-Flask-SocketIO==4.3.2
+Flask-SocketIO
 numpy 
 requests
 opencv-python

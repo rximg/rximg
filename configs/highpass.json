@@ -1,9 +1,9 @@
 {
   "observers": {
-    "d7159d4962aaa01d89d352971e408935": {
+    "79f6faba03142ead424c9b9e0effdeb8": {
       "type": "callable",
       "from": "observables",
-      "uuid": "d7159d4962aaa01d89d352971e408935",
+      "uuid": "79f6faba03142ead424c9b9e0effdeb8",
       "name": "of",
       "returnType": "Observable",
       "args": {
@@ -15,27 +15,7 @@
           "value": [
             "data/Lenna.png"
           ],
-          "mutable": "17a80102-f221-43a7-be87-88a0bc147c3b"
-        }
-      },
-      "extraInPorts": {}
-    },
-    "90176b35ec9c3b31f0bf530819309495": {
-      "type": "callable",
-      "from": "observables",
-      "uuid": "90176b35ec9c3b31f0bf530819309495",
-      "name": "of",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "name": "args",
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "type": "list",
-          "value": [
-            "data/Lenna.png"
-          ],
-          "mutable": "74b906de-3462-4e73-86f9-c617da3b8f52"
+          "mutable": "2e5565b5-9ef4-4827-b0e4-a3edffbf61cb"
         }
       },
       "extraInPorts": {}
@@ -63,6 +43,61 @@
         }
       },
       "extraInPorts": {}
+    },
+    "770e1c3cf265962d6160e40df3ade225": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "770e1c3cf265962d6160e40df3ade225",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "name": "mat",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "57030ac0a04ba5e0cc096d87884b5364": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "57030ac0a04ba5e0cc096d87884b5364",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "e53b3c25-798e-4471-a428-9cf6d3d5dd79"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "3ba0d98e760b3be94f0a7f2b9606323c": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "3ba0d98e760b3be94f0a7f2b9606323c",
+      "name": "zip",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "mutable": "45b917f4-89c1-49f9-b7e9-e91dcf2b2610"
+        }
+      },
+      "extraInPorts": {
+        "args": 2
+      }
     },
     "cd718c07c896ae1e5d4b1296163b5cb8": {
       "type": "lambda",
@@ -181,59 +216,24 @@
         }
       },
       "extraInPorts": {}
-    },
-    "96c08cb339964eeb02fbb893872b656d": {
-      "type": "callable",
-      "from": "observables",
-      "uuid": "96c08cb339964eeb02fbb893872b656d",
-      "name": "zip",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "name": "args",
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "type": "list",
-          "mutable": "b4fc8a56-c332-4d72-96ff-01e7cd6f3cb8"
-        }
-      },
-      "extraInPorts": {
-        "args": 2
-      }
-    },
-    "770e1c3cf265962d6160e40df3ade225": {
-      "type": "callable",
-      "from": "custom",
-      "uuid": "770e1c3cf265962d6160e40df3ade225",
-      "name": "imshow",
-      "returnType": "Any",
-      "args": {
-        "mat": {
-          "name": "mat",
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "NDArray"
-        }
-      },
-      "extraInPorts": {}
     }
   },
   "relations": {
-    "7a116cba-bd68-415b-a19e-09ad4bed96c0": {
+    "46975b8a-416f-4b71-a5a7-dd1b6b835de4": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "7a116cba-bd68-415b-a19e-09ad4bed96c0",
+      "uuid": "46975b8a-416f-4b71-a5a7-dd1b6b835de4",
       "name": "build_observerable",
       "location": {
-        "x": 160,
-        "y": 211,
+        "x": 30,
+        "y": 51,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@d7159d4962aaa01d89d352971e408935"
+          "value": "@79f6faba03142ead424c9b9e0effdeb8"
         },
         "pipe": {
           "type": "list",
@@ -244,26 +244,26 @@
         },
         "subscribe": {
           "type": "MultiCast",
-          "value": "@core.get_subject('7a116cba-bd68-415b-a19e-09ad4bed96c0')",
+          "value": "@core.get_subject('46975b8a-416f-4b71-a5a7-dd1b6b835de4')",
           "cast_value": 1
         }
       }
     },
-    "43d93ebc-c625-4f31-a741-0011fff8b80f": {
+    "6d702836-4111-486f-bf10-6c81cf946474": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "43d93ebc-c625-4f31-a741-0011fff8b80f",
+      "uuid": "6d702836-4111-486f-bf10-6c81cf946474",
       "name": "build_observerable",
       "location": {
-        "x": 630,
-        "y": 211,
+        "x": 390,
+        "y": 90,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@90176b35ec9c3b31f0bf530819309495"
+          "value": "@57030ac0a04ba5e0cc096d87884b5364"
         },
         "pipe": {
           "type": "list",
@@ -274,26 +274,26 @@
         },
         "subscribe": {
           "type": "MultiCast",
-          "value": "@core.get_subject('43d93ebc-c625-4f31-a741-0011fff8b80f')",
+          "value": "@core.get_subject('6d702836-4111-486f-bf10-6c81cf946474')",
           "cast_value": 1
         }
       }
     },
-    "4b2eff9e-e25c-496a-b7fc-4826e6ce772f": {
+    "100671f2-7201-45f5-9931-af50b2b66115": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "4b2eff9e-e25c-496a-b7fc-4826e6ce772f",
+      "uuid": "100671f2-7201-45f5-9931-af50b2b66115",
       "name": "build_observerable",
       "location": {
-        "x": 380,
-        "y": 681,
+        "x": 180,
+        "y": 361,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@96c08cb339964eeb02fbb893872b656d"
+          "value": "@3ba0d98e760b3be94f0a7f2b9606323c"
         },
         "pipe": {
           "type": "list",
@@ -311,24 +311,24 @@
   },
   "parameters": {},
   "edges": {
-    "150c474c-e8cc-4df7-825b-441f9eb5fa8d": {
+    "bcfd2fb1-41b1-4892-9e55-77f91a79bd7c": {
       "source": {
-        "cell": "7a116cba-bd68-415b-a19e-09ad4bed96c0",
-        "port": "7a116cba-bd68-415b-a19e-09ad4bed96c0_out_0"
+        "cell": "46975b8a-416f-4b71-a5a7-dd1b6b835de4",
+        "port": "46975b8a-416f-4b71-a5a7-dd1b6b835de4_out_0"
       },
       "target": {
-        "cell": "4b2eff9e-e25c-496a-b7fc-4826e6ce772f",
-        "port": "96c08cb339964eeb02fbb893872b656d_args_0"
+        "cell": "100671f2-7201-45f5-9931-af50b2b66115",
+        "port": "3ba0d98e760b3be94f0a7f2b9606323c_args_0"
       }
     },
-    "c4da00fa-72cb-4827-8cd7-3a693ce37c17": {
+    "1230f15b-4263-45cf-8377-644e864e0814": {
       "source": {
-        "cell": "43d93ebc-c625-4f31-a741-0011fff8b80f",
-        "port": "43d93ebc-c625-4f31-a741-0011fff8b80f_out_0"
+        "cell": "6d702836-4111-486f-bf10-6c81cf946474",
+        "port": "6d702836-4111-486f-bf10-6c81cf946474_out_0"
       },
       "target": {
-        "cell": "4b2eff9e-e25c-496a-b7fc-4826e6ce772f",
-        "port": "96c08cb339964eeb02fbb893872b656d_args_1"
+        "cell": "100671f2-7201-45f5-9931-af50b2b66115",
+        "port": "3ba0d98e760b3be94f0a7f2b9606323c_args_1"
       }
     }
   }

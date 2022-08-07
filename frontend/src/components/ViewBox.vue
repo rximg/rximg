@@ -1,8 +1,5 @@
 <template>
   <div class="main" ref="ViewBoxRef" id="viewbox">
-    <h1>Viewer</h1>
-    <!-- <div></div> -->
-    <!-- <img :src="ndimgurl(1)" > -->
     <a-card
       title=""
       class="card"
@@ -39,7 +36,7 @@
         </a-col>
       </a-row> -->
     </a-card>
-    <div style="margin-top: 16px overflow-y: auto">
+    <div :style="{'margin-top': '16px', 'overflow-y': 'auto', height: bodyHeight + 'px'}" >
       <a-timeline>
         <div v-for="(item, index) in ViewStore.logs" :key="index" > 
         <a-timeline-item  v-if="item.type == 'result' && item.visible==true">
@@ -120,6 +117,7 @@ const ViewBoxRef:Ref<any> = ref(null)
 //   return ViewBoxRef.value.$el.clientHeight;
 // })
 // let apiurl = ""
+const bodyHeight = ref(document.body.clientHeight-120);
 const { width } = useElementSize(ViewBoxRef)
 onMounted(
     ()=>{

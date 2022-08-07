@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from io import BytesIO
 from flask_socketio import SocketIO#, emit, send
 from collections import deque
@@ -112,7 +115,6 @@ def execute(name):
 @app.route('/api/config/<name>',methods=['PUT','DELETE'])
 def set_current_name(name):
     if request.method == 'PUT':
-
         name = JsonConfig(name).new_config()
         return {'type':'success','data':name}
     elif request.method == 'DELETE':

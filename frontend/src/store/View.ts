@@ -18,7 +18,7 @@ export class ViewState{
     }
 
     addLog(log:LogType){
-        console.log('addLog',log)
+        // console.log('addLog',log)
         this.logs.push(log)
     }
 

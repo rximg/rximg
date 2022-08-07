@@ -82,7 +82,7 @@ const rxfunctionItems: ShallowReactive<Record<string, RXFunctionInterface>> = RX
 // const repr = (uuid:string) => {
 //   return uuid.substring(0, 8)
 // }
-const bodyHeight = ref(document.body.clientHeight);
+const bodyHeight = ref(document.body.clientHeight-68);
 const deleteItem = (item: RXFunctionInterface) => {
   delete rxfunctionItems[item.uuid as string];
   persistStore()

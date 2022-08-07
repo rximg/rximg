@@ -19,7 +19,7 @@ export const CurrentStateStore: CurrentState = new CurrentState()
 export const ViewStore: ViewState = new ViewState()
 
 
-export const localStorage = useLocalStorage('current', { taskName: ''})
+export const localStorage = useLocalStorage('current', { taskName: 'undefined'})
 
 export const initStore = async () => {
 
