@@ -18,7 +18,6 @@ export type RefCommonValueType = Ref<CommonValueType>//Ref<string> | Ref<number>
  * type=[types] value=undefined 表示这是个多输入的函数。
  * type=[types] value=变量 
  */
-//TODO mutable:const/var  default:undefined, uuid
 export interface RXArgInterface {
     index: number
     kind?: string
@@ -32,7 +31,6 @@ export interface RXArgInterface {
     // fromjson(data:Record<string,any>):void
 
 }
-//TODO 考虑clean，changevalue|changetype
 // library => function
 // json => recover function 
 

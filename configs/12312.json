@@ -1,0 +1,335 @@
+{
+  "observers": {
+    "d7159d4962aaa01d89d352971e408935": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "d7159d4962aaa01d89d352971e408935",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "17a80102-f221-43a7-be87-88a0bc147c3b"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "90176b35ec9c3b31f0bf530819309495": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "90176b35ec9c3b31f0bf530819309495",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "74b906de-3462-4e73-86f9-c617da3b8f52"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "8cc29cc5d65852245040a0a90812998c": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "8cc29cc5d65852245040a0a90812998c",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "name": "filename",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str"
+        },
+        "flags": {
+          "name": "flags",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "extraInPorts": {}
+    },
+    "cd718c07c896ae1e5d4b1296163b5cb8": {
+      "type": "lambda",
+      "from": "custom",
+      "uuid": "cd718c07c896ae1e5d4b1296163b5cb8",
+      "name": "lambda_",
+      "op": "map",
+      "returnType": "Any",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0",
+            "x1"
+          ]
+        },
+        "line": {
+          "name": "line",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "x0-x1+127"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "72d9774d5c9c0cd70ada17ed44770a83": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "72d9774d5c9c0cd70ada17ed44770a83",
+      "name": "GaussianBlur",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "borderType": {
+          "name": "borderType",
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "ksize": {
+          "name": "ksize",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(5,5)"
+        },
+        "sigmaX": {
+          "name": "sigmaX",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "sigmaY": {
+          "name": "sigmaY",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "name": "src",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "53aa55307a430b62a84dcf7fc662bae8": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "53aa55307a430b62a84dcf7fc662bae8",
+      "name": "GaussianBlur",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "borderType": {
+          "name": "borderType",
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "ksize": {
+          "name": "ksize",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(13,13)"
+        },
+        "sigmaX": {
+          "name": "sigmaX",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "sigmaY": {
+          "name": "sigmaY",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "name": "src",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "96c08cb339964eeb02fbb893872b656d": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "96c08cb339964eeb02fbb893872b656d",
+      "name": "zip",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "mutable": "b4fc8a56-c332-4d72-96ff-01e7cd6f3cb8"
+        }
+      },
+      "extraInPorts": {
+        "args": 2
+      }
+    },
+    "770e1c3cf265962d6160e40df3ade225": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "770e1c3cf265962d6160e40df3ade225",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "name": "mat",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    }
+  },
+  "relations": {
+    "7a116cba-bd68-415b-a19e-09ad4bed96c0": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "7a116cba-bd68-415b-a19e-09ad4bed96c0",
+      "name": "build_observerable",
+      "location": {
+        "x": 160,
+        "y": 211,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@d7159d4962aaa01d89d352971e408935"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@8cc29cc5d65852245040a0a90812998c",
+            "@72d9774d5c9c0cd70ada17ed44770a83"
+          ]
+        },
+        "subscribe": {
+          "type": "MultiCast",
+          "value": "@core.get_subject('7a116cba-bd68-415b-a19e-09ad4bed96c0')",
+          "cast_value": 1
+        }
+      }
+    },
+    "43d93ebc-c625-4f31-a741-0011fff8b80f": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "43d93ebc-c625-4f31-a741-0011fff8b80f",
+      "name": "build_observerable",
+      "location": {
+        "x": 630,
+        "y": 211,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@90176b35ec9c3b31f0bf530819309495"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@8cc29cc5d65852245040a0a90812998c",
+            "@53aa55307a430b62a84dcf7fc662bae8"
+          ]
+        },
+        "subscribe": {
+          "type": "MultiCast",
+          "value": "@core.get_subject('43d93ebc-c625-4f31-a741-0011fff8b80f')",
+          "cast_value": 1
+        }
+      }
+    },
+    "4b2eff9e-e25c-496a-b7fc-4826e6ce772f": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "4b2eff9e-e25c-496a-b7fc-4826e6ce772f",
+      "name": "build_observerable",
+      "location": {
+        "x": 380,
+        "y": 681,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@96c08cb339964eeb02fbb893872b656d"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@cd718c07c896ae1e5d4b1296163b5cb8"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@770e1c3cf265962d6160e40df3ade225",
+          "cast_value": "@770e1c3cf265962d6160e40df3ade225"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "edges": {
+    "150c474c-e8cc-4df7-825b-441f9eb5fa8d": {
+      "source": {
+        "cell": "7a116cba-bd68-415b-a19e-09ad4bed96c0",
+        "port": "7a116cba-bd68-415b-a19e-09ad4bed96c0_out_0"
+      },
+      "target": {
+        "cell": "4b2eff9e-e25c-496a-b7fc-4826e6ce772f",
+        "port": "96c08cb339964eeb02fbb893872b656d_args_0"
+      }
+    },
+    "c4da00fa-72cb-4827-8cd7-3a693ce37c17": {
+      "source": {
+        "cell": "43d93ebc-c625-4f31-a741-0011fff8b80f",
+        "port": "43d93ebc-c625-4f31-a741-0011fff8b80f_out_0"
+      },
+      "target": {
+        "cell": "4b2eff9e-e25c-496a-b7fc-4826e6ce772f",
+        "port": "96c08cb339964eeb02fbb893872b656d_args_1"
+      }
+    }
+  }
+}

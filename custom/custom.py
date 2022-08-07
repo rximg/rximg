@@ -46,12 +46,12 @@ def roi_img(mat:NDArray,xmin:int,ymin:int,xmax:int,ymax:int)->NDArray:
 #     _ = cv2.imread(filename=filename,flags=1)
 #     return _
 
-@rx_func(func_type='file')
-def glob_dirs(dirs:List):
-    res = []
-    for i in dirs:
-        res= res+glob.glob(i)
-    return res
+# @rx_func(func_type='file')
+# def glob_dirs(dirs:List):
+#     res = []
+#     for i in dirs:
+#         res= res+glob.glob(i)
+#     return res
 
 
 @rx_func()
@@ -62,10 +62,10 @@ def print_(input_:typing.Any):
 def list_(*args):
     return args
 
-#TODO change parameter to var
-@rx_func(func_type="parameter")
-def parameter(input_):
-    return input_
+#FINISH change parameter to var
+# @rx_func(func_type="parameter")
+# def parameter(input_):
+#     return input_
 # def lambda_called(line, kwargs):
 #     # ret = eval(line, kwargs)
 #     return eval(line, kwargs)
@@ -115,11 +115,10 @@ def lambda_(line:str,args:List)->Any:
     else:
         return LambdaCallable(line, args)
 
-#TODO subject强制设为变量
-@rx_func(mutable_args=('subject'))
-def create_by_Subject(subject:Subject)->Observable[_T]:
-    try:
-        return create(subject.subscribe)
-    except Exception as e:
-        print(subject)
-        raise e
+# @rx_func(mutable_args=('subject'))
+# def create_by_Subject(subject:Subject)->Observable[_T]:
+#     try:
+#         return create(subject.subscribe)
+#     except Exception as e:
+#         print(subject)
+#         raise e

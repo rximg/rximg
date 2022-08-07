@@ -109,15 +109,15 @@ def execute(name):
         raise e
     return {'type':'success'}
 
-# @app.route('/api/config/<name>',methods=['PUT','DELETE'])
-# def set_current_name(name):
-#     if request.method == 'PUT':
+@app.route('/api/config/<name>',methods=['PUT','DELETE'])
+def set_current_name(name):
+    if request.method == 'PUT':
 
-#         name = jsoncfg.set_current_name(name)
-#         return {'type':'success','data':name}
-#     elif request.method == 'DELETE':
-#         jsoncfg.delete_config_by_name(name)
-#         return {'type':'success'}
+        name = JsonConfig(name).new_config()
+        return {'type':'success','data':name}
+    elif request.method == 'DELETE':
+        JsonConfig(name).delete_config_by_name(name)
+        return {'type':'success'}
 
 # @app.route('/api/config/<name>',methods=['DELETE',])
 # def set_current_name(name):

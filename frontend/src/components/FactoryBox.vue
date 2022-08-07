@@ -85,8 +85,6 @@
 </template>
 
 <script setup lang="ts">
-//TODO 修复parameters
-//TODO 多余的ports可以作为parameters
 // import { reactive } from '@vue/reactivity';
 import { computed, reactive,ref,toRaw, type Ref,type ShallowRef } from "vue";
 // import {  useStore } from "vuex";

@@ -50,7 +50,7 @@ export const initStore = async () => {
     )
     CurrentStateStore.edges = reactive(response.data.edges)
     CurrentStateStore.global_datarefresh.value += 1
-    console.log(localStorage,localStorage.value.taskName)
+    // console.log(localStorage,localStorage.value.taskName)
     response = await axios.get('api/config')
     CurrentStateStore.updateTaskNames(response.data.names)
     // ObserverablesStore.value = response.data

@@ -27,7 +27,7 @@
 import * as Vue from 'vue'
 //TODO imgmap左右移动，
 import { Heatmap } from '@antv/g2plot'
-const { Image } = require('image-js')
+import  { Image } from 'image-js'
 import axios from 'axios'
 
 // import { mapActions, mapGetters, mapState, mapMutations } from "vuex";

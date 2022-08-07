@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-row>
-      <a-col :span="6"> {{ name }}: </a-col>
+    <a-row  type="flex"  align="middle">
+      <a-col :span="4"> {{ name }}: </a-col>
       <a-col :span="12">
         <div v-if="type == 'bool'">
           <a-switch v-model:checked="arg_value" />
@@ -53,8 +53,8 @@
           
         </a-switch>
       </a-col>
-      <a-col :span="2">
-        <a-select v-model:value="type" >
+      <a-col :span="4">
+        <a-select v-model:value="type" style="width: 80px">
           <a-select-option
             v-for="(value, index) in types"
             :key="index"
@@ -78,7 +78,7 @@ import { PaperClipOutlined, EditOutlined } from "@ant-design/icons-vue";
 import type { RXArg, ChoiceArg, CommonValueType } from "@/store/RxLibrary";
 import { RXFunctionsStore } from "@/store";
 import { computed, ref, toRaw, isProxy,watch } from "vue";
-
+//TODO arg item editable
 type PropsType = {
   arg: RXArg | ChoiceArg;
   types?: string[];

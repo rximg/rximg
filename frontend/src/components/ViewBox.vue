@@ -55,7 +55,6 @@
                 text
               }}</a-tag>
             </span>
-
             <a v-if="item.ret.type == 'imshow'">
               <div class="box">
                 <img :src="CurrentStateStore.getNdarrayUrl(item.ret.imname)" />
@@ -105,7 +104,7 @@
 //TODO view缩略，缩略args
 //TODO 考虑显示最后一个card的subscribe的结果
 // import Parameter from "./stateless/Parameter.vue";
-// import NDArray from "./stateless/NDArray.vue";
+import NDArray from "./stateless/NDArray.vue";
 import { onMounted,computed,ref,type Ref } from "vue";
 import axios from "axios";
 import {ViewStore,CurrentStateStore,persistStore,localStorage}  from "@/store";

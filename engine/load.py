@@ -15,7 +15,8 @@ from engine.decorator import ExeStack
 default_config = {
     "observers":{},
     "relations":{},
-    "parameters":{}
+    "parameters":{},
+    "edges":{}
 }
 
 class JsonConfig(object):
@@ -24,43 +25,20 @@ class JsonConfig(object):
     def __init__(self,name) -> None:
         # self.meta_config_path = './configs/meta.json'
         self.config_dir = './configs/'
-        
-        # if not osp.isdir(self.config_dir):
-        #     osp.makedirs(self.config_dir)
-        # if osp.isfile(self.meta_config_path):
-        #     with open(self.meta_config_path,'r') as f:
-        #         line = f.read()
-        #         data = json.loads(line)
-        #     self.current_name = data['current']
-        # else:
-        #     self.meta_config = {
-        #         "current":"undefined"
-        #     }
-        #     with open(self.meta_config_path,'w') as f:
-        #         f.write(json.dumps(self.meta_config,indent=2))
-        #     self.current_name = 'undefined'
-        if name == "":
-            self.current_name = 'undefined'
-        else:
-            self.current_name = name
-        # else:
+        self.current_name = name        # else:
 
     
-    def set_current_name(self, value):
-        self.current_name = value
-        with open(self.meta_config_path,'r') as f:
-            line = f.read()
-            data = json.loads(line)
-            data['current'] = value
-        with open(self.meta_config_path,'w') as f:
-            f.write(json.dumps(data,indent=2))
-        return value
+    def new_config(self,):
+        # self.current_name = value
+        with open(self.config_dir+self.current_name +'.json','w') as f:
+            f.write(json.dumps(default_config,indent=2))
+        return self.current_name 
 
     @staticmethod
     def list_config_names():
         dirs = os.listdir('./configs/')
         dirs = [osp.splitext(d)[0] for d in dirs if d.endswith('.json')]
-        dirs.remove('meta')
+        # dirs.remove('meta')
         # if len(dirs) == 0 :
         #     dirs.append(self.current_name)
         

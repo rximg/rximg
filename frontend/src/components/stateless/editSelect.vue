@@ -1,8 +1,7 @@
 <template>
-  <span >
+  <span>
     <template v-if="selectStatus">
-      <a-select style="width: 100%" v-model:value="taskname" option-label-prop="label"
-        @change="selectChange">
+      <a-select style="width: 100%" v-model:value="taskname" option-label-prop="label" @change="selectChange">
         <template #dropdownRender="{ menuNode: menu }">
           <div>
             <v-nodes :vnodes="menu" />
@@ -21,12 +20,17 @@
       </a-select>
     </template>
     <template v-else>
-      <a-input style="width: 128px" v-model:value="editNameValue" placeholder="enter a new name"
-        @pressEnter="finishNewEdit">
-        <template #addonAfter>
-          <enter-outlined @click="finishNewEdit" />
-        </template>
-      </a-input>
+      <a-input-group style="width: 100%" >
+        <a-row >
+          <a-col :span="18">
+            <a-input style="width: 100%" v-model:value="editNameValue" placeholder="enter a new name"
+              @pressEnter="finishNewEdit"></a-input>
+          </a-col>
+          <a-col :span="6">
+            <a-button @click="finishNewEdit">Enter</a-button>
+          </a-col>
+        </a-row>
+      </a-input-group>
     </template>
   </span>
 </template>
@@ -61,19 +65,23 @@ const setNewConfig = async (name: string) => {
   // let response = await axios.put(`api/config/${name}`)
   // await persistStoreFunc()
   localStorage.value.taskName = name
-  
+
   location.reload(true)
 }
 
-const selectChange = (value: string) => {
-  console.log('select change', value)
-  setNewConfig(value)
+const selectChange = (name: string) => {
+  console.log('select change', name)
+  localStorage.value.taskName = name
+
+  location.reload(true)
 }
 
-const finishNewEdit = () => {
-  CurrentStateStore.tasks.splice(0, 0, editNameValue.value)
+const finishNewEdit = async () => {
+  console.log('finish new edit', editNameValue.value)
+  localStorage.value.taskName = editNameValue.value
+  await axios.put(`api/config/${editNameValue.value}`)
+  location.reload(true)
   selectStatus.value = true
-  setNewConfig(taskname.value)
 }
 </script>
 

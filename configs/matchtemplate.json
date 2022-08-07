@@ -171,7 +171,7 @@
           "index": 1,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "float",
-          "value": 0.93,
+          "value": 0.95,
           "mutable": "db4add51-904c-4937-8f85-878cd35c55cb"
         },
         "type": {
@@ -270,7 +270,7 @@
         "y": 778,
         "type": "obserable",
         "boxWidth": 420,
-        "boxHeight": 244
+        "boxHeight": 222
       },
       "args": {
         "head": {
@@ -280,7 +280,6 @@
           "type": "list",
           "value": [
             "@4dbd9e7fa65094d30f7d1d9de4d94db5",
-            "@1c53fe462a52710093b36df4c25bf606",
             "@a4b935e81ae3da2dbfeb87822391282c"
           ]
         },
