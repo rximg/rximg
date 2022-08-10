@@ -2,7 +2,7 @@ from .np_enums import *
 import numpy as np
 from numpy import ndarray
 from typing import Tuple
-from engine.decorator import rx_func,RETURN_TYPE
+from engine.decorators import rx_func,RETURN_TYPE
 
 @rx_func()
 def ufunc_reduce(array, axis, dtype:ENUM_CV_DTYPE, ):

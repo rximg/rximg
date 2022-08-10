@@ -10,7 +10,7 @@ from time import sleep
 import traceback
 from typing import Dict
 
-from engine.decorator import ExeStack
+from engine.decorators import ExeStack
 
 default_config = {
     "observers":{},

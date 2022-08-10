@@ -5,7 +5,7 @@ from utils.exception import ArgsError
 # from rx import Observable
 from engine.get_all_modules import all_const_back, all_enums_back,all_context
 from typing import Any, Callable, Dict, List
-from engine.decorator import ExeStack
+from engine.decorators import ExeStack
 import traceback
 from utils.config import OPDICT
 import numpy as np

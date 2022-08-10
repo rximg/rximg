@@ -102,6 +102,8 @@ export class RXArg implements RXArgInterface {
 
 
     toString(): string {
+        //TODO list显示优化
+        //TODO 只显示null和mutable的参数，不需要显示所有的参数。
         const isplaceholder = this.value == undefined || this.value.value == undefined
         if (isplaceholder) {
             return '#'

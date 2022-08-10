@@ -1,0 +1,188 @@
+{
+  "observers": {
+    "1588b7e87f0431dc1a1eabf0cfd37af8": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "1588b7e87f0431dc1a1eabf0cfd37af8",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "name": "filename",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str"
+        },
+        "flags": {
+          "name": "flags",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 1
+        }
+      },
+      "extraInPorts": {}
+    },
+    "25816c9e14472f71a9b36675329691f0": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "25816c9e14472f71a9b36675329691f0",
+      "name": "print_",
+      "returnType": "empty",
+      "args": {
+        "input_": {
+          "name": "input_",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "73a3887f96031d21cb7892ec9af41a1d": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "73a3887f96031d21cb7892ec9af41a1d",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "474fd346-7ea0-4fb4-8602-82113e1633e1"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "a98fcfa8fce20f90d4be7d0d3b4b8ff3": {
+      "type": "callable",
+      "from": "pdhub",
+      "uuid": "a98fcfa8fce20f90d4be7d0d3b4b8ff3",
+      "name": "run_pbhub_classification",
+      "op": "map",
+      "returnType": "empty",
+      "args": {
+        "func_uniquekey": {
+          "name": "func_uniquekey",
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "classification"
+        },
+        "image": {
+          "name": "image",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any"
+        },
+        "model_type": {
+          "name": "model_type",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "mobilenet_v3_small_imagenet_ssld"
+        },
+        "top_k": {
+          "name": "top_k",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 1
+        },
+        "use_gpu": {
+          "name": "use_gpu",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "bool",
+          "value": false
+        }
+      },
+      "extraInPorts": {}
+    },
+    "be5121f2351deb6250e29f85e8c01d33": {
+      "type": "callable",
+      "from": "pdhub",
+      "uuid": "be5121f2351deb6250e29f85e8c01d33",
+      "name": "run_pbhub_classification",
+      "op": "map",
+      "returnType": "empty",
+      "args": {
+        "func_uniquekey": {
+          "name": "func_uniquekey",
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "classification"
+        },
+        "image": {
+          "name": "image",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any"
+        },
+        "model_type": {
+          "name": "model_type",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "mobilenet_v3_small_imagenet_ssld"
+        },
+        "top_k": {
+          "name": "top_k",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 1
+        },
+        "use_gpu": {
+          "name": "use_gpu",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "bool",
+          "value": false
+        }
+      },
+      "extraInPorts": {}
+    }
+  },
+  "relations": {
+    "fab014d7-ffdd-4677-ba62-f3f75125ae78": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "fab014d7-ffdd-4677-ba62-f3f75125ae78",
+      "name": "build_observerable",
+      "location": {
+        "x": 940,
+        "y": 59,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 222
+      },
+      "args": {
+        "head": {
+          "value": "@73a3887f96031d21cb7892ec9af41a1d"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@1588b7e87f0431dc1a1eabf0cfd37af8",
+            "@be5121f2351deb6250e29f85e8c01d33"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@25816c9e14472f71a9b36675329691f0",
+          "cast_value": "25816c9e14472f71a9b36675329691f0"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "edges": {}
+}

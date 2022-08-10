@@ -1,18 +1,25 @@
-from click import style
 import cv2
 from numpy import ndarray
 
-
+import pdb
 import os
 import sys
 sys.path.append('.')
 import os.path as osp
-try:
-    import paddlehub as hub
-    from engine.decorator import ExeStack, rx_func
+import paddlehub as hub
+from engine.decorators import ExeStack, rx_func
+# try:
+#     pdb.set_trace()
+#     import paddlehub as hub
+#     from engine.decorator import ExeStack, rx_func
 
-except Exception as e:
-    from engine.decorator import fake_rx_func as rx_func
+# except ImportError :
+#     print('warrning paddlehub import error')
+#     from engine.decorator import fake_rx_func as rx_func
+# except Exception as e:
+#     pdb.set_trace()
+#     # from engine.decorator import fake_rx_func as rx_func
+#     raise e
 
 
 def cached_model(func_uniquekey,model_type,*args,**kwargs):
@@ -37,13 +44,12 @@ def parse_result(input_):
 
 @rx_func()
 def run_pbhub_classification(
-    image,
+    image:ndarray,
     use_gpu:bool=False,
     top_k:int=1,
     model_type:str = "mobilenet_v3_small_imagenet_ssld",
     func_uniquekey:str = "classification",
 ):
-    print('model type',model_type)
     return cached_model(
         func_uniquekey,
         model_type,

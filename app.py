@@ -30,7 +30,7 @@ import sys
 
 from numpy import ndarray
 
-from engine.decorator import ExeStack
+from engine.decorators import ExeStack
 from engine.ndarray_tools import check_ndarray, normal_ndarray_to_gray, to_base64
 from utils.exception import NDArrayTypeError
 

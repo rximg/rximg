@@ -44,6 +44,8 @@
 <script setup lang="ts">
 // import { mapGetters, mapState, mapMutations } from 'vuex'
 //FIXME bug添加args时候变成两个
+//TODO 部分函数不需要显示在view里。
+//TODO 检查一下输入是否是placeholder，而不是""
 import { computed, toRaw, ref } from "vue";
 import type { ShallowReactive } from "vue";
 import {

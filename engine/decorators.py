@@ -152,7 +152,7 @@ def rx_func(func_type='callable',func_visible=True,mutable_args=()):
             try:
                 res = func(*args,**kwargs)
             except Exception as e:
-                #FIXME 异常没有返回到前端
+                #FIXME 异常没有返回到前端，ob里的异常应该通过on_error返回了，没有在ob中的异常需要传递。
                 print("====error====")
                 print(traceback.format_exc())
                 # ExeStack.exception(traceback.format_exc())

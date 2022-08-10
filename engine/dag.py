@@ -179,7 +179,7 @@ if __name__ == "__main__":
     # with open('./tests/dag_observers.json','r') as f:
     #     line = f.read()
     #     odata = json.loads(line)
-    with open('./configs/test.json','r') as f:
+    with open('./configs/cls.json','r') as f:
         line = f.read()
         rdata = json.loads(line)
     # obss = data["observers"]

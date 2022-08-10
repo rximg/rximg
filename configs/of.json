@@ -1,0 +1,147 @@
+{
+  "observers": {
+    "25816c9e14472f71a9b36675329691f0": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "25816c9e14472f71a9b36675329691f0",
+      "name": "print_",
+      "returnType": "empty",
+      "args": {
+        "input_": {
+          "name": "input_",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "51334ff461860a40ba374ccdef811f53": {
+      "type": "lambda",
+      "from": "custom",
+      "uuid": "51334ff461860a40ba374ccdef811f53",
+      "name": "lambda_",
+      "op": "map",
+      "returnType": "Any",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0"
+          ]
+        },
+        "line": {
+          "name": "line",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "len(x0)"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "d864441ee2982f1d00dc0ec47c46e6a8": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "d864441ee2982f1d00dc0ec47c46e6a8",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon"
+          ],
+          "mutable": "6f1527f9-8465-4892-999a-fdae4cf21a1d"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "95036684e06ef424dc7c792d0688f8c5": {
+      "type": "lambda",
+      "from": "custom",
+      "uuid": "95036684e06ef424dc7c792d0688f8c5",
+      "name": "lambda_",
+      "returnType": "Any",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0"
+          ]
+        },
+        "line": {
+          "name": "line",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "x0>5"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "1010c35e54e100028063b6df0f9ce9d4": {
+      "from": "operators",
+      "uuid": "1010c35e54e100028063b6df0f9ce9d4",
+      "name": "filter",
+      "returnType": "Callable",
+      "args": {
+        "predicate": {
+          "name": "predicate",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "ref",
+          "value": "@95036684e06ef424dc7c792d0688f8c5"
+        }
+      },
+      "extraInPorts": {}
+    }
+  },
+  "relations": {
+    "d959380a-2842-4249-bbcb-d443c0dec27c": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "d959380a-2842-4249-bbcb-d443c0dec27c",
+      "name": "build_observerable",
+      "location": {
+        "x": 40,
+        "y": 111,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 222
+      },
+      "args": {
+        "head": {
+          "value": "@d864441ee2982f1d00dc0ec47c46e6a8"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@51334ff461860a40ba374ccdef811f53",
+            "@1010c35e54e100028063b6df0f9ce9d4"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@25816c9e14472f71a9b36675329691f0",
+          "cast_value": "25816c9e14472f71a9b36675329691f0"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "edges": {}
+}

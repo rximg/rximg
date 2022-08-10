@@ -1,5 +1,5 @@
 from enum import IntEnum
-from engine.decorator import rx_func
+from engine.decorators import rx_func
 import typing
 from asyncio import Future
 

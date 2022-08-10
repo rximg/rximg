@@ -12,11 +12,11 @@ try:
     from custom.opencv_zoo.models.image_classification_mobilenet.mobilenet_v2 import MobileNetV2
     from custom.opencv_zoo.models.text_recognition_crnn.crnn import CRNN
     from custom.opencv_zoo.models.text_detection_db.db import DB
-    from engine.decorator import rx_func,ExeStack
+    from engine.decorators import rx_func,ExeStack
     # IMPORT_TAG = True 
 except Exception as e:
     # IMPORT_TAG = False
-    from engine.decorator import fake_rx_func as rx_func
+    from engine.decorators import fake_rx_func as rx_func
     print('Check if the opencv_zoo is installed correctly')
 
 # def register_model(func):

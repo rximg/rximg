@@ -1,10 +1,10 @@
 {
   "observers": {
-    "79f6faba03142ead424c9b9e0effdeb8": {
+    "3ba0d98e760b3be94f0a7f2b9606323c": {
       "type": "callable",
       "from": "observables",
-      "uuid": "79f6faba03142ead424c9b9e0effdeb8",
-      "name": "of",
+      "uuid": "3ba0d98e760b3be94f0a7f2b9606323c",
+      "name": "zip",
       "returnType": "Observable",
       "args": {
         "args": {
@@ -12,47 +12,51 @@
           "index": 0,
           "kind": "VAR_POSITIONAL",
           "type": "list",
-          "value": [
-            "data/Lenna.png"
-          ],
-          "mutable": "2e5565b5-9ef4-4827-b0e4-a3edffbf61cb"
+          "mutable": "45b917f4-89c1-49f9-b7e9-e91dcf2b2610"
         }
       },
-      "extraInPorts": {}
+      "extraInPorts": {
+        "args": 2
+      }
     },
-    "8cc29cc5d65852245040a0a90812998c": {
+    "53aa55307a430b62a84dcf7fc662bae8": {
       "type": "callable",
       "from": "cv2",
-      "uuid": "8cc29cc5d65852245040a0a90812998c",
-      "name": "imread",
+      "uuid": "53aa55307a430b62a84dcf7fc662bae8",
+      "name": "GaussianBlur",
       "op": "map",
       "returnType": "NDArray",
       "args": {
-        "filename": {
-          "name": "filename",
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "str"
-        },
-        "flags": {
-          "name": "flags",
-          "index": 1,
+        "borderType": {
+          "name": "borderType",
+          "index": 4,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "choices",
           "value": 0
-        }
-      },
-      "extraInPorts": {}
-    },
-    "770e1c3cf265962d6160e40df3ade225": {
-      "type": "callable",
-      "from": "custom",
-      "uuid": "770e1c3cf265962d6160e40df3ade225",
-      "name": "imshow",
-      "returnType": "Any",
-      "args": {
-        "mat": {
-          "name": "mat",
+        },
+        "ksize": {
+          "name": "ksize",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "tuple",
+          "value": "(13,13)"
+        },
+        "sigmaX": {
+          "name": "sigmaX",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "sigmaY": {
+          "name": "sigmaY",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0
+        },
+        "src": {
+          "name": "src",
           "index": 0,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "NDArray"
@@ -76,53 +80,6 @@
             "data/Lenna.png"
           ],
           "mutable": "e53b3c25-798e-4471-a428-9cf6d3d5dd79"
-        }
-      },
-      "extraInPorts": {}
-    },
-    "3ba0d98e760b3be94f0a7f2b9606323c": {
-      "type": "callable",
-      "from": "observables",
-      "uuid": "3ba0d98e760b3be94f0a7f2b9606323c",
-      "name": "zip",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "name": "args",
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "type": "list",
-          "mutable": "45b917f4-89c1-49f9-b7e9-e91dcf2b2610"
-        }
-      },
-      "extraInPorts": {
-        "args": 2
-      }
-    },
-    "cd718c07c896ae1e5d4b1296163b5cb8": {
-      "type": "lambda",
-      "from": "custom",
-      "uuid": "cd718c07c896ae1e5d4b1296163b5cb8",
-      "name": "lambda_",
-      "op": "map",
-      "returnType": "Any",
-      "args": {
-        "args": {
-          "name": "args",
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "list",
-          "value": [
-            "x0",
-            "x1"
-          ]
-        },
-        "line": {
-          "name": "line",
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "str",
-          "value": "x0-x1+127"
         }
       },
       "extraInPorts": {}
@@ -172,53 +129,125 @@
       },
       "extraInPorts": {}
     },
-    "53aa55307a430b62a84dcf7fc662bae8": {
+    "770e1c3cf265962d6160e40df3ade225": {
       "type": "callable",
-      "from": "cv2",
-      "uuid": "53aa55307a430b62a84dcf7fc662bae8",
-      "name": "GaussianBlur",
-      "op": "map",
-      "returnType": "NDArray",
+      "from": "custom",
+      "uuid": "770e1c3cf265962d6160e40df3ade225",
+      "name": "imshow",
+      "returnType": "Any",
       "args": {
-        "borderType": {
-          "name": "borderType",
-          "index": 4,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "choices",
-          "value": 0
-        },
-        "ksize": {
-          "name": "ksize",
-          "index": 1,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "tuple",
-          "value": "(13,13)"
-        },
-        "sigmaX": {
-          "name": "sigmaX",
-          "index": 2,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "int",
-          "value": 0
-        },
-        "sigmaY": {
-          "name": "sigmaY",
-          "index": 3,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "int",
-          "value": 0
-        },
-        "src": {
-          "name": "src",
+        "mat": {
+          "name": "mat",
           "index": 0,
           "kind": "POSITIONAL_OR_KEYWORD",
           "type": "NDArray"
         }
       },
       "extraInPorts": {}
+    },
+    "79f6faba03142ead424c9b9e0effdeb8": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "79f6faba03142ead424c9b9e0effdeb8",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "2e5565b5-9ef4-4827-b0e4-a3edffbf61cb"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "8cc29cc5d65852245040a0a90812998c": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "8cc29cc5d65852245040a0a90812998c",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "name": "filename",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str"
+        },
+        "flags": {
+          "name": "flags",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "extraInPorts": {}
+    },
+    "cd718c07c896ae1e5d4b1296163b5cb8": {
+      "type": "lambda",
+      "from": "custom",
+      "uuid": "cd718c07c896ae1e5d4b1296163b5cb8",
+      "name": "lambda_",
+      "op": "map",
+      "returnType": "Any",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "list",
+          "value": [
+            "x0",
+            "x1"
+          ]
+        },
+        "line": {
+          "name": "line",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str",
+          "value": "x0-x1+127"
+        }
+      },
+      "extraInPorts": {}
     }
   },
   "relations": {
+    "100671f2-7201-45f5-9931-af50b2b66115": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "100671f2-7201-45f5-9931-af50b2b66115",
+      "name": "build_observerable",
+      "location": {
+        "x": 180,
+        "y": 361,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@3ba0d98e760b3be94f0a7f2b9606323c"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@cd718c07c896ae1e5d4b1296163b5cb8"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@770e1c3cf265962d6160e40df3ade225",
+          "cast_value": "770e1c3cf265962d6160e40df3ade225"
+        }
+      }
+    },
     "46975b8a-416f-4b71-a5a7-dd1b6b835de4": {
       "type": "Observerable",
       "from": "core",
@@ -255,8 +284,8 @@
       "uuid": "6d702836-4111-486f-bf10-6c81cf946474",
       "name": "build_observerable",
       "location": {
-        "x": 390,
-        "y": 90,
+        "x": 480,
+        "y": 50,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 200
@@ -278,49 +307,10 @@
           "cast_value": 1
         }
       }
-    },
-    "100671f2-7201-45f5-9931-af50b2b66115": {
-      "type": "Observerable",
-      "from": "core",
-      "uuid": "100671f2-7201-45f5-9931-af50b2b66115",
-      "name": "build_observerable",
-      "location": {
-        "x": 180,
-        "y": 361,
-        "type": "obserable",
-        "boxWidth": 420,
-        "boxHeight": 200
-      },
-      "args": {
-        "head": {
-          "value": "@3ba0d98e760b3be94f0a7f2b9606323c"
-        },
-        "pipe": {
-          "type": "list",
-          "value": [
-            "@cd718c07c896ae1e5d4b1296163b5cb8"
-          ]
-        },
-        "subscribe": {
-          "type": "SingleCast",
-          "value": "@770e1c3cf265962d6160e40df3ade225",
-          "cast_value": "@770e1c3cf265962d6160e40df3ade225"
-        }
-      }
     }
   },
   "parameters": {},
   "edges": {
-    "bcfd2fb1-41b1-4892-9e55-77f91a79bd7c": {
-      "source": {
-        "cell": "46975b8a-416f-4b71-a5a7-dd1b6b835de4",
-        "port": "46975b8a-416f-4b71-a5a7-dd1b6b835de4_out_0"
-      },
-      "target": {
-        "cell": "100671f2-7201-45f5-9931-af50b2b66115",
-        "port": "3ba0d98e760b3be94f0a7f2b9606323c_args_0"
-      }
-    },
     "1230f15b-4263-45cf-8377-644e864e0814": {
       "source": {
         "cell": "6d702836-4111-486f-bf10-6c81cf946474",
@@ -329,6 +319,16 @@
       "target": {
         "cell": "100671f2-7201-45f5-9931-af50b2b66115",
         "port": "3ba0d98e760b3be94f0a7f2b9606323c_args_1"
+      }
+    },
+    "bcfd2fb1-41b1-4892-9e55-77f91a79bd7c": {
+      "source": {
+        "cell": "46975b8a-416f-4b71-a5a7-dd1b6b835de4",
+        "port": "46975b8a-416f-4b71-a5a7-dd1b6b835de4_out_0"
+      },
+      "target": {
+        "cell": "100671f2-7201-45f5-9931-af50b2b66115",
+        "port": "3ba0d98e760b3be94f0a7f2b9606323c_args_0"
       }
     }
   }
