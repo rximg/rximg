@@ -76,7 +76,10 @@
       </a-tag>
     </div>
 
-    <div>
+    <div 
+        @mousemove="stopPropagation($event)" 
+        @mousedown="stopPropagation($event)" 
+        @mouseup="stopPropagation($event)" :style="{cursor: 'pointer'}">
       <span v-if="!(ObservableItem.pipes.value.length == 0)">
         <draggable v-model="ObservableItem.pipes.value" group="people" @start="startDrag($event)" @end="endDrag($event)">
           <template #item="{ element, index }">
@@ -166,13 +169,20 @@ const deleteObserverable = (uuid: string) => {
   delete ObserverablesStore[uuid]
 }
 
+const stopPropagation= (event)=>{
+  event.stopPropagation(); 
+  // event.preventDefault()
+  // console.log('clicked in stop',event.type);
+}
+
 const startDrag=(e)=>{
   drag.value = true
 }
 const endDrag = (e) => {
-  console.log('drag',e)
+  // console.log('drag',e)
   drag.value = false;
-  ObservableItem.swapPipe(e.oldIndex, e.newIndex)
+
+  // ObservableItem.swapPipe(e.oldIndex, e.newIndex)
 }
 const inPortKeys = computed(
   () => {

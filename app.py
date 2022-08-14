@@ -108,7 +108,7 @@ def execute(name):
     try:
         RecursiveParse().run(data)
     except Exception as e:
-        # ExeStack.exception(traceback.format_exc())
+        ExeStack.exception(traceback.format_exc())
         raise e
     return {'type':'success'}
 
@@ -163,6 +163,12 @@ def list_config_names():
 #             "data": datastream}
         # return
 
+#TODO NDarray的显示可以加强
+# 1. 增加维度选择，2维度单通道uint8，3维度3通道uint8，单维度
+# 2. 单位维度可以以某种方式显示。
+# 3. 可以指定显示的维度，比如只显示第一维度。
+# 4. 2维度单通道默认显示一个维度，3维度多通道则默认显示RGB，多维度
+# 5. 3维度3通道uint8，RGB|split，2维度3通道uint8，gray|split，3维度任意通道任意类型，split。
 
 @app.route('/ndarray/<imageid>', methods=['GET', ])
 def ndarray_get(imageid):

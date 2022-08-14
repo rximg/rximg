@@ -205,7 +205,6 @@ class SingleCallable(object):
 #     else:
 #         return str(n)
 
-#TODO placehold类型
 class MutilArgCallable(SingleCallable):
 
     def __init__(self, func: str, module: str, args: Args) -> None:

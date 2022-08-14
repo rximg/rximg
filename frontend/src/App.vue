@@ -75,7 +75,6 @@
 </template>
 
 <script lang="ts">
-//TODO delete extra edge
 
 import { defineComponent, ref, h, toRefs, computed, shallowRef, onMounted } from "vue";
 import { Port, PortGroup, TeleportContainer } from "antv-x6-vue";
@@ -183,11 +182,12 @@ const App = defineComponent({
       persistStore()
     };
 
-    const nodemoved=({ e, x, y, node, view })=>{
-        // console.log('node_moved', {x, y, node, view})
+    const nodemoved=({ node})=>{
+        // console.log('node_moved',node.position(), {x, y, node, view})
+        const {x,y} = node.position()
         const nodeitem = ObserverablesStore[node.id]
-        nodeitem.location.x = x - nodeitem.location.boxWidth / 2
-        nodeitem.location.y = y - nodeitem.location.boxHeight / 2
+        nodeitem.location.x = x //- nodeitem.location.boxWidth / 2
+        nodeitem.location.y = y //- nodeitem.location.boxHeight / 2
     }
     const ready = ({ graph }) => {
       graph.on("edge:connected", ({ isNew, edge }) => {
