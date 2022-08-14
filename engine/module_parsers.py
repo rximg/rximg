@@ -150,10 +150,15 @@ class CustomRXFunctionParser(object):
         # if isinstance(ret_ann,RETURN_TYPE):
             # pdb.set_trace()
             # returns = ret_ann.returns
+
+        doc = self.func.__doc__
+        # if doc:
+        #     doc = doc.replace('\n','<br/>')
         _ = {
             "name": self.func.__name__,
             "args": argsd,
             "from": self.mod_name, 
+            "doc": doc,
             # "returns":returns
             "returnType":briefRetrunType(sig.return_annotation)
         }

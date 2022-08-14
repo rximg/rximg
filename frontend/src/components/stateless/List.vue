@@ -33,29 +33,32 @@
       <a-row v-for="(item, index) in items" :key="index">
           <!-- {{item.arg_value}}-{{item.type}}-{{item.type.value=='int'}} -->
         <a-col :span="12">
-          <div v-if="item.type.value ==  'bool'">
-            <a-switch  v-model:checked="item.arg_value.value" />
+          <div v-if="item.type ==  'bool'">
+            <a-switch  v-model:checked="item.arg_value" />
           </div>
-          <div v-else-if="item.type.value ==  'int'">
-            <a-input-number style="width: 100%" v-model:value="item.arg_value.value" />
+          <div v-else-if="item.type ==  'int'">
+            <a-input-number style="width: 100%" v-model:value="item.arg_value" />
           </div>
-          <div v-else-if="item.type.value ==  'float'">
+          <div v-else-if="item.type ==  'float'">
             <a-input-number
               style="width: 100%"
-              v-model:value="item.arg_value.value"
+              v-model:value="item.arg_value"
               :step="0.1"
             />
           </div>
-
+          <div v-else-if="item.type=='readonly'">{{item.arg_value}}</div>
           <div v-else-if="item.type=='ref'">
-            <a-select style="width: 100%" v-model="item.arg_value.value">
+            <a-select style="width: 100%" v-model="item.arg_value">
               <a-select-option v-for="(rxfunc, index) in allRXfunctions" :key="index">
                 {{ rxfunc.toString() }}
               </a-select-option>
             </a-select>
           </div>
+          <div v-else-if="item.type=='str'">
+            <a-input v-model:value="item.arg_value" style="width: 100%" />
+          </div>
           <div v-else>
-            <a-input v-model:value="item.arg_value.value" style="width: 100%" />
+            <a-input v-model:value="item.arg_value" style="width: 100%" />
           </div>
           <!-- <a-alert v-if="alertValue" :message="alertValue" banner /> -->
         </a-col>
@@ -77,19 +80,32 @@
 import { computed, reactive,shallowReactive, ref } from "vue";
 import {RXFunctionsStore} from "@/store";
 import {CloseOutlined, PlusOutlined} from "@ant-design/icons-vue";
-
+//TOP list显示具体值
+const props = defineProps(['valueModel'])
 const emit = defineEmits(["update:valueModel"]);
 const selectType = ref("str");
 const typeOptions = ["str","ref", "int", "float", "bool" ];
 const visible = ref(false);
+type ListItemType = {
+  type: string,
+  arg_value: any
+}
 // type PropsType = {
 //   valueModel: any[];
 // };
 
 // const { valueModel = [] } = defineProps<PropsType>();
-const lenItem = computed(() => items.length);
 
-const items = shallowReactive([]);
+const items = reactive<ListItemType>([])
+if (props.valueModel){
+  props.valueModel.forEach(item => {
+    items.push({
+      type:'readonly',
+      arg_value:ref(item)
+    })
+  } )
+}
+const lenItem = computed(() => items.length);
 // 将setCurrentFunctionArg由VUEX替换为通过事件传出去
 
 // setValueFromRefs(value) {
@@ -101,11 +117,6 @@ const allRXfunctions = computed(() => {
 });
 const addItem = () => {
   console.log("addItem",items);
-  // let is_last_emputy = items.length != 0 && items.slice(-1)[0].edit !== true;
-  // // console.log("add item",this.items.length!=0 , (this.items.slice(-1)[0].edit  !== true),this.items.slice(-1)[0]);
-  // if (is_last_emputy) {
-  //   return;
-  // }
   let defaultValue: any = 0;
   if (selectType.value == "bool") {
     defaultValue = false;
@@ -113,26 +124,10 @@ const addItem = () => {
     defaultValue = "";
   }
   items.push({
-    type: ref(selectType.value),
+    type: selectType.value,
     arg_value: ref(defaultValue),
   });
 };
-// changeSelect(value, option,index) {
-//   console.log("set choices", value, this.ranges[value.key]);
-//   // this.$emit("emitValue",this.ranges[value.key],);
-// },
-// const changeRefSelect = function (value, index) {
-//       // console.log('change ref select',value,this.allRefable[value])
-//       value = this.allRefable[value]
-//       if (!value.startsWith('@')) {
-//         value = '@' + value
-//       }
-//       this.items[index].value = value
-//       this.items[index].edit = true
-//       // this.$emit("emitValue",this.isolat_value);
-//       // console.log("set value ", this.isolat_value);
-//     }
-
 const delItem = function (e, index) {
   items.splice(0);
 };
@@ -146,9 +141,9 @@ const handleOk = function (e) {
   );
   visible.value = false;
 };
-const handleCancel = function (e) {
-  visible.value = false;
-};
+// const handleCancel = function (e) {
+//   visible.value = false;
+// };
 const setVisible = function (value: boolean) {
   visible.value = value;
 };

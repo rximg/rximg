@@ -20,7 +20,7 @@
           <template v-else>
             <template v-for="(data, name) in item.args" :key="data.index">
               <template v-if="data.mutable">
-                <arg-item :arg="data"></arg-item>
+                <arg-item :arg="data" :viewOnly="true"></arg-item>
               </template>
               <template v-else>
                 <a-tag class="argitems">

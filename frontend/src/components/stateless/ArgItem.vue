@@ -27,7 +27,7 @@
           </a-select>
         </div>
         <div v-else-if="type == 'list'">
-            <List @update:valueModel="(value)=> arg_value=value" />
+            <List v-model:valueModel="arg_value"  />
           </div>
         <div v-else-if="type == 'tuple'">
           <a-input v-model:value="arg_value" style="width: 100%" />
@@ -48,7 +48,7 @@
         </div>
         <!-- <a-alert v-if="alertValue" :message="alertValue" banner /> -->
       </a-col>
-      <a-col :span="3">
+      <a-col :span="mutableView.span">
         <a-switch v-model:checked="mutable" checked-children="var" un-checked-children="const">
           
         </a-switch>
@@ -79,19 +79,31 @@ import type { RXArg, ChoiceArg, CommonValueType } from "@/store/RxLibrary";
 import { RXFunctionsStore } from "@/store";
 import { computed, ref, toRaw, isProxy,watch } from "vue";
 //TODO arg item editable
+
 type PropsType = {
   arg: RXArg | ChoiceArg;
   types?: string[];
+  viewOnly: boolean;
 };
 const {
   arg,
   types = ["bool", "int", "float", "choices", "list", "tuple", "ref","None"],
+  viewOnly = false,
 } = defineProps<PropsType>();
 
 const name = arg.name;
 const type = ref(arg.type);
 const arg_value = arg.value;
 const mutable = ref(arg.mutable)
+const mutableView = {
+  span:0
+}
+if (viewOnly){
+  mutableView.span = 0
+}else{
+  mutableView.span = 3
+}
+// const mutableView = view
 const allRXfunctions = computed(() => {
   return Object.values(RXFunctionsStore);
 });
