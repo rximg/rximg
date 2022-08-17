@@ -559,7 +559,7 @@ class ENUM_CV_WarpPolarMode(CVINTENUM):
     
 
 class ENUM_CV_ImreadModes(CVINTENUM):
-    default = 0
+    default = 1
     IMREAD_UNCHANGED = -1
     IMREAD_GRAYSCALE = 0
     IMREAD_COLOR = 1

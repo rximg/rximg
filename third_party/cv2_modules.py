@@ -195,14 +195,14 @@ def imread(filename: str, flags: ENUM_CV_ImreadModes = ENUM_CV_ImreadModes.defau
 
     """
     # filename = osp.join('./cache',filename)
-    
+    assert isinstance(filename,str)
     if filename.lower().startswith("http://") or filename.lower().startswith("https://"):
         rep = requests.get(filename)
         image = np.asarray(bytearray(rep.content), dtype="uint8")
         image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
         return image
-    print(filename)
-    return cv2.imread(filename=filename, flags=cv2.IMREAD_UNCHANGED)
+    # print(filename)
+    return cv2.imread(filename=filename, flags=flags)
 
 
 @rx_func()
@@ -644,7 +644,7 @@ def Sobel(src: NDArray,
           dy: int,
           ksize: int = 3,
           scale: int = 1,
-          delta: int = 0,
+          delta: int = 1,
           borderType: ENUM_CV_BorderTypes = ENUM_CV_BorderTypes.default) -> NDArray:
     # dx dy [1,-1]
     """    'Sobel(src:NDArray, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]]) -> dst
@@ -691,7 +691,10 @@ def Sobel(src: NDArray,
 .   @sa  Scharr, Laplacian, sepFilter2D, filter2D, GaussianBlur, cartToPolar'
 
     """
-    return cv2.Sobel(src, ddepth, dx, dy, ksize, scale, delta, borderType)
+    # print('src',src,ddepth,dx,dy,ksize,scale,delta,borderType)
+    _ = cv2.Sobel(src, ddepth, dx, dy, ksize, scale, delta, borderType)
+    # print(_)
+    return _
 
 
 @rx_func()
@@ -1543,11 +1546,20 @@ The function computes a contour area. Similarly to moments , the area is compute
     """
     return  cv2.contourArea(contour,oriented)
 
+@rx_func()
+def convertScaleAbs(src: NDArray,  alpha:float=1., beta:float=0.) -> NDArray:
+    'convertScaleAbs(src[, dst[, alpha[, beta]]]) -> dst\n.   @brief Scales, calculates absolute values, and converts the result to 8-bit.\n.   \n.   On each element of the input array, the function convertScaleAbs\n.   performs three operations sequentially: scaling, taking an absolute\n.   value, conversion to an unsigned 8-bit type:\n.   \\f[\\texttt{dst} (I)= \\texttt{saturate\\_cast<uchar>} (| \\texttt{src} (I)* \\texttt{alpha} +  \\texttt{beta} |)\\f]\n.   In case of multi-channel arrays, the function processes each channel\n.   independently. When the output is not 8-bit, the operation can be\n.   emulated by calling the Mat::convertTo method (or by using matrix\n.   expressions) and then by calculating an absolute value of the result.\n.   For example:\n.   @code{.cpp}\n.       Mat_<float> A(30,30);\n.       randu(A, Scalar(-100), Scalar(100));\n.       Mat_<float> B = A*5 + 3;\n.       B = abs(B);\n.       // Mat_<float> B = abs(A*5+3) will also do the job,\n.       // but it will allocate a temporary matrix\n.   @endcode\n.   @param src input array.\n.   @param dst output array.\n.   @param alpha optional scale factor.\n.   @param beta optional delta added to the scaled values.\n.   @sa  Mat::convertTo, cv::abs(const Mat&)'
+    return cv2.convertScaleAbs(src, None, alpha, beta)
+
+@rx_func()
+def Canny(image: NDArray, threshold1:int, threshold2:int, apertureSize:int=3, L2gradient:bool=False) -> typing.Any:
+    'Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]]) -> edges\n.   @brief Finds edges in an image using the Canny algorithm @cite Canny86 .\n.   \n.   The function finds edges in the input image and marks them in the output map edges using the\n.   Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The\n.   largest value is used to find initial segments of strong edges. See\n.   <http://en.wikipedia.org/wiki/Canny_edge_detector>\n.   \n.   @param image 8-bit input image.\n.   @param edges output edge map; single channels 8-bit image, which has the same size as image .\n.   @param threshold1 first threshold for the hysteresis procedure.\n.   @param threshold2 second threshold for the hysteresis procedure.\n.   @param apertureSize aperture size for the Sobel operator.\n.   @param L2gradient a flag, indicating whether a more accurate \\f$L_2\\f$ norm\n.   \\f$=\\sqrt{(dI/dx)^2 + (dI/dy)^2}\\f$ should be used to calculate the image gradient magnitude (\n.   L2gradient=true ), or whether the default \\f$L_1\\f$ norm \\f$=|dI/dx|+|dI/dy|\\f$ is enough (\n.   L2gradient=false ).\n\n\n\nCanny(dx, dy, threshold1, threshold2[, edges[, L2gradient]]) -> edges\n.   \\overload\n.   \n.   Finds edges in an image using the Canny algorithm with custom image gradient.\n.   \n.   @param dx 16-bit x derivative of input image (CV_16SC1 or CV_16SC3).\n.   @param dy 16-bit y derivative of input image (same type as dx).\n.   @param edges output edge map; single channels 8-bit image, which has the same size as image .\n.   @param threshold1 first threshold for the hysteresis procedure.\n.   @param threshold2 second threshold for the hysteresis procedure.\n.   @param L2gradient a flag, indicating whether a more accurate \\f$L_2\\f$ norm\n.   \\f$=\\sqrt{(dI/dx)^2 + (dI/dy)^2}\\f$ should be used to calculate the image gradient magnitude (\n.   L2gradient=true ), or whether the default \\f$L_1\\f$ norm \\f$=|dI/dx|+|dI/dy|\\f$ is enough (\n.   L2gradient=false ).'
+    return cv2.Canny(image,threshold1,threshold2,None,apertureSize,L2gradient)
 
 if __name__ == "__main__":
     im = cv2.imread("static/result/139981248069776.png")
     # zeros = np.zeros((100,100),dtype='uint8')
-
+    
     zeros = GaussianBlur(im, (5, 5), 0)
     # pdb.set_trace()
     cv2.imwrite('demo.jpg', zeros)

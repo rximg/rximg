@@ -87,7 +87,7 @@ const selectType = ref("str");
 const typeOptions = ["str","ref", "int", "float", "bool" ];
 const visible = ref(false);
 type ListItemType = {
-  type: string,
+  readonly type: string,
   arg_value: any
 }
 // type PropsType = {
@@ -101,7 +101,7 @@ if (props.valueModel){
   props.valueModel.forEach(item => {
     items.push({
       type:'readonly',
-      arg_value:ref(item)
+      arg_value:item
     })
   } )
 }
@@ -116,16 +116,22 @@ const allRXfunctions = computed(() => {
   return Object.values(RXFunctionsStore);
 });
 const addItem = () => {
-  console.log("addItem",items);
+  // console.log("addItem",items);
   let defaultValue: any = 0;
   if (selectType.value == "bool") {
     defaultValue = false;
   } else if (selectType.value == "ref") {
     defaultValue = "";
+  } else if (selectType.value == "int") {
+    defaultValue = 0;
+  } else if (selectType.value == "float") {
+    defaultValue = 0.0;
+  } else if (selectType.value == "str") {
+    defaultValue = "";
   }
   items.push({
     type: selectType.value,
-    arg_value: ref(defaultValue),
+    arg_value: defaultValue,
   });
 };
 const delItem = function (e, index) {
@@ -133,10 +139,12 @@ const delItem = function (e, index) {
 };
 
 const handleOk = function (e) {
+  // console.log('update:value',items)
   emit(
     "update:valueModel",
     items.map(function (item) {
-      return item.arg_value.value;
+
+      return item.arg_value;
     })
   );
   visible.value = false;

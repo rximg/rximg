@@ -8,10 +8,10 @@
       :headStyle="headTools"
     >
       <template #extra href="#">
-        <a-button style="margin-right: 4px" @click="persistStore()"
+        <!-- <a-button style="margin-right: 4px" @click="persistStore()"
           >Save
           <a-icon type="play-circle" />
-        </a-button>
+        </a-button> -->
         <a-button style="margin-right: 4px" @click="execute"
           >Execute
           <a-icon type="play-circle" />
@@ -101,6 +101,7 @@
 //TODO view缩略，缩略args
 //TODO 考虑显示最后一个card的subscribe的结果
 // import Parameter from "./stateless/Parameter.vue";
+//TODO 定时自动保存
 import NDArray from "./stateless/NDArray.vue";
 import { onMounted,computed,ref,type Ref } from "vue";
 import axios from "axios";

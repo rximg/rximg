@@ -1,0 +1,143 @@
+{
+  "observers": {
+    "a975f6acce774452c3f89b6032802e67": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "a975f6acce774452c3f89b6032802e67",
+      "name": "Canny",
+      "op": "map",
+      "returnType": "Any",
+      "args": {
+        "L2gradient": {
+          "name": "L2gradient",
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "bool",
+          "value": false
+        },
+        "apertureSize": {
+          "name": "apertureSize",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 3
+        },
+        "image": {
+          "name": "image",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        },
+        "threshold1": {
+          "name": "threshold1",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 25
+        },
+        "threshold2": {
+          "name": "threshold2",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 127
+        }
+      },
+      "extraInPorts": {}
+    },
+    "b81b899fd36ad3ccfca1fba2c93784d0": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "b81b899fd36ad3ccfca1fba2c93784d0",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "dd42ee7b-4178-4e2d-9398-b9efc9461afc"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "8cc29cc5d65852245040a0a90812998c": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "8cc29cc5d65852245040a0a90812998c",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "name": "filename",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str"
+        },
+        "flags": {
+          "name": "flags",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "extraInPorts": {}
+    },
+    "770e1c3cf265962d6160e40df3ade225": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "770e1c3cf265962d6160e40df3ade225",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "name": "mat",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    }
+  },
+  "relations": {
+    "533aaf69-dddb-4152-b602-d85a84ca07aa": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "533aaf69-dddb-4152-b602-d85a84ca07aa",
+      "name": "build_observerable",
+      "location": {
+        "x": 170,
+        "y": 120,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@b81b899fd36ad3ccfca1fba2c93784d0"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@8cc29cc5d65852245040a0a90812998c",
+            "@a975f6acce774452c3f89b6032802e67"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@770e1c3cf265962d6160e40df3ade225",
+          "cast_value": "@770e1c3cf265962d6160e40df3ade225"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "edges": {}
+}

@@ -208,11 +208,10 @@ export interface RXFunctionInterface {
     returnType?: string
     extraInPorts?: Record<string, number>
     toString(): string
-    tojson(): any//stringify
+    tojson(): any
     md5(): string
     onSubmit():void
-    // createArgs(data: any):RXArgInterface
-    // fromjson(data:Record<string,unknown>):void
+
 }
 
 // interface LambdaInterface extends RXFunctionInterface{
@@ -292,7 +291,12 @@ export class RXFunction implements RXFunctionInterface {
     toString(): string {
         let argstr = ""
         for (const key in this.args) {
-            argstr = argstr + `${key}=${this.args[key].toString()},`
+            if (this.args[key].mutable){
+                argstr = argstr + `${key}=${this.args[key].toString()},`
+            }else if (this.args[key].value.value == undefined){
+                argstr = argstr + `${key}=${this.args[key].toString()},`
+            }
+            
         }
         let tempop = ""
         if (this.op) {

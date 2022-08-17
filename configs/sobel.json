@@ -1,0 +1,197 @@
+{
+  "observers": {
+    "356178b1f2c3a928ef441525375681f2": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "356178b1f2c3a928ef441525375681f2",
+      "name": "convertScaleAbs",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "alpha": {
+          "name": "alpha",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "float",
+          "value": 1
+        },
+        "beta": {
+          "name": "beta",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "float",
+          "value": 0
+        },
+        "src": {
+          "name": "src",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "770e1c3cf265962d6160e40df3ade225": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "770e1c3cf265962d6160e40df3ade225",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "name": "mat",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "8cc29cc5d65852245040a0a90812998c": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "8cc29cc5d65852245040a0a90812998c",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "name": "filename",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str"
+        },
+        "flags": {
+          "name": "flags",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        }
+      },
+      "extraInPorts": {}
+    },
+    "92fabfe93188de89a8e4f9196eb1b78f": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "92fabfe93188de89a8e4f9196eb1b78f",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "data/Lenna.png"
+          ],
+          "mutable": "c4c2940e-b206-457f-b105-0ae7533284b5"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "b86f0c693082b391173dfb52e6ac4e62": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "b86f0c693082b391173dfb52e6ac4e62",
+      "name": "Sobel",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "borderType": {
+          "name": "borderType",
+          "index": 7,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 0
+        },
+        "ddepth": {
+          "name": "ddepth",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": -1
+        },
+        "delta": {
+          "name": "delta",
+          "index": 6,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 1
+        },
+        "dx": {
+          "name": "dx",
+          "index": 2,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 0,
+          "mutable": "8d2d0a02-5a10-46db-baa3-77abcd80e619"
+        },
+        "dy": {
+          "name": "dy",
+          "index": 3,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 1,
+          "mutable": "92264970-7210-459b-a495-f00496d91dc2"
+        },
+        "ksize": {
+          "name": "ksize",
+          "index": 4,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 3
+        },
+        "scale": {
+          "name": "scale",
+          "index": 5,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "int",
+          "value": 1
+        },
+        "src": {
+          "name": "src",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    }
+  },
+  "relations": {
+    "795ee858-0264-4115-9f52-45252e69c551": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "795ee858-0264-4115-9f52-45252e69c551",
+      "name": "build_observerable",
+      "location": {
+        "x": 140,
+        "y": 150,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@92fabfe93188de89a8e4f9196eb1b78f"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@8cc29cc5d65852245040a0a90812998c",
+            "@b86f0c693082b391173dfb52e6ac4e62"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@770e1c3cf265962d6160e40df3ade225",
+          "cast_value": "770e1c3cf265962d6160e40df3ade225"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "edges": {}
+}
