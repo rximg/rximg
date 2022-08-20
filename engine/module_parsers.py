@@ -153,7 +153,9 @@ class CustomRXFunctionParser(object):
 
         doc = self.func.__doc__
         # if doc:
-        #     doc = doc.replace('\n','<br/>')
+            # doc = doc.replace('\\f','')
+            # doc = doc.replace('>','')
+            # doc = doc.replace('\n','<br/>')
         _ = {
             "name": self.func.__name__,
             "args": argsd,

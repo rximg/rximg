@@ -5,11 +5,11 @@
         <!-- <div >
           <EditSelect></EditSelect>
         </div> -->
-        <div>
+        <a-affix :offset-top="top">
           <MainMenu></MainMenu>
-        </div>
+        </a-affix>
       </a-col>
-      <a-col flex="auto">
+      <a-col flex="graphWidth+'px'">
         <template v-if="CurrentStateStore.global_datarefresh">
           <Graph :autoResize="true" @ready="ready">
             <!-- <VueShape

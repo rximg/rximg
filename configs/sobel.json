@@ -167,8 +167,8 @@
       "uuid": "795ee858-0264-4115-9f52-45252e69c551",
       "name": "build_observerable",
       "location": {
-        "x": 140,
-        "y": 150,
+        "x": 80,
+        "y": 130,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 200

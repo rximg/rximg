@@ -1,41 +1,23 @@
 <template>
   <div class="main">
-    <a-autoComplete
-      v-model:value="seach_feild"
-      :data-source="history"
-      style="width: 100%"
-      placeholder="input here"
-    >
+    <a-autoComplete v-model:value="seach_feild" :data-source="history" style="width: 100%" placeholder="input here">
       <a-input>
         <!-- <a-icon v-slot="suffix" type="search" /> -->
       </a-input>
     </a-autoComplete>
 
-    <a-collapse
-      accordion
-      class="ele-collapse"
-      v-model:value="activeKey"
-      default-active-key="cv2"
-    >
-    
-      <a-collapse-panel
-        v-for="(items, ele_key) in panelElements"
-        :key="ele_key"
-        :header="ele_key"
-        :collapsible="disabled ? Object.keys(items).length == 0 : header"
-      >
+    <a-collapse accordion class="ele-collapse" v-model:value="activeKey" default-active-key="cv2">
+
+      <a-collapse-panel v-for="(items, ele_key) in panelElements" :key="ele_key" :header="ele_key"
+        :collapsible="disabled ? Object.keys(items).length == 0 : header">
         <!-- {{items}}  :collapsible="Object.keys(items).length == 0" -->
         <div style="max-height: 200px; overflow-y: auto">
-          <p 
-            v-for="(panelitem, item_key) in items"
-            :key="item_key"
-            @click="submitElement(panelitem)"
-            @mouseenter="openNotification(panelitem.name,panelitem.doc)"
-          >
-          <!-- <a-tooltip placement="bottom" :title="panelitem.doc" :overlayStyle="{width: 480}"> -->
+          <p v-for="(panelitem, item_key) in items" :key="item_key" @click="submitElement(panelitem)"
+            @mouseenter="openNotification(panelitem.name, panelitem.doc)">
+            <!-- <a-tooltip placement="bottom" :title="panelitem.doc" :overlayStyle="{width: 480}"> -->
 
             {{ panelitem.name }}
-          <!-- </a-tooltip> -->
+            <!-- </a-tooltip> -->
           </p>
         </div>
       </a-collapse-panel>
@@ -45,35 +27,50 @@
 </template>
 
 <script setup lang="ts">
-import { RXFunction,LambdaFunction } from "@/store/RxLibrary";
-import { ref, computed ,h } from "vue";
+import { RXFunction, LambdaFunction } from "@/store/RxLibrary";
+import DocView from "@/components/stateless/DocView.vue";
+import { ref, computed, h } from "vue";
 import _ from 'lodash'
-
+import { message } from 'ant-design-vue';
 // import { mapGetters, mapMutations, useStore } from "vuex";
-import { libraryStore,CurrentStateStore } from "@/store";
+import { libraryStore, CurrentStateStore } from "@/store";
 const activeKey = ref(["cv2"]);
 const seach_feild = ref("");
 const history = ref([]);
 // const libraryDoc = ref('')
 import { notification } from 'ant-design-vue';
 
-const openNotification = _.throttle( (name:string,doc:string) => {
-      notification['info']({
-        message: name,
-        description:doc,
-        maxCount:2,
-        style:{width:'480px'}
-      });
-    },500)
+const openNotification = (name: string, doc: string) => {
+  // const vnode = 
+  notification.destroy()
+  notification.info({
+    message: name,
+    description: () => {
+      return h(DocView, {
+        text: doc
+      })
+    },
+    style: { width: '680px' }
+  });
+  // message.info(
+  //   {
+  //     content:
+  //         h(DocView, {
+  //         text: doc
+  //       }),
+  //     style: { width: '280px',height:'300px' }
+  //   })
+
+}
 
 function submitElement(item) {
   if (!history.value.includes(item.name)) {
     history.value.unshift(item.name);
   }
   let rxfunc = null
-  if (item.type =='lambda'){
+  if (item.type == 'lambda') {
     rxfunc = new LambdaFunction(item)
-  }else{
+  } else {
     rxfunc = new RXFunction(item);
   }
   CurrentStateStore.setFunction(rxfunc);
@@ -105,6 +102,7 @@ const panelElements = computed(() => {
 div.main {
   padding: 10px;
 }
+
 a-collapse.ele-collapse {
   padding: 10px;
   min-height: 300px;

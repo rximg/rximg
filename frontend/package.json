@@ -22,6 +22,7 @@
     "md5": "^2.3.0",
     "socket.io-client": "^4.5.1",
     "vue": "^3.2.37",
+    "vue-mathjax-next": "^0.0.4",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
