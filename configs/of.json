@@ -1,5 +1,21 @@
 {
   "observers": {
+    "1010c35e54e100028063b6df0f9ce9d4": {
+      "from": "operators",
+      "uuid": "1010c35e54e100028063b6df0f9ce9d4",
+      "name": "filter",
+      "returnType": "Callable",
+      "args": {
+        "predicate": {
+          "name": "predicate",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "ref",
+          "value": "@95036684e06ef424dc7c792d0688f8c5"
+        }
+      },
+      "extraInPorts": {}
+    },
     "25816c9e14472f71a9b36675329691f0": {
       "type": "callable",
       "from": "custom",
@@ -43,30 +59,6 @@
       },
       "extraInPorts": {}
     },
-    "d864441ee2982f1d00dc0ec47c46e6a8": {
-      "type": "callable",
-      "from": "observables",
-      "uuid": "d864441ee2982f1d00dc0ec47c46e6a8",
-      "name": "of",
-      "returnType": "Observable",
-      "args": {
-        "args": {
-          "name": "args",
-          "index": 0,
-          "kind": "VAR_POSITIONAL",
-          "type": "list",
-          "value": [
-            "Alpha",
-            "Beta",
-            "Gamma",
-            "Delta",
-            "Epsilon"
-          ],
-          "mutable": "6f1527f9-8465-4892-999a-fdae4cf21a1d"
-        }
-      },
-      "extraInPorts": {}
-    },
     "95036684e06ef424dc7c792d0688f8c5": {
       "type": "lambda",
       "from": "custom",
@@ -93,18 +85,26 @@
       },
       "extraInPorts": {}
     },
-    "1010c35e54e100028063b6df0f9ce9d4": {
-      "from": "operators",
-      "uuid": "1010c35e54e100028063b6df0f9ce9d4",
-      "name": "filter",
-      "returnType": "Callable",
+    "d864441ee2982f1d00dc0ec47c46e6a8": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "d864441ee2982f1d00dc0ec47c46e6a8",
+      "name": "of",
+      "returnType": "Observable",
       "args": {
-        "predicate": {
-          "name": "predicate",
+        "args": {
+          "name": "args",
           "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "ref",
-          "value": "@95036684e06ef424dc7c792d0688f8c5"
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon"
+          ],
+          "mutable": "6f1527f9-8465-4892-999a-fdae4cf21a1d"
         }
       },
       "extraInPorts": {}
@@ -121,7 +121,7 @@
         "y": 111,
         "type": "obserable",
         "boxWidth": 420,
-        "boxHeight": 222
+        "boxHeight": 200
       },
       "args": {
         "head": {

@@ -84,7 +84,7 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            "data/Lenna.png"
+            "https://raw.githubusercontent.com/rximg/rximg/main/data/Lenna.png"
           ],
           "mutable": "c4c2940e-b206-457f-b105-0ae7533284b5"
         }

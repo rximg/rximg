@@ -6,20 +6,16 @@ import os
 import sys
 sys.path.append('.')
 import os.path as osp
-import paddlehub as hub
+# import paddlehub as hub
 from engine.decorators import ExeStack, rx_func
-# try:
-#     pdb.set_trace()
-#     import paddlehub as hub
-#     from engine.decorator import ExeStack, rx_func
-
-# except ImportError :
-#     print('warrning paddlehub import error')
-#     from engine.decorator import fake_rx_func as rx_func
-# except Exception as e:
-#     pdb.set_trace()
-#     # from engine.decorator import fake_rx_func as rx_func
-#     raise e
+try:
+    import paddlehub as hub
+    from engine.decorators import ExeStack, rx_func
+except ImportError :
+    print('warrning paddlehub import error')
+    from engine.decorators import fake_rx_func as rx_func
+except Exception as e:
+    raise e
 
 
 def cached_model(func_uniquekey,model_type,*args,**kwargs):

@@ -1,28 +1,12 @@
 <template>
-  <div class="container">
-    <a-row type="flex">
-      <a-col flex="480px">
-        <!-- <div >
-          <EditSelect></EditSelect>
-        </div> -->
-        <a-affix :offset-top="top">
-          <MainMenu></MainMenu>
-        </a-affix>
-      </a-col>
-      <a-col flex="graphWidth+'px'">
+  <a-layout class="container">
+    <a-layout>
+      <a-layout-sider width="480px">
+        <MainMenu></MainMenu>
+      </a-layout-sider>
+      <a-layout-content >
         <template v-if="CurrentStateStore.global_datarefresh">
           <Graph :autoResize="true" @ready="ready">
-            <!-- <VueShape
-          primer="rect"
-          :id="librarynode"
-          :x="10"
-          :y="10"
-          :width="160"
-          :attrs="{ rect: { fill: '#ddd' } }"
-          @added="added"
-          @cell:change:zIndex="changed"
-          :zIndex="9999"
-        ></VueShape> -->
             <template v-for="(node, nkey) in ObserverablesStore" :key="nkey">
               <VueShape primer="rect" :id="nkey" :x="node.location.x" :y="node.location.y"
                 :width="node.location.boxWidth" :height="node.location.boxHeight" :attrs="{ rect: { fill: '#ddd' } }">
@@ -68,10 +52,22 @@
             <TeleportContainer />
           </Graph>
         </template>
+      </a-layout-content>
+    </a-layout>
+  </a-layout>
+  <!-- <div >
+    <a-row type="flex">
+      <a-col flex="480px">
+
+        <a-affix :offset-top="top">
+          
+        </a-affix>
+      </a-col>
+
 
       </a-col>
     </a-row>
-  </div>
+  </div> -->
 </template>
 
 <script lang="ts">
@@ -182,12 +178,12 @@ const App = defineComponent({
       persistStore()
     };
 
-    const nodemoved=({ node})=>{
-        // console.log('node_moved',node.position(), {x, y, node, view})
-        const {x,y} = node.position()
-        const nodeitem = ObserverablesStore[node.id]
-        nodeitem.location.x = x //- nodeitem.location.boxWidth / 2
-        nodeitem.location.y = y //- nodeitem.location.boxHeight / 2
+    const nodemoved = ({ node }) => {
+      // console.log('node_moved',node.position(), {x, y, node, view})
+      const { x, y } = node.position()
+      const nodeitem = ObserverablesStore[node.id]
+      nodeitem.location.x = x //- nodeitem.location.boxWidth / 2
+      nodeitem.location.y = y //- nodeitem.location.boxHeight / 2
     }
     const ready = ({ graph }) => {
       graph.on("edge:connected", ({ isNew, edge }) => {
@@ -257,22 +253,23 @@ export default App;
   .x6-graph-scroller {
     height: 100%;
   }
-::-webkit-scrollbar {
-  width: 10px;
-}
 
-/* 滚动槽 */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-  border-radius: inherit;
-  background-color: rgba(144, 147, 153, 0.3);
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
+  /* 滚动槽 */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  /* 滚动条滑块 */
+  ::-webkit-scrollbar-thumb {
+    border-radius: inherit;
+    background-color: rgba(144, 147, 153, 0.3);
+    -webkit-transition: 0.3s background-color;
+    transition: 0.3s background-color;
+  }
 
   // .stencil {
   //   width: 100%;

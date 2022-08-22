@@ -77,7 +77,7 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            "data/Lenna.png"
+            "https://raw.githubusercontent.com/rximg/rximg/main/data/Lenna.png"
           ],
           "mutable": "e53b3c25-798e-4471-a428-9cf6d3d5dd79"
         }
@@ -158,7 +158,7 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            "data/Lenna.png"
+            "https://raw.githubusercontent.com/rximg/rximg/main/data/Lenna.png"
           ],
           "mutable": "2e5565b5-9ef4-4827-b0e4-a3edffbf61cb"
         }
@@ -258,7 +258,7 @@
         "y": 51,
         "type": "obserable",
         "boxWidth": 420,
-        "boxHeight": 200
+        "boxHeight": 178
       },
       "args": {
         "head": {
@@ -288,7 +288,7 @@
         "y": 50,
         "type": "obserable",
         "boxWidth": 420,
-        "boxHeight": 200
+        "boxHeight": 178
       },
       "args": {
         "head": {
