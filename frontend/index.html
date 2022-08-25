@@ -11,13 +11,10 @@
     <script type="module" src="/src/main.ts"></script>
   </body>
   <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
-      jax: ["input/TeX","output/HTML-CSS"],
-  });
-
   MathJax.Hub.Config(
   {
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
     TeX: {
         Macros: {
             matTT: [ "\\[ \\left|\\begin{array}{ccc} #1 & #2 & #3\\\\ #4 & #5 & #6\\\\ #7 & #8 & #9 \\end{array}\\right| \\]", 9],

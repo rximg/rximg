@@ -1,6 +1,113 @@
 {
-  "observers": {},
-  "relations": {},
+  "observers": {
+    "027b1ae9b18d87f3f977ce57390173dc": {
+      "type": "callable",
+      "from": "observables",
+      "uuid": "027b1ae9b18d87f3f977ce57390173dc",
+      "name": "of",
+      "returnType": "Observable",
+      "args": {
+        "args": {
+          "name": "args",
+          "index": 0,
+          "kind": "VAR_POSITIONAL",
+          "type": "list",
+          "value": [
+            "C:\\Users\\kk\\Desktop\\7bb9fd7888e528bd7df83a5f22d346e0dfb2f667.jpg"
+          ],
+          "mutable": "5e9a04b6-b682-4b40-8476-771f51d03c62"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "25816c9e14472f71a9b36675329691f0": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "25816c9e14472f71a9b36675329691f0",
+      "name": "print_",
+      "returnType": "empty",
+      "args": {
+        "input_": {
+          "name": "input_",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "Any"
+        }
+      },
+      "extraInPorts": {}
+    },
+    "1588b7e87f0431dc1a1eabf0cfd37af8": {
+      "type": "callable",
+      "from": "cv2",
+      "uuid": "1588b7e87f0431dc1a1eabf0cfd37af8",
+      "name": "imread",
+      "op": "map",
+      "returnType": "NDArray",
+      "args": {
+        "filename": {
+          "name": "filename",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "str"
+        },
+        "flags": {
+          "name": "flags",
+          "index": 1,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "choices",
+          "value": 1
+        }
+      },
+      "extraInPorts": {}
+    },
+    "770e1c3cf265962d6160e40df3ade225": {
+      "type": "callable",
+      "from": "custom",
+      "uuid": "770e1c3cf265962d6160e40df3ade225",
+      "name": "imshow",
+      "returnType": "Any",
+      "args": {
+        "mat": {
+          "name": "mat",
+          "index": 0,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "type": "NDArray"
+        }
+      },
+      "extraInPorts": {}
+    }
+  },
+  "relations": {
+    "d1eb7de0-b454-442c-b5ea-5f6519df83fd": {
+      "type": "Observerable",
+      "from": "core",
+      "uuid": "d1eb7de0-b454-442c-b5ea-5f6519df83fd",
+      "name": "build_observerable",
+      "location": {
+        "x": 70,
+        "y": 360,
+        "type": "obserable",
+        "boxWidth": 420,
+        "boxHeight": 200
+      },
+      "args": {
+        "head": {
+          "value": "@027b1ae9b18d87f3f977ce57390173dc"
+        },
+        "pipe": {
+          "type": "list",
+          "value": [
+            "@1588b7e87f0431dc1a1eabf0cfd37af8"
+          ]
+        },
+        "subscribe": {
+          "type": "SingleCast",
+          "value": "@770e1c3cf265962d6160e40df3ade225",
+          "cast_value": "@770e1c3cf265962d6160e40df3ade225"
+        }
+      }
+    }
+  },
   "parameters": {},
   "edges": {}
 }

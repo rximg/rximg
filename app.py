@@ -52,7 +52,8 @@ socketio = SocketIO(app, cors_allowed_origins='*', async_mode='threading')
 
 @app.route('/')
 def index():
-    return render_template('index.html',name='index')
+    # return render_template('index.html',name='index')
+    return send_file('./frontend/dist/index.html')
 
 stack = Stack()
 stack.start()

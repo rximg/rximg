@@ -67,7 +67,7 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            "data/wd.jpg"
+            "https://github.com/rximg/rximg/blob/main/data/wd.jpg?raw=true"
           ]
         }
       },
@@ -124,7 +124,7 @@
           "kind": "VAR_POSITIONAL",
           "type": "list",
           "value": [
-            "data/text0.jpg"
+            "https://github.com/rximg/rximg/blob/main/data/text0.jpg?raw=true"
           ]
         }
       },
