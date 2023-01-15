@@ -276,7 +276,8 @@ def listDir():
     try:
         if request.method == 'POST':
             data = request.get_json()
-            dir = data['dirs']
+            print(data)
+            dir = data['dir']
             origin = data['origin']
             _ = osp.join(origin, dir)
             print('get dir', dir)

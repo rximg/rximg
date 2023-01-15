@@ -77,6 +77,8 @@
 </template>
 
 <script setup lang="ts">
+//FIXME 新建两个空item后点击删除，会删除所有
+//TODO 本地图片路径直接粘贴进去涉及/\的问题
 import { computed, reactive,shallowReactive, ref } from "vue";
 import {RXFunctionsStore} from "@/store";
 import {CloseOutlined, PlusOutlined} from "@ant-design/icons-vue";

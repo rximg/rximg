@@ -1,9 +1,9 @@
 {
   "observers": {
-    "027b1ae9b18d87f3f977ce57390173dc": {
+    "e9b54d0fa4a9f827376977b0203747f4": {
       "type": "callable",
       "from": "observables",
-      "uuid": "027b1ae9b18d87f3f977ce57390173dc",
+      "uuid": "e9b54d0fa4a9f827376977b0203747f4",
       "name": "of",
       "returnType": "Observable",
       "args": {
@@ -15,23 +15,7 @@
           "value": [
             "C:\\Users\\kk\\Desktop\\7bb9fd7888e528bd7df83a5f22d346e0dfb2f667.jpg"
           ],
-          "mutable": "5e9a04b6-b682-4b40-8476-771f51d03c62"
-        }
-      },
-      "extraInPorts": {}
-    },
-    "25816c9e14472f71a9b36675329691f0": {
-      "type": "callable",
-      "from": "custom",
-      "uuid": "25816c9e14472f71a9b36675329691f0",
-      "name": "print_",
-      "returnType": "empty",
-      "args": {
-        "input_": {
-          "name": "input_",
-          "index": 0,
-          "kind": "POSITIONAL_OR_KEYWORD",
-          "type": "Any"
+          "mutable": "a8733a1e-c3b4-4ba7-a15b-d8d87f3fb1f9"
         }
       },
       "extraInPorts": {}
@@ -78,21 +62,21 @@
     }
   },
   "relations": {
-    "d1eb7de0-b454-442c-b5ea-5f6519df83fd": {
+    "828b3dd5-5f8c-4c81-928f-424fbe994f09": {
       "type": "Observerable",
       "from": "core",
-      "uuid": "d1eb7de0-b454-442c-b5ea-5f6519df83fd",
+      "uuid": "828b3dd5-5f8c-4c81-928f-424fbe994f09",
       "name": "build_observerable",
       "location": {
-        "x": 70,
-        "y": 360,
+        "x": 160,
+        "y": 130,
         "type": "obserable",
         "boxWidth": 420,
         "boxHeight": 200
       },
       "args": {
         "head": {
-          "value": "@027b1ae9b18d87f3f977ce57390173dc"
+          "value": "@e9b54d0fa4a9f827376977b0203747f4"
         },
         "pipe": {
           "type": "list",

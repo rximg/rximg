@@ -32,8 +32,11 @@
         <div v-else-if="type == 'tuple'">
           <a-input v-model:value="arg_value" style="width: 100%" />
         </div>
+        <div v-else-if="type == 'dir'">
+          <FileBox  v-model:valueModel="arg_value" />
+        </div>
         <div v-else-if="type == 'None'">
-          <a-input v-model:value=None disabled="true" style="width: 100%" />
+          <a-input v-model:value="None" disabled="true" style="width: 100%" />
         </div>
         <div v-else-if="type == 'ref'">
           <a-select
@@ -73,12 +76,14 @@
 </template>
 
 <script lang='ts' setup>
+import FileBox from './FileBox.vue'
 import List from "./List.vue";
 import { PaperClipOutlined, EditOutlined } from "@ant-design/icons-vue";
 import type { RXArg, ChoiceArg, CommonValueType } from "@/store/RxLibrary";
 import { RXFunctionsStore } from "@/store";
 import { computed, ref, toRaw, isProxy,watch } from "vue";
 //TODO arg item editable
+//TODO 新增filetype
 
 type PropsType = {
   arg: RXArg | ChoiceArg;
@@ -87,7 +92,7 @@ type PropsType = {
 };
 const {
   arg,
-  types = ["bool", "int", "float", "choices", "list", "tuple", "ref","None"],
+  types = ["bool", "int", "float", "choices", "list", "tuple", "ref","dir","None"],
   viewOnly = false,
 } = defineProps<PropsType>();
 

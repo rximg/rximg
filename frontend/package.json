@@ -23,6 +23,7 @@
     "socket.io-client": "^4.5.1",
     "vue": "^3.2.37",
     "vue-mathjax-next": "^0.0.4",
+    "vue-virtual-scroller": "^2.0.0-beta.7",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {

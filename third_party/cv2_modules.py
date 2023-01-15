@@ -202,6 +202,8 @@ def imread(filename: str, flags: ENUM_CV_ImreadModes = ENUM_CV_ImreadModes.defau
         image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
         return image
     # print(filename)
+    if not osp.isfile(filename):
+        raise FileNotFoundError(filename)
     return cv2.imread(filename=filename, flags=flags)
 
 

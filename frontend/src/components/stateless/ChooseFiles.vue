@@ -20,7 +20,7 @@ import { useFileDialog } from '@vueuse/core'
 import {watch} from 'vue'
 const { files, open, reset } = useFileDialog()
 const emit = defineEmits(["update:valueModel"]);
-
+// vue use filedialog 应该不用了
 
 watch(
 
