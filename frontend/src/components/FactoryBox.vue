@@ -89,7 +89,7 @@
 import { computed, reactive,ref,toRaw, type Ref,type ShallowRef } from "vue";
 // import {  useStore } from "vuex";
 import ArgItem from "./stateless/ArgItem.vue";
-// import FileBox from "./toolbox/FileBox.vue";
+import FileBox from "./stateless/FileBox.vue";
 import Parameter from "./stateless/Parameter.vue";
 import { CurrentStateStore, RXFunctionsStore,persistStore,ObserverablesStore } from "@/store";
 import { Observerable } from "@/store/Observers";

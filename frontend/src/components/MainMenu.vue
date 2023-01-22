@@ -37,6 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRef, computed, onMounted} from "vue";
+import {MailOutlined,AppstoreOutlined} from "@ant-design/icons-vue";
 // import {useStore} from "vuex";
 import {  CurrentStateStore } from "@/store";
 import LibraryBox from "./LibraryBox.vue";
@@ -52,7 +53,9 @@ export default defineComponent({
     Observer,
     Factory,
     ViewBox,
-    EditSelect
+    EditSelect,
+    MailOutlined,
+    AppstoreOutlined
 },
   setup() {
     // const store = useStore()

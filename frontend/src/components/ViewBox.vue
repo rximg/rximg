@@ -14,7 +14,8 @@
         </a-button> -->
         <a-button style="margin-right: 4px" @click="execute"
           >Execute
-          <a-icon type="play-circle" />
+          <!-- <a-icon type="play-circle" /> -->
+          <template #icon><PlayCircleOutlined /></template>
         </a-button>
         <!-- <a-button @click="cleanLogs"
           >Clean
@@ -102,6 +103,7 @@
 //TODO 考虑显示最后一个card的subscribe的结果
 // import Parameter from "./stateless/Parameter.vue";
 //TODO 定时自动保存
+import { PlayCircleOutlined } from '@ant-design/icons-vue'
 import NDArray from "./stateless/NDArray.vue";
 import { onMounted,computed,ref,type Ref } from "vue";
 import axios from "axios";

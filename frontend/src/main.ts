@@ -9,6 +9,7 @@ import { io } from "socket.io-client";
 import { ViewStore,CurrentStateStore } from '@/store';
 let origin_url: string = window.location.origin
 const app = createApp(App)
+console.log("node env",process.env.NODE_ENV)
 if (process.env.NODE_ENV == 'development') {
   origin_url = 'http://localhost:5000/'
 
@@ -36,5 +37,8 @@ notification.config({
 app.use(Graph.install)
   .use(Antd)  
   .mount('#app')
+  .$nextTick(() => {
+    postMessage({cmd: 'removeLoading', payload: 'removeLoading' }, '*')
+  })
 
 

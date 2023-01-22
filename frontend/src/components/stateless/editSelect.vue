@@ -38,6 +38,7 @@
 <script setup lang="ts">
 // import * as Vue from 'vue'
 import { ref, computed } from 'vue'
+import {PlusSquareOutlined,DeleteOutlined} from '@ant-design/icons-vue'
 import { CurrentStateStore, persistStoreFunc, localStorage } from '@/store'
 // import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import axios from 'axios'
